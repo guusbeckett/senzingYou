@@ -11,3 +11,5 @@
 *.pdf
 *.synctex.gz
 *.toc
+*.bbl
+*.blg
