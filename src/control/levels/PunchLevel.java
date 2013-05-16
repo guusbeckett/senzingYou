@@ -1,6 +1,13 @@
 package control.levels;
 
+import java.awt.geom.Rectangle2D;
+import java.util.Iterator;
+import java.util.List;
+
+import model.CameraData;
 import model.Game;
+import model.entities.Entity;
+import model.entities.HostileEntity;
 
 public class PunchLevel extends Level
 {
@@ -13,6 +20,25 @@ public class PunchLevel extends Level
 	@Override
 	public void update(double time)
 	{
-		
+		super.update(time);
+
+		List<Entity> entities = game.getEntities();
+		Iterator<Entity> it = entities.iterator();
+		while (it.hasNext())
+		{
+			Entity entity = it.next();
+			if (entity instanceof HostileEntity)
+			{
+				HostileEntity hostile = (HostileEntity) entity;
+				if (!hostile.isAlive())
+				{
+					Rectangle2D.Double bounds = entity.getBounds();
+					if ((bounds.getMaxX() < 0 || bounds.getMaxY() < 0)
+							|| (bounds.getMinX() > CameraData.VIEW_WIDTH || bounds
+									.getMinY() > CameraData.VIEW_HEIGHT))
+						entities.remove(entity);
+				}
+			}
+		}
 	}
 }

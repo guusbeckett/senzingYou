@@ -10,6 +10,8 @@ import org.OpenNI.UserGenerator;
 
 public class CameraData
 {
+	public static final int VIEW_WIDTH = 640;
+	public static final int VIEW_HEIGHT = 480;
 	private Context context;
 	private DepthGenerator depthGenerator;
 	private UserGenerator userGenerator;
@@ -61,5 +63,4 @@ public class CameraData
 	{
 		return users;
 	}
-
 }
