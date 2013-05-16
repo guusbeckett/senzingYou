@@ -1,9 +1,11 @@
 package control.levels;
 
+import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 import model.Game;
 import model.entities.Entity;
+import model.entities.HostileEntity;
 
 public class Level
 {
@@ -19,6 +21,8 @@ public class Level
 	{
 		List<Entity> entities = game.getEntities();
 		for(Entity entity : entities)
+		{
 			entity.update(time);
+		}
 	}
 }
