@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import model.CameraData;
 import model.Game;
 import model.entities.Entity;
 
@@ -27,12 +28,19 @@ public class SenzingPanel extends JPanel implements ActionListener
 	{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
+
+
+		CameraData cameraData = game.getCameraData();
 		
-			g2.drawImage(game.getCameraData().getImage(), null, 0, 0);
-			for (Entity entity : game.getEntities())
-			{
-				
-			}
+		if (cameraData != null)
+		{
+			g2.drawImage(cameraData.getImage(), null, 0, 0);
+		}
+		
+		for (Entity entity : game.getEntities())
+		{
+			
+		}
 	}
 
 	@Override

@@ -1,15 +1,17 @@
 package model.entities;
 
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.List;
 
 public class HostileEntity extends Entity
 {
 	private int reward;
 	protected boolean alive;
 	
-	public HostileEntity(Rectangle2D bounds, int reward)
+	public HostileEntity(Rectangle2D bounds, List<BufferedImage> images, int reward)
 	{
-		super(bounds, null);
+		super(bounds, images);
 		this.reward = reward;
 	}
 	
