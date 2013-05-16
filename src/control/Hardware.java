@@ -1,12 +1,11 @@
 package control;
 
 import gnu.io.CommPortIdentifier;
+import gnu.io.NoSuchPortException;
 import gnu.io.SerialPort;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Enumeration;
 
 public class Hardware
 {
@@ -14,9 +13,8 @@ public class Hardware
 	private Scent scent;
 	private Temperature temperature;
 	private Bubbles bubbles;
-	SerialPort serialPort;
+	private SerialPort serialPort;
 	private static final String PORT = "COM3";
-	private InputStream input;
 	private OutputStream output;
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
@@ -42,6 +40,17 @@ public class Hardware
 	public void setBubbles(Bubbles bubbles)
 	{
 		this.bubbles = bubbles;
+		switch (bubbles)
+		{
+		case OFF:
+			writeToArduino(0x02);
+			break;
+		case ON:
+			writeToArduino(0x01);
+			break;
+		default:
+			break;
+		}
 	}
 
 	public Scent getScent()
@@ -52,6 +61,26 @@ public class Hardware
 	public void setScent(Scent scent)
 	{
 		this.scent = scent;
+		switch (scent)
+		{
+		case DULL:
+			writeToArduino(0x24);
+			break;
+		case FOREST:
+			writeToArduino(0x22);
+			break;
+		case FRESH:
+			writeToArduino(0x25);
+			break;
+		case INCENSE:
+			writeToArduino(0x21);
+			break;
+		case SEA:
+			writeToArduino(0x23);
+			break;
+		default:
+			break;
+		}
 	}
 
 	public Temperature getTemperature()
@@ -62,40 +91,38 @@ public class Hardware
 	public void setTemperature(Temperature temperature)
 	{
 		this.temperature = temperature;
+		switch (temperature)
+		{
+		case COLD:
+			writeToArduino(0x12);
+			break;
+		case NORMAL:
+			writeToArduino(0x13);
+			break;
+		case WARM:
+			writeToArduino(0x11);
+			break;
+		default:
+			break;
+		}
 	}
 
 	public void initialize()
 	{
-		CommPortIdentifier portId = null;
-		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
-		while (portEnum.hasMoreElements())
-		{
-			CommPortIdentifier currPortId = (CommPortIdentifier) portEnum
-					.nextElement();
-			if (currPortId.getName().equals(PORT))
-			{
-				portId = currPortId;
-				break;
-			}
-		}
-		if (portId == null)
-		{
-			System.out.println("Could not find " + PORT + " port.");
-			return;
-		}
 		try
 		{
-			// open serial port, and use class name for the appName.
+			CommPortIdentifier portId = CommPortIdentifier
+					.getPortIdentifier(PORT);
 			serialPort = (SerialPort) portId.open(this.getClass().getName(),
 					TIME_OUT);
 
-			// set port parameters
 			serialPort.setSerialPortParams(DATA_RATE, SerialPort.DATABITS_8,
 					SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
 
-			// open the streams
-			input = serialPort.getInputStream();
 			output = serialPort.getOutputStream();
+		} catch (NoSuchPortException npE)
+		{
+			System.err.println(npE.toString());
 		} catch (Exception e)
 		{
 			System.err.println(e.toString());
