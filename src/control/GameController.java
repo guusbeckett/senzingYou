@@ -7,6 +7,7 @@ import javax.swing.Timer;
 
 import model.Game;
 import control.levels.Level;
+import control.levels.UnderwaterLevel;
 
 public class GameController implements ActionListener
 {
@@ -18,6 +19,8 @@ public class GameController implements ActionListener
 	public GameController(Game game)
 	{
 		this.game = game;
+		//TODO: implement random level selection.
+		level = new UnderwaterLevel(game);
 		timer = new Timer((int) time, this);
 		timer.start();
 	}

@@ -1,5 +1,7 @@
 package model;
 
+import org.OpenNI.SceneMetaData;
+
 public class User
 {
 	private int id;
