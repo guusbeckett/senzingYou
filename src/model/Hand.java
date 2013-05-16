@@ -1,5 +1,7 @@
 package model;
 
+import org.OpenNI.Point3D;
+
 public class Hand
 {
 	private int id;
@@ -14,7 +16,8 @@ public class Hand
 		return id;
 	}
 	
-	public Point3D getPosition(){
+	public Point3D getPosition()
+	{
 		return null;
 	}
 	
