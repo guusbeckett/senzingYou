@@ -1,15 +1,17 @@
 package model;
 
 import org.OpenNI.SceneMetaData;
+import org.OpenNI.UserGenerator;
 
 public class User
 {
 	private int id;
-	private SceneMetaData userPixels;
+	private UserGenerator userGenerator;
 
-	public User(int id, SceneMetaData userPixels)
+	public User(int id, UserGenerator userGenerator)
 	{
 		this.id = id;
+		this.userGenerator = userGenerator;
 	}
 
 	public int getId()
@@ -19,7 +21,7 @@ public class User
 	
 	public SceneMetaData getUserPixels()
 	{
-		return userPixels;
+		return userGenerator.getUserPixels(id);
 	}
 
 }

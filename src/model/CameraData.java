@@ -1,8 +1,8 @@
 package model;
 
-import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.OpenNI.Context;
@@ -10,7 +10,7 @@ import org.OpenNI.DepthGenerator;
 import org.OpenNI.GeneralException;
 import org.OpenNI.HandsGenerator;
 import org.OpenNI.ImageGenerator;
-import org.OpenNI.ImageMetaData;
+import org.OpenNI.StatusException;
 import org.OpenNI.UserGenerator;
 
 public class CameraData
@@ -29,6 +29,8 @@ public class CameraData
 	public CameraData(Context context)
 	{
 		this.context = context;
+		this.hands = new ArrayList<Hand>();
+		this.users = new ArrayList<User>();
 		try
 		{
 			this.depthGenerator = DepthGenerator.create(context);
@@ -79,6 +81,15 @@ public class CameraData
 
 	public BufferedImage getImage()
 	{
+		try
+		{
+			context.waitAnyUpdateAll();
+		} catch (StatusException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		int[] imageRGBArray = new int[VIEW_WIDTH * VIEW_HEIGHT];
 		BufferedImage image = new BufferedImage(VIEW_WIDTH, VIEW_HEIGHT, BufferedImage.TYPE_INT_RGB);
