@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -42,15 +43,21 @@ public class SenzingPanel extends JPanel implements ActionListener
 			for(Hand hand: game.getCameraData().getHands()){
 				try
 				{
-					hand.setPosition(game.getCameraData().getDepthGenerator().convertRealWorldToProjective(hand.getPosition()));
-					System.out.println("Aangemaakt Hand!");
+					if(hand.getPosition() != null){
+						if(hand.getPosition().getZ() != 0){
+							hand.setPosition(game.getCameraData().getDepthGenerator().convertRealWorldToProjective(hand.getPosition()));
+						}
+						
+						Point2D p2 = new Point2D.Double(hand.getPosition().getX(), hand.getPosition().getY());
+						g2.setColor(Color.RED);
+						g2.drawArc((int)p2.getX(), (int)p2.getY(), 20, 20, 0, 360);
+					}
 				} catch (StatusException e)
 				{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				Point2D p2 = new Point2D.Double(hand.getPosition().getX(), hand.getPosition().getY());
-				g2.drawArc((int)p2.getX(), (int)p2.getY(), 300, 300, 0, 3);
+				
 			}
 		}
 		

@@ -10,6 +10,7 @@ import org.OpenNI.DepthGenerator;
 import org.OpenNI.GeneralException;
 import org.OpenNI.HandsGenerator;
 import org.OpenNI.ImageGenerator;
+import org.OpenNI.SkeletonCapability;
 import org.OpenNI.StatusException;
 import org.OpenNI.UserGenerator;
 
@@ -22,6 +23,7 @@ public class CameraData
 	private UserGenerator userGenerator;
 	private HandsGenerator handsGenerator;
 	private ImageGenerator imageGenerator;
+	private SkeletonCapability skeletonCapability;
 	
 	private List<Hand> hands;
 	private List<User> users;
@@ -37,6 +39,7 @@ public class CameraData
 			this.userGenerator = UserGenerator.create(context);
 			this.handsGenerator = HandsGenerator.create(context);
 			this.imageGenerator = ImageGenerator.create(context);
+			this.skeletonCapability = userGenerator.getSkeletonCapability();
 		} catch (GeneralException e)
 		{
 			// TODO Auto-generated catch block
@@ -110,6 +113,11 @@ public class CameraData
 		}
 		image.setRGB(0, 0, VIEW_WIDTH, VIEW_HEIGHT, imageRGBArray, 0, VIEW_WIDTH);
 		return image;
+	}
+
+	public SkeletonCapability getSkeletonCapability()
+	{
+		return skeletonCapability;
 	}
 
 }
