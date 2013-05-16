@@ -95,7 +95,7 @@ public class CameraData
 				imageRGBArray[i] = (r << 16) | (g << 8) | b;
 			}
 		}
-		getImage().setRGB(0, 0, getImageGenerator().getMetaData().getFullXRes(), getImageGenerator().getMetaData().getFullYRes(), imageRGBArray, 0, getImageGenerator().getMetaData().getFullXRes());
+		image.setRGB(0, 0, getImageGenerator().getMetaData().getFullXRes(), getImageGenerator().getMetaData().getFullYRes(), imageRGBArray, 0, getImageGenerator().getMetaData().getFullXRes());
 		return image;
 	}
 
