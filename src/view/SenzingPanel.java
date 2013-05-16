@@ -1,10 +1,26 @@
 package view;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
 import javax.swing.JPanel;
+
+import model.Game;
 
 public class SenzingPanel extends JPanel
 {
+	private static final  long serialVersionUID = 1L;
+	private Game game;
 
-	private static final long serialVersionUID = 1L;
-
+	public SenzingPanel(Game game)
+	{
+		super();
+		this.game = game;
+	}
+	
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D)g;
+	}
 }

@@ -1,6 +1,6 @@
 package model.entities;
 
-public class HostileEntity
+public class HostileEntity extends Entity
 {
 
 }
