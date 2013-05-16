@@ -1,7 +1,5 @@
 package model;
 
-import Particle;
-
 import java.util.Iterator;
 import java.util.List;
 import model.entities.Entity;
