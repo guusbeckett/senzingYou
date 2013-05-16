@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.OpenNI.Context;
 import org.OpenNI.DepthGenerator;
+import org.OpenNI.GeneralException;
 import org.OpenNI.HandsGenerator;
 import org.OpenNI.UserGenerator;
 
@@ -18,6 +19,16 @@ public class CameraData
 	
 	public CameraData(Context context){
 		this.context = context;
+		try
+		{
+			this.depthGenerator = DepthGenerator.create(context);
+			this.userGenerator = UserGenerator.create(context);
+			this.handsGenerator = HandsGenerator.create(context);
+		} catch (GeneralException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public Context getContext()
