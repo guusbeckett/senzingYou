@@ -28,12 +28,11 @@ public class SenzingPanel extends JPanel implements ActionListener
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		
-		g2.drawImage(game.getCameraData().getImage(), null, 0, 0);
-		
-		for (Entity entity : game.getEntities())
-		{
-			
-		}
+			g2.drawImage(game.getCameraData().getImage(), null, 0, 0);
+			for (Entity entity : game.getEntities())
+			{
+				
+			}
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import model.entities.Entity;
 
 public class Game
@@ -10,7 +12,7 @@ public class Game
 
 	public Game()
 	{
-
+		this.entities = new ArrayList<Entity>();
 	}
 
 	public void clearRoom()

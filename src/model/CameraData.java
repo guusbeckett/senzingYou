@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.OpenNI.DepthGenerator;
 import org.OpenNI.GeneralException;
 import org.OpenNI.HandsGenerator;
 import org.OpenNI.ImageGenerator;
+import org.OpenNI.ImageMetaData;
 import org.OpenNI.UserGenerator;
 
 public class CameraData
@@ -20,8 +22,6 @@ public class CameraData
 	private UserGenerator userGenerator;
 	private HandsGenerator handsGenerator;
 	private ImageGenerator imageGenerator;
-	
-	private BufferedImage image;
 	
 	private List<Hand> hands;
 	private List<User> users;
@@ -79,29 +79,26 @@ public class CameraData
 
 	public BufferedImage getImage()
 	{
-	int[] imageRGBArray = new int[getImageGenerator().getMetaData().getFullXRes() * getImageGenerator().getMetaData().getFullYRes()];
+		
+		int[] imageRGBArray = new int[VIEW_WIDTH * VIEW_HEIGHT];
+		BufferedImage image = new BufferedImage(VIEW_WIDTH, VIEW_HEIGHT, BufferedImage.TYPE_INT_RGB);
 		
 		int i = 0;
 		int r = 0;
 		int g = 0;
 		int b = 0;
 		ByteBuffer rgbBuffer = getImageGenerator().getMetaData().getData().createByteBuffer();
-		for (int x = 0; x < getImageGenerator().getMetaData().getFullXRes(); x++) {
-			for (int y = 0; y < getImageGenerator().getMetaData().getFullYRes(); y++) {
-				i = y * getImageGenerator().getMetaData().getFullXRes() + x;
+		for (int x = 0; x < VIEW_WIDTH; x++) {
+			for (int y = 0; y < VIEW_HEIGHT; y++) {
+				i = y * VIEW_WIDTH + x;
 				r = rgbBuffer.get(i * 3) & 0xff;
 				g = rgbBuffer.get(i * 3 + 1) & 0xff;
 				b = rgbBuffer.get(i * 3 + 2) & 0xff;
 				imageRGBArray[i] = (r << 16) | (g << 8) | b;
 			}
 		}
-		image.setRGB(0, 0, getImageGenerator().getMetaData().getFullXRes(), getImageGenerator().getMetaData().getFullYRes(), imageRGBArray, 0, getImageGenerator().getMetaData().getFullXRes());
+		image.setRGB(0, 0, VIEW_WIDTH, VIEW_HEIGHT, imageRGBArray, 0, VIEW_WIDTH);
 		return image;
-	}
-
-	public void setImage(BufferedImage image)
-	{
-		this.image = image;
 	}
 
 }
