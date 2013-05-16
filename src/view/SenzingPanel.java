@@ -5,13 +5,17 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import model.Game;
+
 public class SenzingPanel extends JPanel
 {
-	private static final long serialVersionUID = 1L;
+	private static final  long serialVersionUID = 1L;
+	private Game game;
 
-	public SenzingPanel()
+	public SenzingPanel(Game game)
 	{
 		super();
+		this.game = game;
 	}
 	
 	public void paintComponent(Graphics g)
