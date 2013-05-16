@@ -19,8 +19,7 @@ public class Level
 	
 	public void update(double time)
 	{
-		List<Entity> entities = game.getEntities();
-		for(Entity entity : entities)
+		for(Entity entity : game.getEntities())
 		{
 			entity.update(time);
 		}

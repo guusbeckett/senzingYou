@@ -32,7 +32,7 @@ public class PunchLevel extends Level
 				HostileEntity hostile = (HostileEntity) entity;
 				if (!hostile.isAlive())
 				{
-					Rectangle2D.Double bounds = entity.getBounds();
+					Rectangle2D bounds = entity.getBounds();
 					if ((bounds.getMaxX() < 0 || bounds.getMaxY() < 0)
 							|| (bounds.getMinX() > CameraData.VIEW_WIDTH || bounds
 									.getMinY() > CameraData.VIEW_HEIGHT))

@@ -1,5 +1,9 @@
 package control;
 
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.nio.ByteBuffer;
+
 import model.CameraData;
 import model.Game;
 
@@ -10,7 +14,6 @@ import org.OpenNI.ScriptNode;
 public class CameraController
 {
 	private Game game;
-	private CameraData cameraData;
 	
 	public CameraController(Game game)
 	{
@@ -19,12 +22,15 @@ public class CameraController
 		try
 		{
 			OutArg<ScriptNode> scriptNode = new OutArg<ScriptNode>();
-			cameraData = new CameraData(Context.createFromXmlFile("./OpenNIConfig.xml", scriptNode));
-			cameraData.getContext().startGeneratingAll();
+			game.setCameraData(new CameraData(Context.createFromXmlFile("./OpenNIConfig.xml", scriptNode)));
+			
+			//RGB image		
+			game.getCameraData().getContext().startGeneratingAll();
 		}
 		catch(Exception e)
 		{
 			
 		}
 	}
+	
 }

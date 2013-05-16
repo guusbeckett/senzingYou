@@ -19,6 +19,8 @@ public class GameController implements ActionListener
 	public GameController(Game game)
 	{
 		this.game = game;
+		new CameraController(game);
+		
 		//TODO: implement random level selection.
 		level = new UnderwaterLevel(game);
 		timer = new Timer((int) time, this);
