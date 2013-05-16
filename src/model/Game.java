@@ -31,12 +31,7 @@ public class Game
 
 	public void removeEntity(Entity entity)
 	{
-		for (Iterator<Entity> itr = entities.iterator(); itr.hasNext();)
-		{
-			Entity enti = itr.next();
-			if (enti == entity)
-				itr.remove();
-		}
+		entities.remove(entity);
 	}
 
 	public CameraData getCameraData()

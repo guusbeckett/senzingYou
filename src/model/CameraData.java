@@ -16,8 +16,9 @@ public class CameraData
 	private HandsGenerator handsGenerator;
 	private List<Hand> hands;
 	private List<User> users;
-	
-	public CameraData(Context context){
+
+	public CameraData(Context context)
+	{
 		this.context = context;
 		try
 		{
@@ -60,7 +61,5 @@ public class CameraData
 	{
 		return users;
 	}
-	
-	
-	
+
 }
