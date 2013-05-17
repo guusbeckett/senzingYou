@@ -2,6 +2,7 @@ package control.levels;
 
 import model.Game;
 import model.entities.underwater.Fish;
+import model.entities.underwater.Plant;
 
 public class UnderwaterLevel extends PunchLevel
 {
@@ -13,6 +14,8 @@ public class UnderwaterLevel extends PunchLevel
 		game.getEntities().add(new Fish());
 		game.getEntities().add(new Fish());
 		game.getEntities().add(new Fish());
+		game.getEntities().add(new Plant());
+		game.getEntities().add(new Plant());
 	}
 	
 	public void update(double time){
