@@ -1,20 +1,16 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Point2D;
+import java.awt.geom.AffineTransform;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import org.OpenNI.StatusException;
-
 import model.CameraData;
 import model.Game;
-import model.Hand;
 import model.entities.Entity;
 
 public class SenzingPanel extends JPanel implements ActionListener
@@ -63,7 +59,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		
 		for (Entity entity : game.getEntities())
 		{
-			
+			g2.draw(AffineTransform.getRotateInstance(entity.getRotation()).createTransformedShape(entity.getBounds()));
 		}
 	}
 
