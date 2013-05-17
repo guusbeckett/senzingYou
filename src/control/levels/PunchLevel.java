@@ -46,6 +46,7 @@ public class PunchLevel extends Level
 						// TODO: check collision with hands
 						if(	hostile.getBounds().contains(user.getLeftHand()) ||
 							hostile.getBounds().contains(user.getRightHand())){
+							game.setScore(game.getScore()+hostile.getReward());
 							it.remove();
 						}
 						// TODO: collision with other parts
