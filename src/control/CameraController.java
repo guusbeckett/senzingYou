@@ -90,7 +90,7 @@ public class CameraController
 							
 							//I hope that the userId is the same as the HandId (but i doubt it)..
 							if(arg1.getId() == user.getId()){
-								user.setHandExact(convertPosition(arg1.getPosition()));
+								user.setHandExact(game.getCameraData().convertPosition(arg1.getPosition()));
 							}
 						}
 				}
@@ -125,8 +125,6 @@ public class CameraController
 						for(User user: game.getCameraData().getUsers()){
 							if(user.getId() == arg1.getUser()){
 								//Create the Skeleton shit
-								setUserSkeleton(user);
-								
 								//Making the hand track a Hand!
 								game.getCameraData().getHandsGenerator().StartTracking(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_HAND).getPosition());
 							}
@@ -153,56 +151,6 @@ public class CameraController
 		{
 			
 		}
-	}
-	
-	private void setUserSkeleton(User user){
-				try
-				{
-					user.setHead(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.HEAD).getPosition()));
-					user.setNeck(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.NECK).getPosition()));
-					
-					user.setLeftShoulder(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.LEFT_SHOULDER).getPosition()));
-					user.setRightShoulder(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_SHOULDER).getPosition()));
-					
-					user.setTorso(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.TORSO).getPosition()));
-					
-					user.setLeftElbow(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.LEFT_ELBOW).getPosition()));
-					user.setRightElbow(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_ELBOW).getPosition()));
-					
-					user.setLeftHand(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.LEFT_HAND).getPosition()));
-					user.setRightHand(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_HAND).getPosition()));
-					
-					user.setLeftHip(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.LEFT_HIP).getPosition()));
-					user.setRightHip(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_HIP).getPosition()));
-					
-					user.setLeftKnee(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.LEFT_KNEE).getPosition()));
-					user.setRightKnee(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_KNEE).getPosition()));
-					
-					user.setLeftFoot(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.LEFT_FOOT).getPosition()));
-					user.setRightFoot(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_FOOT).getPosition()));
-					
-					user.setMidpoint(convertPosition(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.TORSO).getPosition()));
-					
-				} catch (StatusException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}		
-	}
-	
-	private Point2D convertPosition(Point3D p3){
-		if(p3.getZ() != 0){
-			try
-			{
-				p3 = game.getCameraData().getDepthGenerator().convertRealWorldToProjective(p3);
-			} catch (StatusException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		return new Point2D.Double(p3.getX(), p3.getY());
 	}
 	
 }
