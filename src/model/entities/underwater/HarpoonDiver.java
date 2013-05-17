@@ -52,13 +52,13 @@ public class HarpoonDiver extends HostileEntity
 				if (jumpingUp)
 				{
 					setVelocity(new Point2D.Double(getVelocity().getX(), 50
-							- getVelocity().getY() / 5 * 0.01 * time));
-					if (getVelocity().getY() < 1)
+							- getVelocity().getY() / 3 * 0.01 * time));
+					if (getVelocity().getY() < 3)
 						jumpingUp = false;
 				} else
 				{
 					setVelocity(new Point2D.Double(getVelocity().getX(), -1
-							- getVelocity().getY() / 5 * 0.01 * time));
+							- getVelocity().getY() / 3 * 0.01 * time));
 				}
 				setY(getBounds().getY()+getVelocity().getY());
 				if (getBounds().getMaxY() >= CameraData.VIEW_HEIGHT)
