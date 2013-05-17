@@ -17,7 +17,7 @@ public class Plant extends Entity
 	public Plant()
 	{
 		super(new Rectangle2D.Double(0, 0, WIDTH, HEIGTH), null);
-		setX((Math.random() * (CameraData.VIEW_WIDTH - 20) + 1));
+		setX(System.currentTimeMillis() * (CameraData.VIEW_WIDTH - 20) + 1);
 		setY(CameraData.VIEW_HEIGHT);
 		setRotationPoint(new Point2D.Double(WIDTH/2,0));
 		waveSpeed=(Math.random() * (1.1 - 1) + 1);
