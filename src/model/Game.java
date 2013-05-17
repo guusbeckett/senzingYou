@@ -9,7 +9,6 @@ public class Game
 {
 	private List<Entity> entities;
 	private CameraData cameraData;
-	private int score;
 
 	public Game()
 	{
@@ -45,15 +44,4 @@ public class Game
 	{
 		this.cameraData = cameraData;
 	}
-
-	public int getScore()
-	{
-		return score;
-	}
-
-	public void setScore(int score)
-	{
-		this.score = score;
-	}
-
 }
