@@ -17,6 +17,8 @@ public class User
 	leftElbow, rightElbow, leftHand, rightHand, leftHip, rightHip, 
 	leftKnee, rightKnee, leftFoot, rightFoot, midpoint, handExact;
 	
+	private Point3D rightHandWorld;
+	
 	public User(int id, UserGenerator userGenerator)
 	{
 		this.id = id;
@@ -210,6 +212,16 @@ public class User
 	public void setHandExact(Point2D handExact)
 	{
 		this.handExact = handExact;
+	}
+
+	public Point3D getRightHandWorld()
+	{
+		return rightHandWorld;
+	}
+
+	public void setRightHandWorld(Point3D rightHandWorld)
+	{
+		this.rightHandWorld = rightHandWorld;
 	}
 
 

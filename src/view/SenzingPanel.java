@@ -1,16 +1,20 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import model.CameraData;
 import model.Game;
+import model.User;
 import model.entities.Entity;
 
 public class SenzingPanel extends JPanel implements ActionListener
@@ -36,25 +40,43 @@ public class SenzingPanel extends JPanel implements ActionListener
 		if (cameraData != null)
 		{
 			g2.drawImage(cameraData.getImage(), null, 0, 0);
-//			for(Hand hand: game.getCameraData().getHands()){
-//				try
-//				{
-//					if(hand.getPosition() != null){
-//						if(hand.getPosition().getZ() != 0){
-//							hand.setPosition(game.getCameraData().getDepthGenerator().convertRealWorldToProjective(hand.getPosition()));
-//						}
-//						
-//						Point2D p2 = new Point2D.Double(hand.getPosition().getX(), hand.getPosition().getY());
-//						g2.setColor(Color.RED);
-//						g2.drawArc((int)p2.getX(), (int)p2.getY(), 20, 20, 0, 360);
-//					}
-//				} catch (StatusException e)
-//				{
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				
-//			}
+			for(User user: game.getCameraData().getUsers()){
+				if(user.getHandExact() != null){
+					Shape check = new Ellipse2D.Float(50, 70, 20, 20);
+					Shape exact = new Ellipse2D.Float((int)user.getHandExact().getX(), (int)user.getHandExact().getY(), 20, 20);
+					
+					g2.setColor(Color.RED);
+					g2.fill(exact);
+					
+					g2.setColor(Color.PINK);
+					g2.fill(check);
+				}	
+				if(user.getLeftHand() != null &&
+						user.getRightHand() != null){
+					
+					Shape check = new Ellipse2D.Float(50, 50, 20, 20);
+					
+					
+					
+					Shape left = new Ellipse2D.Float((int)user.getLeftHand().getX(), (int)user.getLeftHand().getY(), 20, 20);
+					Shape right = new Ellipse2D.Float((int)user.getRightHand().getX(), (int)user.getRightHand().getY(), 20, 20);
+					
+					g2.setColor(Color.BLUE);
+					g2.fill(left);
+					
+					g2.setColor(Color.GREEN);
+					g2.fill(right);
+					
+					
+					
+					g2.setColor(Color.YELLOW);
+					g2.fill(check);
+				}
+				g2.setColor(Color.BLACK);
+				
+				
+				
+			}
 		}
 		
 		for (Entity entity : game.getEntities())

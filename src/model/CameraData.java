@@ -19,8 +19,8 @@ import org.OpenNI.UserGenerator;
 
 public class CameraData
 {
-	public static final int VIEW_WIDTH = 640;
-	public static final int VIEW_HEIGHT = 480;
+	public static final int VIEW_WIDTH = 640; //640
+	public static final int VIEW_HEIGHT = 480; //480
 	private Context context;
 	private DepthGenerator depthGenerator;
 	private UserGenerator userGenerator;
@@ -154,6 +154,8 @@ public class CameraData
 			user.setRightFoot(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_FOOT).getPosition()));
 			
 			user.setMidpoint(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.TORSO).getPosition()));
+			user.setRightHandWorld(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_HAND).getPosition());
+
 			
 		} catch (StatusException e)
 		{
