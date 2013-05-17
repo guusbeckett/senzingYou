@@ -9,7 +9,7 @@ import model.User;
 public class HostileEntity extends Entity
 {
 	private int reward;
-	protected boolean alive;
+	protected boolean alive = true;
 	protected List<User> users;
 	
 	public HostileEntity(Rectangle2D bounds, List<BufferedImage> images, int reward, List<User> users)

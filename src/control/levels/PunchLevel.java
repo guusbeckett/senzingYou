@@ -6,6 +6,7 @@ import java.util.List;
 
 import model.CameraData;
 import model.Game;
+import model.User;
 import model.entities.Entity;
 import model.entities.HostileEntity;
 
@@ -36,11 +37,16 @@ public class PunchLevel extends Level
 					if ((bounds.getMaxX() < 0 || bounds.getMaxY() < 0)
 							|| (bounds.getMinX() > CameraData.VIEW_WIDTH || bounds
 									.getMinY() > CameraData.VIEW_HEIGHT))
-						entities.remove(entity);
-				}
-				else
+						it.remove();
+				} else
 				{
-					//TODO: check collision with hands
+					
+					for (User user : game.getCameraData().getUsers())
+					{
+						// TODO: check collision with hands
+						// TODO: collision with other parts
+					}
+					
 				}
 			}
 		}

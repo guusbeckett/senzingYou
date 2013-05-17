@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -10,7 +11,9 @@ import org.OpenNI.DepthGenerator;
 import org.OpenNI.GeneralException;
 import org.OpenNI.HandsGenerator;
 import org.OpenNI.ImageGenerator;
+import org.OpenNI.Point3D;
 import org.OpenNI.SkeletonCapability;
+import org.OpenNI.SkeletonJoint;
 import org.OpenNI.StatusException;
 import org.OpenNI.UserGenerator;
 
@@ -74,6 +77,9 @@ public class CameraData
 
 	public List<User> getUsers()
 	{
+		for(User user: users){
+			setUserSkeleton(user);
+		}
 		return users;
 	}
 
@@ -119,5 +125,57 @@ public class CameraData
 	{
 		return skeletonCapability;
 	}
+	
+	
+	private void setUserSkeleton(User user){
+		try
+		{
+			user.setHead(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.HEAD).getPosition()));
+			user.setNeck(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.NECK).getPosition()));
+			
+			user.setLeftShoulder(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.LEFT_SHOULDER).getPosition()));
+			user.setRightShoulder(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_SHOULDER).getPosition()));
+			
+			user.setTorso(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.TORSO).getPosition()));
+			
+			user.setLeftElbow(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.LEFT_ELBOW).getPosition()));
+			user.setRightElbow(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_ELBOW).getPosition()));
+			
+			user.setLeftHand(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.LEFT_HAND).getPosition()));
+			user.setRightHand(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_HAND).getPosition()));
+			
+			user.setLeftHip(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.LEFT_HIP).getPosition()));
+			user.setRightHip(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_HIP).getPosition()));
+			
+			user.setLeftKnee(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.LEFT_KNEE).getPosition()));
+			user.setRightKnee(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_KNEE).getPosition()));
+			
+			user.setLeftFoot(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.LEFT_FOOT).getPosition()));
+			user.setRightFoot(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_FOOT).getPosition()));
+			
+			user.setMidpoint(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.TORSO).getPosition()));
+			
+		} catch (StatusException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+
+	public Point2D convertPosition(Point3D p3){
+		if(p3.getZ() != 0){
+			try
+			{
+				p3 = getDepthGenerator().convertRealWorldToProjective(p3);
+			} catch (StatusException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return new Point2D.Double(p3.getX(), p3.getY());
+	}
+	
 
 }

@@ -1,10 +1,11 @@
 package control;
 
+import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.util.Iterator;
 
 import model.CameraData;
 import model.Game;
-import model.Hand;
 import model.User;
 
 import org.OpenNI.ActiveHandEventArgs;
@@ -15,6 +16,7 @@ import org.OpenNI.IObservable;
 import org.OpenNI.IObserver;
 import org.OpenNI.InactiveHandEventArgs;
 import org.OpenNI.OutArg;
+import org.OpenNI.Point3D;
 import org.OpenNI.ScriptNode;
 import org.OpenNI.SkeletonJoint;
 import org.OpenNI.SkeletonProfile;
@@ -75,7 +77,7 @@ public class CameraController
 				@Override
 				public void update(IObservable<ActiveHandEventArgs> arg0,
 						ActiveHandEventArgs arg1){
-					game.getCameraData().getHands().add(new Hand(arg1.getId()));
+					
 				}
 			});
 			
@@ -84,13 +86,13 @@ public class CameraController
 				@Override
 				public void update(IObservable<ActiveHandEventArgs> arg0,
 						ActiveHandEventArgs arg1){
-						Iterator itr = game.getCameraData().getHands().iterator();
-				      while(itr.hasNext()) {
-				         Hand hand = (Hand)itr.next();
-				         if(hand.getId() == arg1.getId()){
-				        	 hand.setPosition(arg1.getPosition());
-				         }
-				      }
+						for(User user: game.getCameraData().getUsers()){
+							
+							//I hope that the userId is the same as the HandId (but i doubt it)..
+							if(arg1.getId() == user.getId()){
+								user.setHandExact(game.getCameraData().convertPosition(arg1.getPosition()));
+							}
+						}
 				}
 			});
 			
@@ -99,13 +101,13 @@ public class CameraController
 				@Override
 				public void update(IObservable<InactiveHandEventArgs> arg0,
 						InactiveHandEventArgs arg1){
-					Iterator itr = game.getCameraData().getHands().iterator();
-				    while(itr.hasNext()) {
-				        Hand hand = (Hand)itr.next();
-				        if(hand.getId() == arg1.getId()){
-				        	 itr.remove();
-				         }
-				    }
+					for(User user: game.getCameraData().getUsers()){
+						
+						//I hope that the userId is the same as the HandId (but i doubt it)..
+						if(arg1.getId() == user.getId()){
+							user.setHandExact(null);
+						}
+					}
 				}
 			});
 			
@@ -120,7 +122,13 @@ public class CameraController
 					{
 					if (arg1.getStatus() == CalibrationProgressStatus.OK){
 						game.getCameraData().getSkeletonCapability().startTracking(arg1.getUser());
-						game.getCameraData().getHandsGenerator().StartTracking(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(arg1.getUser(), SkeletonJoint.RIGHT_HAND).getPosition());
+						for(User user: game.getCameraData().getUsers()){
+							if(user.getId() == arg1.getUser()){
+								//Create the Skeleton shit
+								//Making the hand track a Hand!
+								game.getCameraData().getHandsGenerator().StartTracking(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_HAND).getPosition());
+							}
+						}
 					}
 					else if (arg1.getStatus() != CalibrationProgressStatus.MANUAL_ABORT)
 					{
