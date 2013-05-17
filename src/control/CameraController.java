@@ -8,13 +8,17 @@ import model.Hand;
 import model.User;
 
 import org.OpenNI.ActiveHandEventArgs;
+import org.OpenNI.CalibrationProgressEventArgs;
+import org.OpenNI.CalibrationProgressStatus;
 import org.OpenNI.Context;
 import org.OpenNI.IObservable;
 import org.OpenNI.IObserver;
 import org.OpenNI.InactiveHandEventArgs;
 import org.OpenNI.OutArg;
-import org.OpenNI.Point3D;
 import org.OpenNI.ScriptNode;
+import org.OpenNI.SkeletonJoint;
+import org.OpenNI.SkeletonProfile;
+import org.OpenNI.StatusException;
 import org.OpenNI.UserEventArgs;
 
 public class CameraController
@@ -35,6 +39,17 @@ public class CameraController
 					@Override
 					public void update(IObservable<UserEventArgs> arg0,
 							UserEventArgs arg1){
+						try
+						{
+							if (!game.getCameraData().getSkeletonCapability().needPoseForCalibration())
+							{
+								game.getCameraData().getSkeletonCapability().requestSkeletonCalibration(arg1.getId(), true);
+							} 
+						}catch (StatusException e)
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						game.getCameraData().getUsers().add(new User(arg1.getId(), game.getCameraData().getUserGenerator()));
 					}
 			});
@@ -61,7 +76,6 @@ public class CameraController
 				public void update(IObservable<ActiveHandEventArgs> arg0,
 						ActiveHandEventArgs arg1){
 					game.getCameraData().getHands().add(new Hand(arg1.getId()));
-					System.out.println("Hand aangemaakt!");
 				}
 			});
 			
@@ -94,7 +108,35 @@ public class CameraController
 				    }
 				}
 			});
-			game.getCameraData().getHandsGenerator().StartTracking(new Point3D(10,10,10));
+			
+			//Making Skeleton possible!
+			game.getCameraData().getSkeletonCapability().getCalibrationCompleteEvent().addObserver(new IObserver<CalibrationProgressEventArgs>(){
+
+				@Override
+				public void update(
+						IObservable<CalibrationProgressEventArgs> arg0,
+						CalibrationProgressEventArgs arg1){
+					try
+					{
+					if (arg1.getStatus() == CalibrationProgressStatus.OK){
+						game.getCameraData().getSkeletonCapability().startTracking(arg1.getUser());
+						game.getCameraData().getHandsGenerator().StartTracking(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(arg1.getUser(), SkeletonJoint.RIGHT_HAND).getPosition());
+					}
+					else if (arg1.getStatus() != CalibrationProgressStatus.MANUAL_ABORT)
+					{
+						if (!game.getCameraData().getSkeletonCapability().needPoseForCalibration()){
+							game.getCameraData().getSkeletonCapability().requestSkeletonCalibration(arg1.getUser(), true);
+						}
+					}
+					} catch (StatusException e)
+					{
+						e.printStackTrace();
+					}
+				}
+				 
+			 });
+			game.getCameraData().getSkeletonCapability().setSkeletonProfile(SkeletonProfile.ALL);
+			
 			game.getCameraData().getContext().startGeneratingAll();
 		}
 		catch(Exception e)
