@@ -16,8 +16,12 @@ public class UnderwaterLevel extends PunchLevel
 		game.getEntities().add(new Fish());
 	}
 	
-	public void update(double time){
-		if((time % 5) == 1){
+	public void update(double time)
+	{
+		super.update(time);
+		
+		if((time % 5) == 1)
+		{
 			game.getEntities().add(new HarpoonDiver(game.getCameraData().getUsers()));
 			game.getEntities().add(new HarpoonDiver(game.getCameraData().getUsers()));
 		}
