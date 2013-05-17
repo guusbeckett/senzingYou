@@ -62,5 +62,7 @@ public class HarpoonDiver extends HostileEntity
 		setY(getVelocity().getY());
 		if(userP.getX() > getBounds().getCenterX())
 			setX(getBounds().getX()+ 0.001*time);
+		else
+			setX(getBounds().getX()- 0.001*time);
 	}
 }
