@@ -14,47 +14,53 @@ public class HarpoonDiver extends HostileEntity
 
 	private static final int height = 300;
 	private static final int width = 80;
+	private boolean jumpingUp = false;
 
 	public HarpoonDiver(List<User> users)
 	{
 		// TODO: implement images.
 		super(new Rectangle2D.Double(0, 0, width, height), null, 100, users);
-
-		int x = 0, y = 0;
+		setVelocity(new Point2D.Double(0, 0));
+		setY(80);
 		Random rand = new Random();
 		switch (rand.nextInt(3))
 		{
 		case 0:
-			x = -width;
-			y = 80;
-			setVelocity(new Point2D.Double(10, 0));
+			setX(-width);
 			break;
 		case 1:
-			x = CameraData.VIEW_WIDTH;
-			y = 80;
-			setVelocity(new Point2D.Double(-10, 0));
+			setX(CameraData.VIEW_WIDTH);
 			break;
 		case 2:
-			x = 200;
-			y = -height;
-			setVelocity(new Point2D.Double(0, 0));
+			setX(200);
+			setY(-height);
 			break;
 		}
-		setBounds(new Rectangle2D.Double(x, y, width, height));
 	}
 
 	public void update(double time)
 	{
-// get user center point X, move towards it, + move upwards
-		// fall down again.
-		
-		if(getBounds().getMaxY() <= CameraData.VIEW_HEIGHT)
+		Point2D userP = users.get(0).getMidpoint();
+
+		if (getBounds().getMaxY() <= CameraData.VIEW_HEIGHT)
 		{
-//			start jump towards user
+			jumpingUp = true;
 		}
-		else 
+
+		if (jumpingUp)
 		{
-//			fall down
+			setVelocity(new Point2D.Double(getVelocity().getX(), 50
+					- getVelocity().getY() / 5 * 0.001 * time));
+			if (getVelocity().getY() < 1)
+				jumpingUp = false;
+		} else
+		{
+			setVelocity(new Point2D.Double(getVelocity().getX(), -1
+					- getVelocity().getY() / 5 * 0.001 * time));
 		}
+
+		setY(getVelocity().getY());
+		if(userP.getX() > getBounds().getCenterX())
+			setX(getBounds().getX()+ 0.001*time);
 	}
 }
