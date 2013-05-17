@@ -7,9 +7,9 @@ import java.util.List;
 
 public class Entity
 {
-	protected Point2D velocity;
-	protected double rotation;
-	protected Point2D rotationPoint;
+	private Point2D velocity;
+	private double rotation;
+	private Point2D rotationPoint;
 	private Rectangle2D bounds;
 	private int index;
 	private List<BufferedImage> images;
