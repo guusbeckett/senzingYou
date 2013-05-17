@@ -12,6 +12,7 @@ public class Plant extends Entity
 	private final static double  HEIGTH = 150;
 	private double degrees;
 	private int counter;
+	private double waveSpeed;
 	
 	public Plant()
 	{
@@ -19,17 +20,16 @@ public class Plant extends Entity
 		setX((Math.random() * (CameraData.VIEW_WIDTH - 20) + 1));
 		setY(CameraData.VIEW_HEIGHT);
 		setRotationPoint(new Point2D.Double(WIDTH/2,0));
+		waveSpeed=(Math.random() * (1.1 - 1) + 1);
 	}
 	
 	public void update(double time)
 	{
 		counter++;
-		
-		degrees=Math.sin(Math.toRadians(counter));
+		degrees=Math.sin(Math.toRadians(counter*waveSpeed));
 		degrees/=2;
 		degrees+=3;
 		setRotation(degrees);
-		System.out.println("counter geeft: "+counter);
 	}
 
 }
