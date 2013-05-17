@@ -40,29 +40,31 @@ public class HarpoonDiver extends HostileEntity
 
 	public void update(double time)
 	{
-		Point2D userP = users.get(0).getMidpoint();
-
-		if (getBounds().getMaxY() <= CameraData.VIEW_HEIGHT)
+		if (!users.isEmpty())
 		{
-			jumpingUp = true;
+			Point2D userP = users.get(0).getMidpoint();
+
+			if (getBounds().getMaxY() <= CameraData.VIEW_HEIGHT)
+			{
+				jumpingUp = true;
+			}
+
+			if (jumpingUp)
+			{
+				setVelocity(new Point2D.Double(getVelocity().getX(), 50
+						- getVelocity().getY() / 5 * 0.001 * time));
+				if (getVelocity().getY() < 1)
+					jumpingUp = false;
+			} else
+			{
+				setVelocity(new Point2D.Double(getVelocity().getX(), -1
+						- getVelocity().getY() / 5 * 0.001 * time));
+			}
+			setY(getVelocity().getY());
+			if (userP.getX() > getBounds().getCenterX())
+				setX(getBounds().getX() + 0.001 * time);
+			else
+				setX(getBounds().getX() - 0.001 * time);
 		}
-
-		if (jumpingUp)
-		{
-			setVelocity(new Point2D.Double(getVelocity().getX(), 50
-					- getVelocity().getY() / 5 * 0.001 * time));
-			if (getVelocity().getY() < 1)
-				jumpingUp = false;
-		} else
-		{
-			setVelocity(new Point2D.Double(getVelocity().getX(), -1
-					- getVelocity().getY() / 5 * 0.001 * time));
-		}
-
-		setY(getVelocity().getY());
-		if(userP.getX() > getBounds().getCenterX())
-			setX(getBounds().getX()+ 0.001*time);
-		else
-			setX(getBounds().getX()- 0.001*time);
 	}
 }
