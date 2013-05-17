@@ -14,11 +14,6 @@ public class Plant extends Entity
 	public Plant()
 	{
 		super(new Rectangle2D.Double(0, 0, 0, 0), null);
-		setLocation();
-	}
-	
-	public void setLocation()
-	{
 		setX((Math.random() * (640 - 1) + 1));
 		setY(480);
 	}
