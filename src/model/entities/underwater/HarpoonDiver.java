@@ -45,6 +45,16 @@ public class HarpoonDiver extends HostileEntity
 
 	public void update(double time)
 	{
-
+// get user center point X, move towards it, + move upwards
+		// fall down again.
+		
+		if(getBounds().getMaxY() <= CameraData.VIEW_HEIGHT)
+		{
+//			start jump towards user
+		}
+		else 
+		{
+//			fall down
+		}
 	}
 }

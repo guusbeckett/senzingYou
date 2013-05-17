@@ -41,6 +41,7 @@ public class PunchLevel extends Level
 				else
 				{
 					//TODO: check collision with hands
+					//TODO: collision with other parts
 				}
 			}
 		}
