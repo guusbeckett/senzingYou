@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.geom.Point2D;
+
 import org.OpenNI.SceneMetaData;
 import org.OpenNI.UserGenerator;
 
@@ -22,6 +24,10 @@ public class User
 	public SceneMetaData getUserPixels()
 	{
 		return userGenerator.getUserPixels(id);
+	}
+	
+	public Point2D getMidpoint(){
+		return null;
 	}
 
 }
