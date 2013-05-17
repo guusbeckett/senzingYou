@@ -7,8 +7,9 @@ import java.util.List;
 
 public class Entity
 {
-	protected Point2D velocity;
-	protected double rotation;
+	private Point2D velocity;
+	private double rotation;
+	private Point2D rotationPoint;
 	private Rectangle2D bounds;
 	private int index;
 	private List<BufferedImage> images;
@@ -17,7 +18,18 @@ public class Entity
 	{
 		this.bounds = bounds;
 		this.images = images;
+		this.rotationPoint = new Point2D.Double(0, 0);
 	}	
+	
+	public Point2D getRotationPoint()
+	{
+		return rotationPoint;
+	}
+
+	public void setRotationPoint(Point2D rotationPoint)
+	{
+		this.rotationPoint = rotationPoint;
+	}
 	
 	public double getRotation()
 	{
@@ -27,6 +39,26 @@ public class Entity
 	public void setRotation(double rotation)
 	{
 		this.rotation = rotation;
+	}
+	
+	public void setX(double x)
+	{
+		bounds.setRect(x, bounds.getY(), bounds.getWidth(), bounds.getHeight());
+	}
+	
+	public void setY(double y)
+	{
+		bounds.setRect(bounds.getX(), y, bounds.getWidth(), bounds.getHeight());
+	}
+	
+	public void setWidth(double width)
+	{
+		bounds.setRect(bounds.getX(), bounds.getY(), width, bounds.getHeight());
+	}
+	
+	public void setHeight(double height)
+	{
+		bounds.setRect(bounds.getX(), bounds.getY(), bounds.getWidth(), height);
 	}
 	
 	public Rectangle2D getBounds()

@@ -1,18 +1,15 @@
 package model.entities.sky;
 
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.util.List;
 
+import model.User;
 import model.entities.HostileEntity;
 
 public class Bird extends HostileEntity
 {
-
-	public Bird(Rectangle2D bounds, List<BufferedImage> images, int reward)
+	public Bird(List<User> users)
 	{
-		super(bounds, images, reward);
+		super(null, null, 0, users);
 	}
-	
 
 }

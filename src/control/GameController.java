@@ -13,8 +13,7 @@ public class GameController implements ActionListener
 {
 	private Game game;
 	private Level level;
-	private Timer timer;
-	private double time = 1000;
+	private final int UPDATES_PER_SECOND = 30;
 
 	public GameController(Game game)
 	{
@@ -23,13 +22,12 @@ public class GameController implements ActionListener
 		
 		//TODO: implement random level selection.
 		level = new UnderwaterLevel(game);
-		timer = new Timer((int) time, this);
-		timer.start();
+		(new Timer(1000/UPDATES_PER_SECOND, this)).start();
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0)
+	public void actionPerformed(ActionEvent e)
 	{
-		level.update(time);
+		level.update(1000 / UPDATES_PER_SECOND);
 	}
 }

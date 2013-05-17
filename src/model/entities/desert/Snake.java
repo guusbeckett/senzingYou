@@ -1,16 +1,15 @@
 package model.entities.desert;
 
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.util.List;
 
+import model.User;
 import model.entities.HostileEntity;
 
 public class Snake extends HostileEntity
 {
 
-	public Snake(Rectangle2D bounds, List<BufferedImage> images, int reward)
+	public Snake(List<User> users)
 	{
-		super(bounds, images, reward);
+		super(null, null, 0, users);
 	}
 }
