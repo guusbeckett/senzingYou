@@ -10,9 +10,9 @@ public class UnderwaterLevel extends PunchLevel
 	{
 		super(game);
 		// TODO Auto-generated constructor stub
-		game.getEntities().add(new Fish(game.getCameraData().getUsers()));
-		game.getEntities().add(new Fish(game.getCameraData().getUsers()));
-		game.getEntities().add(new Fish(game.getCameraData().getUsers()));
+		game.getEntities().add(new Fish());
+		game.getEntities().add(new Fish());
+		game.getEntities().add(new Fish());
 	}
 	
 	public void update(double time){
