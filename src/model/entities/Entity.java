@@ -9,6 +9,7 @@ public class Entity
 {
 	protected Point2D velocity;
 	protected double rotation;
+	protected Point2D rotationPoint;
 	private Rectangle2D bounds;
 	private int index;
 	private List<BufferedImage> images;
@@ -17,7 +18,18 @@ public class Entity
 	{
 		this.bounds = bounds;
 		this.images = images;
+		this.rotationPoint = new Point2D.Double(0, 0);
 	}	
+	
+	public Point2D getRotationPoint()
+	{
+		return rotationPoint;
+	}
+
+	public void setRotationPoint(Point2D rotationPoint)
+	{
+		this.rotationPoint = rotationPoint;
+	}
 	
 	public double getRotation()
 	{
