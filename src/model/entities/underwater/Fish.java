@@ -15,7 +15,7 @@ public class Fish extends Entity
 	@Override
 	public void update(double time)
 	{
-		setX(getBounds().getX() + 10);
-		setY(Math.sin(getBounds().getX() / CameraData.VIEW_WIDTH * 2 * Math.PI));
+		setX(getBounds().getX() + 0.01 * time);
+		setY(Math.sin(getBounds().getX() / CameraData.VIEW_WIDTH * 2 * Math.PI) * 30);
 	}
 }
