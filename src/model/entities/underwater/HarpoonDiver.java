@@ -12,9 +12,11 @@ import model.entities.HostileEntity;
 public class HarpoonDiver extends HostileEntity
 {
 
-	private static final int height = 300;
+	private static final int height = 240;
 	private static final int width = 80;
-	private boolean jumpingUp = false;
+	private double valueX;
+	private double startX = -width;
+	private double startY = 100;
 
 	public HarpoonDiver(List<User> users)
 	{
@@ -30,12 +32,16 @@ public class HarpoonDiver extends HostileEntity
 			break;
 		case 1:
 			setX(CameraData.VIEW_WIDTH);
+			startX = CameraData.VIEW_WIDTH;
 			break;
 		case 2:
 			setX(200);
+			startX = 200;
 			setY(-height);
+			startY = -height;
 			break;
 		}
+		valueX = -3;
 	}
 
 	public void update(double time)
@@ -45,34 +51,22 @@ public class HarpoonDiver extends HostileEntity
 			Point2D userP = users.get(0).getMidpoint();
 			if (userP != null)
 			{
-				if (getBounds().getMaxY() > CameraData.VIEW_HEIGHT)
-				{
-					jumpingUp = true;
-				}
+				valueX += time * 0.001;
+				double valueY = valueX * valueX;
 
-				if (jumpingUp)
-				{
-					setVelocity(new Point2D.Double(getVelocity().getX(), 30
-							- getVelocity().getY() / 3 * 0.01 * time));
-					if (getVelocity().getY() < 3)
-						jumpingUp = false;
-				} else
-				{
-					if (getVelocity().getY() > 0)
-						setVelocity(new Point2D.Double(getVelocity().getX(), -1
-								- getVelocity().getY() / 3 * 0.01 * time));
-					else
-						setVelocity(new Point2D.Double(getVelocity().getX(), -1
-								+ getVelocity().getY() / 3 * 0.01 * time));
-				}
-				setY(getBounds().getY() + getVelocity().getY());
-				if (getBounds().getMaxY() >= CameraData.VIEW_HEIGHT)
-					setY(CameraData.VIEW_HEIGHT - height);
-				if (userP.getX() > getBounds().getCenterX())
-					setX(getBounds().getX() + 0.01 * time);
-				else
-					setX(getBounds().getX() - 0.01 * time);
+				double x = (valueX + 3) * 50 / 3 + startX;
+				if (getBounds().getCenterX() > userP.getX())
+					x = (3 - valueX) * 50 / 3 + startX;
+				double y = valueY * 100 / 9 + startY;
 
+				if (getBounds().getY() >= CameraData.VIEW_HEIGHT - height)
+				{
+					valueX = -3;
+					startX = getBounds().getX();
+					startY = 100;
+				}
+				setX(x);
+				setY(y);
 			}
 		}
 	}
