@@ -12,17 +12,22 @@ public class UnderwaterLevel extends PunchLevel
 	{
 		super(game);
 		// TODO Auto-generated constructor stub
-		game.getEntities().add(new Fish());
-		game.getEntities().add(new Fish());
-		game.getEntities().add(new Fish());
 		game.getEntities().add(new Plant());
 		game.getEntities().add(new Plant());
-		game.getEntities().add(new HarpoonDiver(game.getCameraData().getUsers()));
+		game.getEntities().add(new Plant());
+		game.getEntities().add(new Plant());
 	}
 	
 	public void update(double time)
 	{
 		super.update(time);
+		if((int)(Math.random() * time) == 1){
+			game.getEntities().add(new Fish());
+		}
+		if((int)(Math.random() * (time * 1.5)) == 1){
+			game.getEntities().add(new HarpoonDiver(game.getCameraData().getUsers()));
+		}
+		
 	}
 
 }

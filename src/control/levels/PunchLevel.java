@@ -38,12 +38,18 @@ public class PunchLevel extends Level
 							|| (bounds.getMinX() > CameraData.VIEW_WIDTH || bounds
 									.getMinY() > CameraData.VIEW_HEIGHT))
 						it.remove();
-				} else
+				} 
+				else
 				{
 					
 					for (User user : game.getCameraData().getUsers())
 					{
 						// TODO: check collision with hands
+						if(	hostile.getBounds().contains(user.getLeftHand()) ||
+							hostile.getBounds().contains(user.getRightHand())){
+							user.setScore(user.getScore()+hostile.getReward());
+							it.remove();
+						}
 						// TODO: collision with other parts
 					}
 					

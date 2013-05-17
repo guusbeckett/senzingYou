@@ -4,18 +4,17 @@ import java.awt.geom.Point2D;
 
 import org.OpenNI.Point3D;
 import org.OpenNI.SceneMetaData;
-import org.OpenNI.SkeletonCapability;
-import org.OpenNI.SkeletonJoint;
-import org.OpenNI.StatusException;
 import org.OpenNI.UserGenerator;
 
 public class User
 {
-	private int id;
+	private int id, score;
 	private UserGenerator userGenerator;
 	private Point2D head, neck, leftShoulder, rightShoulder, torso, 
 	leftElbow, rightElbow, leftHand, rightHand, leftHip, rightHip, 
 	leftKnee, rightKnee, leftFoot, rightFoot, midpoint, handExact;
+	
+	private Point3D rightHandWorld;
 	
 	public User(int id, UserGenerator userGenerator)
 	{
@@ -210,6 +209,26 @@ public class User
 	public void setHandExact(Point2D handExact)
 	{
 		this.handExact = handExact;
+	}
+
+	public Point3D getRightHandWorld()
+	{
+		return rightHandWorld;
+	}
+
+	public void setRightHandWorld(Point3D rightHandWorld)
+	{
+		this.rightHandWorld = rightHandWorld;
+	}
+
+	public int getScore()
+	{
+		return score;
+	}
+
+	public void setScore(int score)
+	{
+		this.score = score;
 	}
 
 

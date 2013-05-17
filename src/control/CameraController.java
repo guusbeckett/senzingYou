@@ -1,7 +1,5 @@
 package control;
 
-import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 import java.util.Iterator;
 
 import model.CameraData;
@@ -124,8 +122,6 @@ public class CameraController
 						game.getCameraData().getSkeletonCapability().startTracking(arg1.getUser());
 						for(User user: game.getCameraData().getUsers()){
 							if(user.getId() == arg1.getUser()){
-								//Create the Skeleton shit
-								//Making the hand track a Hand!
 								game.getCameraData().getHandsGenerator().StartTracking(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_HAND).getPosition());
 							}
 						}
