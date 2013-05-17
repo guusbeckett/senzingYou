@@ -17,13 +17,13 @@ public class Fish extends Entity
 		super(new Rectangle2D.Double(-WIDTH, 0, WIDTH, HEIGHT), null);
 		
 		setY((baseY = Math.random() * (CameraData.VIEW_HEIGHT - HEIGHT * 4) + HEIGHT * 2));
-		velocity = new Point2D.Double(Math.random() * 0.2 + 0.01, 0);
+		setVelocity(new Point2D.Double(Math.random() * 0.2 + 0.01, 0));
 	}
 
 	@Override
 	public void update(double time)
 	{
-		setX(getBounds().getX() + velocity.getX() * time);
+		setX(getBounds().getX() + getVelocity().getX() * time);
 		setY(baseY + Math.sin(getBounds().getX() / CameraData.VIEW_WIDTH * 2 * Math.PI) * HEIGHT);
 	}
 }
