@@ -48,8 +48,6 @@ public class PunchLevel extends Level
 							hostile.getBounds().contains(user.getRightHand())){
 							it.remove();
 						}
-						
-						
 						// TODO: collision with other parts
 					}
 					
