@@ -2,9 +2,11 @@ package model.entities.underwater;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.List;
 import java.util.Random;
 
 import model.CameraData;
+import model.User;
 import model.entities.HostileEntity;
 
 public class HarpoonDiver extends HostileEntity
@@ -13,10 +15,10 @@ public class HarpoonDiver extends HostileEntity
 	private static final int height = 300;
 	private static final int width = 80;
 
-	public HarpoonDiver()
+	public HarpoonDiver(List<User> users)
 	{
 		// TODO: implement images.
-		super(new Rectangle2D.Double(0, 0, width, height), null, 100);
+		super(new Rectangle2D.Double(0, 0, width, height), null, 100, users);
 
 		int x = 0, y = 0;
 		Random rand = new Random();

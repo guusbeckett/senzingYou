@@ -38,6 +38,10 @@ public class PunchLevel extends Level
 									.getMinY() > CameraData.VIEW_HEIGHT))
 						entities.remove(entity);
 				}
+				else
+				{
+					//TODO: check collision with hands
+				}
 			}
 		}
 	}
