@@ -37,7 +37,6 @@ public class CameraData
 	public CameraData(Context context)
 	{
 		this.context = context;
-		this.hands = new ArrayList<Hand>();
 		this.users = new ArrayList<User>();
 		
 		try

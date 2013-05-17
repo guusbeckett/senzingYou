@@ -38,7 +38,8 @@ public class PunchLevel extends Level
 							|| (bounds.getMinX() > CameraData.VIEW_WIDTH || bounds
 									.getMinY() > CameraData.VIEW_HEIGHT))
 						it.remove();
-				} else
+				} 
+				else
 				{
 					
 					for (User user : game.getCameraData().getUsers())
@@ -46,7 +47,7 @@ public class PunchLevel extends Level
 						// TODO: check collision with hands
 						if(	hostile.getBounds().contains(user.getLeftHand()) ||
 							hostile.getBounds().contains(user.getRightHand())){
-							game.setScore(game.getScore()+hostile.getReward());
+							user.setScore(user.getScore()+hostile.getReward());
 							it.remove();
 						}
 						// TODO: collision with other parts

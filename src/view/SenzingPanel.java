@@ -84,7 +84,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 			g2.fill(AffineTransform.getRotateInstance(entity.getRotation(), entity.getRotationPoint().getX() + entity.getBounds().getX(), entity.getRotationPoint().getY() + entity.getBounds().getY()).createTransformedShape(entity.getBounds()));
 		}
 		
-		g2.drawString("Score: " + game.getScore(), 10, 10);
+		g2.drawString("Score: " + game.getScore(), 200, 100);
 	}
 
 	@Override
