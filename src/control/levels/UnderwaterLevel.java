@@ -14,6 +14,8 @@ public class UnderwaterLevel extends PunchLevel
 		// TODO Auto-generated constructor stub
 		game.getEntities().add(new Plant());
 		game.getEntities().add(new Plant());
+		game.getEntities().add(new Plant());
+		game.getEntities().add(new Plant());
 	}
 	
 	public void update(double time)
