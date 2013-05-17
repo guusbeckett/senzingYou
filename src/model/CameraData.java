@@ -1,8 +1,11 @@
 package model;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
+import java.nio.ShortBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +39,7 @@ public class CameraData
 		this.context = context;
 		this.hands = new ArrayList<Hand>();
 		this.users = new ArrayList<User>();
+		
 		try
 		{
 			this.depthGenerator = DepthGenerator.create(context);
@@ -87,8 +91,44 @@ public class CameraData
 	{
 		return imageGenerator;
 	}
+	
+	public BufferedImage getImage(){
+		//return getImageRGB();
+		return getImageCut();
+	}
+	
+	private BufferedImage getImageCut(){
+		ShortBuffer userBuffer = null;
+		BufferedImage img = new BufferedImage(VIEW_WIDTH, VIEW_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage imgCam = getImageRGB();
+		for(User user: getUsers()){
+			userBuffer = user.getUserPixels().getData().createShortBuffer();
+		}
+		
+		int x = 0;
+		
+		int y = 0;
+		if(userBuffer != null){
+			while (userBuffer.remaining() > 0) {
+			      //int pos = skeleton.position();
+			      short userID = userBuffer.get();
+			      if (userID == 0){ // if not a user (i.e. is part of the background)
+			    		  img.setRGB(x, y, Color.TRANSLUCENT);
+			      }
+			      else{
+			    	  img.setRGB(x, y, imgCam.getRGB(x, y));
+			      }
+			      x++;
+			      if(x >= img.getWidth()){
+			    	  x = 0;
+			    	  y++;
+			      }	
+			}
+		}
+		return img;
+	}
 
-	public BufferedImage getImage()
+	private BufferedImage getImageRGB()
 	{
 		try
 		{

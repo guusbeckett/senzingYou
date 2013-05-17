@@ -43,7 +43,6 @@ public class CameraController
 							UserEventArgs arg1){
 						try
 						{
-							System.out.println("I SEE YOU!");
 							if (!game.getCameraData().getSkeletonCapability().needPoseForCalibration())
 							{
 								game.getCameraData().getSkeletonCapability().requestSkeletonCalibration(arg1.getId(), true);
@@ -67,7 +66,6 @@ public class CameraController
 					         User user = (User)itr.next();
 					         if(user.getId() == arg1.getId()){
 					        	 itr.remove();
-					        	 System.out.println("PERSOON WEG!");
 					         }
 					      }
 				}
@@ -129,8 +127,6 @@ public class CameraController
 								game.getCameraData().getHandsGenerator().StartTracking(game.getCameraData().getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_HAND).getPosition());
 							}
 						}
-						
-						System.out.println("Skeleton aangemaakt!");
 					}
 					else if (arg1.getStatus() != CalibrationProgressStatus.MANUAL_ABORT)
 					{

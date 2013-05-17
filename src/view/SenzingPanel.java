@@ -40,7 +40,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		if (cameraData != null)
 		{
 			g2.drawImage(cameraData.getImage(), null, 0, 0);
-			for(User user: game.getCameraData().getUsers()){
+			/*for(User user: game.getCameraData().getUsers()){
 				if(user.getHandExact() != null){
 					Shape check = new Ellipse2D.Float(50, 70, 20, 20);
 					Shape exact = new Ellipse2D.Float((int)user.getHandExact().getX(), (int)user.getHandExact().getY(), 20, 20);
@@ -77,6 +77,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 				
 				
 			}
+			*/
 		}
 		
 		for (Entity entity : game.getEntities())
