@@ -1,17 +1,16 @@
 package model.entities.cave;
 
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.util.List;
 
+import model.User;
 import model.entities.HostileEntity;
 
 public class Rock extends HostileEntity
 {
 
-	public Rock(Rectangle2D bounds, List<BufferedImage> images, int reward)
+	public Rock(List<User> users)
 	{
-		super(bounds, images, reward);
+		super(null, null, 0, users);
 	}
 
 }
