@@ -1,17 +1,16 @@
 package model.entities.desert;
 
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.util.List;
 
+import model.User;
 import model.entities.HostileEntity;
 
 public class Scorpion extends HostileEntity
 {
 
-	public Scorpion(Rectangle2D bounds, List<BufferedImage> images, int reward)
+	public Scorpion(List<User> users)
 	{
-		super(bounds, images, reward);
+		super(null, null, 0, users);
 	}
 
 }

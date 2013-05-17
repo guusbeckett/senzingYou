@@ -29,6 +29,26 @@ public class Entity
 		this.rotation = rotation;
 	}
 	
+	public void setX(double x)
+	{
+		bounds.setRect(x, bounds.getY(), bounds.getWidth(), bounds.getHeight());
+	}
+	
+	public void setY(double y)
+	{
+		bounds.setRect(bounds.getX(), y, bounds.getWidth(), bounds.getHeight());
+	}
+	
+	public void setWidth(double width)
+	{
+		bounds.setRect(bounds.getX(), bounds.getY(), width, bounds.getHeight());
+	}
+	
+	public void setHeight(double height)
+	{
+		bounds.setRect(bounds.getX(), bounds.getY(), bounds.getWidth(), height);
+	}
+	
 	public Rectangle2D getBounds()
 	{
 		return bounds;

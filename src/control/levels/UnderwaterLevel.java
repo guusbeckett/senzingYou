@@ -1,6 +1,8 @@
 package control.levels;
 
 import model.Game;
+import model.entities.underwater.Fish;
+import model.entities.underwater.HarpoonDiver;
 
 public class UnderwaterLevel extends PunchLevel
 {
@@ -9,6 +11,16 @@ public class UnderwaterLevel extends PunchLevel
 	{
 		super(game);
 		// TODO Auto-generated constructor stub
+		game.getEntities().add(new Fish());
+		game.getEntities().add(new Fish());
+		game.getEntities().add(new Fish());
+	}
+	
+	public void update(double time){
+		if((time % 5) == 1){
+			game.getEntities().add(new HarpoonDiver(game.getCameraData().getUsers()));
+			game.getEntities().add(new HarpoonDiver(game.getCameraData().getUsers()));
+		}
 	}
 
 }
