@@ -34,7 +34,6 @@ public class SenzingPanel extends JPanel implements ActionListener
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 
-
 		CameraData cameraData = game.getCameraData();
 		
 		if (cameraData != null)
@@ -84,6 +83,8 @@ public class SenzingPanel extends JPanel implements ActionListener
 		{
 			g2.fill(AffineTransform.getRotateInstance(entity.getRotation(), entity.getRotationPoint().getX() + entity.getBounds().getX(), entity.getRotationPoint().getY() + entity.getBounds().getY()).createTransformedShape(entity.getBounds()));
 		}
+		
+		g2.drawString("Score: " + game.getScore(), 10, 10);
 	}
 
 	@Override
