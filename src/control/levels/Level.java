@@ -1,11 +1,7 @@
 package control.levels;
 
-import java.awt.geom.Rectangle2D;
-import java.util.List;
-
 import model.Game;
 import model.entities.Entity;
-import model.entities.HostileEntity;
 
 public class Level
 {

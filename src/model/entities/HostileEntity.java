@@ -6,8 +6,6 @@ import java.util.List;
 
 import model.User;
 
-import model.User;
-
 public class HostileEntity extends Entity
 {
 	private int reward;
