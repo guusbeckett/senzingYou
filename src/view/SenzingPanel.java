@@ -33,8 +33,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		
-		g2.scale(getHeight() / CameraData.VIEW_HEIGHT, getHeight() / CameraData.VIEW_HEIGHT);
-		
+		g2.scale((double)getHeight() / (double)CameraData.VIEW_HEIGHT, (double)getHeight() / (double)CameraData.VIEW_HEIGHT);
 		CameraData cameraData = game.getCameraData();
 		
 		//This background is purelly for the test purpuse.
