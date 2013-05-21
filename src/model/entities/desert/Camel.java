@@ -1,8 +1,6 @@
 package model.entities.desert;
 
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.List;
 
 import model.entities.Entity;
 

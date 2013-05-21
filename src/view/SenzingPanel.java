@@ -1,20 +1,16 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import model.CameraData;
 import model.Game;
-import model.User;
 import model.entities.Entity;
 
 public class SenzingPanel extends JPanel implements ActionListener
