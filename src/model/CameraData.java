@@ -109,32 +109,45 @@ public class CameraData
 		int x = 0;
 		int y = 0;
 		
+		int loop = 0;
+		int verbreed = 40;
+		int lastX = (verbreed + 1) *-1;
+		int lastY = (verbreed + 1) *-1;
 
 		if(userBuffer != null){
 			while (userBuffer.remaining() > 0) {
 			      short userID = userBuffer.get();
 			      if (userID == 0){ // if not a user then it is a background
-			    		  img.setRGB(x, y, Color.TRANSLUCENT);
+			    	  if(((lastX +verbreed) > x && (lastX) < x) && (lastX != (verbreed + 1) *-1)){
+			    		  Color color = new Color(imgCam.getRGB(x, y));
+			    		  Color colorEdit = new Color(color.getRed(), color.getGreen(), color.getBlue(), 250);
+			    		  img.setRGB(x, y, colorEdit.getRGB());
+			    	  }
+			    	  else{
+			    		  Color color = new Color(imgCam.getRGB(x, y));
+			    		  Color colorEdit = new Color(color.getRed(), color.getGreen(), color.getBlue(), 100);
+			    		  img.setRGB(x, y, colorEdit.getRGB());
+			    	  }
+			    		  
 			      }
 			      else{
 			    	  img.setRGB(x, y, imgCam.getRGB(x, y));
+			    	  lastX = x;
+			    	  lastY = y;
 			      }
 			      
 			      //Handle the rest of the images
 			      x++;
 			      if(x >= img.getWidth()){
 			    	  x = 0;
+			    	  lastY = 0;
 			    	  y++;
 			      }	
+			      loop++;
 			}
+			
 		}
-
-		Graphics2D g2d = img.createGraphics();
-	    Color transparent = new Color(0, 0, 0, 0);
-	    g2d.setColor(transparent);
-	    g2d.setComposite(AlphaComposite.Src);
-	    g2d.fill(new Rectangle2D.Float(20, 20, 100, 20));
-	    g2d.dispose();
+		
 		return img;
 	}
 
