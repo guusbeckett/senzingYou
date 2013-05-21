@@ -19,7 +19,7 @@ public class Fish extends Entity
 	{
 		super(new Rectangle2D.Double(-WIDTH, 0, WIDTH, HEIGHT));
 		
-		setY((baseY = Math.random() * (CameraData.VIEW_HEIGHT - HEIGHT * 4) + HEIGHT * 2));
+		setY((baseY = Math.random() * (CameraData.VIEW_HEIGHT - HEIGHT * 4) + HEIGHT));
 		setVelocity(new Point2D.Double(Math.random() * 0.2 + 0.01, 0));
 		
 		ArrayList<Image> images = new ArrayList<Image>();
