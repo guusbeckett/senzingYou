@@ -9,7 +9,7 @@ public class Bird extends HostileEntity
 {
 	public Bird(List<User> users)
 	{
-		super(null, null, 0, users);
+		super(null, 0, users);
 	}
 
 }

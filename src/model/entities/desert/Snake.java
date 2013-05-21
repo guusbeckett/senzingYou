@@ -10,6 +10,6 @@ public class Snake extends HostileEntity
 
 	public Snake(List<User> users)
 	{
-		super(null, null, 0, users);
+		super(null, 0, users);
 	}
 }

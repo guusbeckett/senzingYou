@@ -10,7 +10,7 @@ public class Scorpion extends HostileEntity
 
 	public Scorpion(List<User> users)
 	{
-		super(null, null, 0, users);
+		super(null, 0, users);
 	}
 
 }

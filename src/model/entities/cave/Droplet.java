@@ -9,9 +9,9 @@ import model.entities.Entity;
 public class Droplet extends Entity
 {
 
-	public Droplet(Rectangle2D bounds, List<BufferedImage> images)
+	public Droplet(Rectangle2D bounds)
 	{
-		super(bounds, images);
+		super(bounds);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -9,9 +9,9 @@ import model.entities.Entity;
 public class Camel extends Entity
 {
 
-	public Camel(Rectangle2D bounds, List<BufferedImage> images)
+	public Camel(Rectangle2D bounds)
 	{
-		super(bounds, images);
+		super(bounds);
 		// TODO Auto-generated constructor stub
 	}
 

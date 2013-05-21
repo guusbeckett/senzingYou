@@ -1,8 +1,9 @@
 package model.entities;
 
+import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Entity
@@ -12,14 +13,23 @@ public class Entity
 	private Point2D rotationPoint;
 	private Rectangle2D bounds;
 	private int index;
-	private List<BufferedImage> images;
+	private List<Image> images;
 
-	public Entity(Rectangle2D bounds, List<BufferedImage> images)
+	public Entity(Rectangle2D bounds)
 	{
 		this.bounds = bounds;
-		this.images = images;
 		this.rotationPoint = new Point2D.Double(0, 0);
+		this.images = new ArrayList<Image>();
+		
 	}	
+	
+	
+	public void setImages(List<Image> images){
+		this.images = images;
+		if(!images.isEmpty()){
+			this.index = (int)(Math.random() * images.size());
+		}
+	}
 	
 	public Point2D getRotationPoint()
 	{
@@ -71,8 +81,11 @@ public class Entity
 		this.bounds = bounds;
 	}
 
-	public BufferedImage getImage()
+	public Image getImage()
 	{
+		if(images.isEmpty()){
+			return null;
+		}
 		return images.get(index);
 	}
 	
