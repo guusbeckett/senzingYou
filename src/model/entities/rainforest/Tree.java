@@ -9,9 +9,9 @@ import model.entities.Entity;
 public class Tree extends Entity
 {
 
-	public Tree(Rectangle2D bounds, List<BufferedImage> images)
+	public Tree(Rectangle2D bounds)
 	{
-		super(bounds, images);
+		super(bounds);
 		// TODO Auto-generated constructor stub
 	}
 

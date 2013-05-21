@@ -9,9 +9,9 @@ import model.entities.Entity;
 public class Cloud extends Entity
 {
 
-	public Cloud(Rectangle2D bounds, List<BufferedImage> images)
+	public Cloud(Rectangle2D bounds)
 	{
-		super(bounds, images);
+		super(bounds);
 		// TODO Auto-generated constructor stub
 	}
 

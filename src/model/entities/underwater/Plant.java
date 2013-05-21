@@ -16,7 +16,7 @@ public class Plant extends Entity
 	
 	public Plant()
 	{
-		super(new Rectangle2D.Double(0, 0, WIDTH, HEIGTH), null);
+		super(new Rectangle2D.Double(0, 0, WIDTH, HEIGTH));
 		setX(System.currentTimeMillis() * (CameraData.VIEW_WIDTH - 20) + 1);
 		setY(CameraData.VIEW_HEIGHT);
 		setRotationPoint(new Point2D.Double(WIDTH/2,0));

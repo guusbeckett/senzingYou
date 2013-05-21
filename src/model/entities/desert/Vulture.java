@@ -9,9 +9,9 @@ import model.entities.Entity;
 public class Vulture extends Entity
 {
 
-	public Vulture(Rectangle2D bounds, List<BufferedImage> images)
+	public Vulture(Rectangle2D bounds)
 	{
-		super(bounds, images);
+		super(bounds);
 		// TODO Auto-generated constructor stub
 	}
 
