@@ -81,11 +81,18 @@ public class SenzingPanel extends JPanel implements ActionListener
 		
 		for (Entity entity : game.getEntities())
 		{
-			if(entity.getImage() != null){
-				g2.drawImage(entity.getImage(), (int)entity.getBounds().getX(), (int)entity.getBounds().getY(), (int)entity.getBounds().getWidth(), (int)entity.getBounds().getHeight(), null);
+			AffineTransform transform = AffineTransform.getRotateInstance(entity.getRotation(), entity.getRotationPoint().getX() + entity.getBounds().getX(), entity.getRotationPoint().getY() + entity.getBounds().getY());
+			
+			if (entity.getImage() != null)
+			{
+				transform.translate(entity.getBounds().getX(), entity.getBounds().getY());
+				transform.scale(entity.getBounds().getWidth() / entity.getImage().getWidth(null), entity.getBounds().getHeight() / entity.getImage().getWidth(null));
+				g2.drawImage(entity.getImage(), transform, null);
 			}
-			else{
-				g2.fill(AffineTransform.getRotateInstance(entity.getRotation(), entity.getRotationPoint().getX() + entity.getBounds().getX(), entity.getRotationPoint().getY() + entity.getBounds().getY()).createTransformedShape(entity.getBounds()));
+			
+			else
+			{
+				g2.fill(transform.createTransformedShape(entity.getBounds()));
 			}
 		}
 	}
