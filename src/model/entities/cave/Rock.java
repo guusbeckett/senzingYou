@@ -10,7 +10,7 @@ public class Rock extends HostileEntity
 
 	public Rock(List<User> users)
 	{
-		super(null, null, 0, users);
+		super(null, 0, users);
 	}
 
 }

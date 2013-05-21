@@ -9,9 +9,9 @@ import model.entities.Entity;
 public class Bird extends Entity
 {
 
-	public Bird(Rectangle2D bounds, List<BufferedImage> images)
+	public Bird(Rectangle2D bounds)
 	{
-		super(bounds, images);
+		super(bounds);
 		// TODO Auto-generated constructor stub
 	}
 

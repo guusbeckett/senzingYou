@@ -22,7 +22,7 @@ public class HarpoonDiver extends HostileEntity
 	public HarpoonDiver(List<User> users)
 	{
 		// TODO: implement images.
-		super(new Rectangle2D.Double(0, 0, width, height), null, 100, users);
+		super(new Rectangle2D.Double(0, 0, width, height), 100, users);
 		setVelocity(new Point2D.Double(0, 0));
 		setY(80);
 		Random rand = new Random();

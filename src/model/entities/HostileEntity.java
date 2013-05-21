@@ -12,9 +12,9 @@ public class HostileEntity extends Entity
 	protected boolean alive = true;
 	protected List<User> users;
 	
-	public HostileEntity(Rectangle2D bounds, List<BufferedImage> images, int reward, List<User> users)
+	public HostileEntity(Rectangle2D bounds, int reward, List<User> users)
 	{
-		super(bounds, images);
+		super(bounds);
 		this.reward = reward;
 		this.users = users;
 	}
