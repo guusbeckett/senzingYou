@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
