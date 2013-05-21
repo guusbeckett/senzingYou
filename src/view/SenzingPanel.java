@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -23,6 +24,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 	{
 		super();
 		this.game = game;
+		setBackground(Color.BLACK);
 		new Timer(1000/30, this).start();
 	}
 	
@@ -30,7 +32,8 @@ public class SenzingPanel extends JPanel implements ActionListener
 	{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
-
+		
+		g2.scale((double)getHeight() / (double)CameraData.VIEW_HEIGHT, (double)getHeight() / (double)CameraData.VIEW_HEIGHT);
 		CameraData cameraData = game.getCameraData();
 		
 		//This background is purelly for the test purpuse.
