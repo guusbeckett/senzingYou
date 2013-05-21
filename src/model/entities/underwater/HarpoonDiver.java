@@ -20,6 +20,7 @@ public class HarpoonDiver extends HostileEntity
 	private double valueX;
 	private double startX = -width;
 	private double startY = 100;
+	private boolean directionReversed = false;
 
 	public HarpoonDiver(List<User> users)
 	{
@@ -49,7 +50,19 @@ public class HarpoonDiver extends HostileEntity
 			startY = -height;
 			break;
 		}
-		valueX = -3;
+		initJump();
+	}
+	
+	private void initJump()
+	{
+		if (!users.isEmpty())
+		{
+			Point2D userP = users.get(0).getMidpoint();
+			
+			directionReversed = (getBounds().getCenterX() > userP.getX());
+			System.out.println(directionReversed);
+			valueX = (directionReversed) ? 3 : -3;
+		}
 	}
 
 	public void update(double time)
@@ -59,20 +72,21 @@ public class HarpoonDiver extends HostileEntity
 			Point2D userP = users.get(0).getMidpoint();
 			if (userP != null)
 			{
-				valueX += time * 0.001;
+				valueX += time * ((directionReversed) ? -0.001 : 0.001);
 				double valueY = valueX * valueX;
 
-				double x = (valueX + 3) * 50 / 3 + startX;
-				if (getBounds().getCenterX() > userP.getX())
-					x = (3 - valueX) * 50 / 3 + startX;
+				double x = valueX * 50 / 3 + startX;
+//				if (getBounds().getCenterX() > userP.getX())
+//					x = (3 - valueX) * 50 / 3 + startX;
 				double y = valueY * 100 / 9 + startY;
 
-				if (getBounds().getY() >= CameraData.VIEW_HEIGHT - height)
+				if (y >= CameraData.VIEW_HEIGHT - height)
 				{
-					valueX = -3;
-					startX = getBounds().getX();
-					startY = 100;
+					initJump();
+					startX = getBounds().getX() - valueX * 50/3;
+					startY = 130;
 				}
+				
 				setX(x);
 				setY(y);
 			}
