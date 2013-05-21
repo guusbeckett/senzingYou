@@ -14,6 +14,7 @@ public class SenzingFrame extends JFrame
 		setSize(640, 480);
 		setResizable(false);
 		setContentPane(new SenzingPanel(game));
+		setUndecorated(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}
