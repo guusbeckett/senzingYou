@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import model.CameraData;
@@ -20,7 +19,7 @@ public class Fish extends Entity
 	{
 		super(new Rectangle2D.Double(-WIDTH, 0, WIDTH, HEIGHT));
 		
-		setY((baseY = Math.random() * (CameraData.VIEW_HEIGHT - HEIGHT * 4) + HEIGHT * 2));
+		setY((baseY = Math.random() * (CameraData.VIEW_HEIGHT - HEIGHT * 4) + HEIGHT));
 		setVelocity(new Point2D.Double(Math.random() * 0.2 + 0.01, 0));
 		
 		ArrayList<Image> images = new ArrayList<Image>();

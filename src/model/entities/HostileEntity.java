@@ -1,7 +1,6 @@
 package model.entities;
 
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.util.List;
 
 import model.User;

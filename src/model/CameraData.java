@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
@@ -109,14 +108,15 @@ public class CameraData
 		int y = 0;
 		if(userBuffer != null){
 			while (userBuffer.remaining() > 0) {
-			      //int pos = skeleton.position();
 			      short userID = userBuffer.get();
-			      if (userID == 0){ // if not a user (i.e. is part of the background)
+			      if (userID == 0){ // if not a user then it is a background
 			    		  img.setRGB(x, y, Color.TRANSLUCENT);
 			      }
 			      else{
 			    	  img.setRGB(x, y, imgCam.getRGB(x, y));
 			      }
+			      
+			      //Handle the rest of the images
 			      x++;
 			      if(x >= img.getWidth()){
 			    	  x = 0;
