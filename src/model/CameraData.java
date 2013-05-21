@@ -2,7 +2,9 @@ package model;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.nio.ShortBuffer;
@@ -105,18 +107,20 @@ public class CameraData
 		}
 		
 		int x = 0;
-		
 		int y = 0;
+		
+
 		if(userBuffer != null){
 			while (userBuffer.remaining() > 0) {
-			      //int pos = skeleton.position();
 			      short userID = userBuffer.get();
-			      if (userID == 0){ // if not a user (i.e. is part of the background)
+			      if (userID == 0){ // if not a user then it is a background
 			    		  img.setRGB(x, y, Color.TRANSLUCENT);
 			      }
 			      else{
 			    	  img.setRGB(x, y, imgCam.getRGB(x, y));
 			      }
+			      
+			      //Handle the rest of the images
 			      x++;
 			      if(x >= img.getWidth()){
 			    	  x = 0;
@@ -124,6 +128,13 @@ public class CameraData
 			      }	
 			}
 		}
+
+		Graphics2D g2d = img.createGraphics();
+	    Color transparent = new Color(0, 0, 0, 0);
+	    g2d.setColor(transparent);
+	    g2d.setComposite(AlphaComposite.Src);
+	    g2d.fill(new Rectangle2D.Float(20, 20, 100, 20));
+	    g2d.dispose();
 		return img;
 	}
 

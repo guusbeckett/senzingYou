@@ -14,7 +14,6 @@ import org.OpenNI.IObservable;
 import org.OpenNI.IObserver;
 import org.OpenNI.InactiveHandEventArgs;
 import org.OpenNI.OutArg;
-import org.OpenNI.Point3D;
 import org.OpenNI.ScriptNode;
 import org.OpenNI.SkeletonJoint;
 import org.OpenNI.SkeletonProfile;
