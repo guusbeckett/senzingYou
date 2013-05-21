@@ -1,7 +1,11 @@
 package model.entities.underwater;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+
 import model.CameraData;
 import model.entities.Entity;
 
@@ -17,6 +21,11 @@ public class Plant extends Entity
 	public Plant()
 	{
 		super(new Rectangle2D.Double(0, 0, WIDTH, HEIGTH));
+		
+		ArrayList<Image> images = new ArrayList<Image>();
+		images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/seaweed.png"));
+		setImages(images);
+		
 		setX(Math.random() * (CameraData.VIEW_WIDTH - 20) + 1);
 		setY(CameraData.VIEW_HEIGHT);
 		setRotationPoint(new Point2D.Double(WIDTH/2,0));
