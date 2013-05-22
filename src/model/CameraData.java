@@ -1,10 +1,7 @@
 package model;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.nio.ShortBuffer;
@@ -190,9 +187,57 @@ public class CameraData
 	}
 	
 	
+	private void getMeasurements(int user){
+		try
+		{
+			 
+			double leftHandElbow = distance(getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.LEFT_HAND).getPosition(), getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.LEFT_ELBOW).getPosition());
+			double rightHandElbow = distance(getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.RIGHT_HAND).getPosition(), getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.RIGHT_ELBOW).getPosition());
+			double leftElbowShoulder = distance(getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.LEFT_ELBOW).getPosition(), getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.LEFT_SHOULDER).getPosition());
+			double rightElbowShoulder = distance(getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.RIGHT_ELBOW).getPosition(), getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.RIGHT_SHOULDER).getPosition());
+			double leftFootKnee = distance(getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.LEFT_FOOT).getPosition(), getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.LEFT_KNEE).getPosition());
+			double rightFootKnee = distance(getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.RIGHT_FOOT).getPosition(), getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.RIGHT_KNEE).getPosition());
+			double leftKneeHip = distance(getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.LEFT_KNEE).getPosition(), getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.LEFT_HIP).getPosition());
+			double rightKneeHip = distance(getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.RIGHT_KNEE).getPosition(), getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.RIGHT_HIP).getPosition());
+			double shoulder = distance(getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.LEFT_SHOULDER).getPosition(), getSkeletonCapability().getSkeletonJointPosition(user, SkeletonJoint.RIGHT_SHOULDER).getPosition());
+			
+			Recognition recog = new Recognition(leftHandElbow, rightHandElbow, leftElbowShoulder, rightElbowShoulder, leftFootKnee, rightFootKnee, leftKneeHip, rightKneeHip, shoulder, "Scanner");
+			
+			//System.out.println(recog.toString());
+			
+			ArrayList<Recognition> recogs = new ArrayList<Recognition>();
+			//recogs.add(new Recognition(10, rightHandElbow, leftElbowShoulder, rightElbowShoulder, leftFootKnee, rightFootKnee, leftKneeHip, rightKneeHip, shoulder, "Scanner"));
+			boolean someOneThere = false;
+			for(Recognition r: recogs){
+				if(r.compareTo(recog)){
+					System.out.println("Welkom: "+r.getName());
+					someOneThere = true;
+				}
+			}
+			
+			if(!someOneThere){
+				//System.out.println("Niemand bekends!");
+			}
+			
+			//System.out.println(recog.toString());
+		} catch (StatusException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private double distance(Point3D p1, Point3D p2){
+		double dx = p1.getX() - p2.getX();
+		double dy = p1.getY() - p2.getY();
+		double dz = p1.getZ() - p2.getZ();
+		return dx*dx + dy*dy + dz*dz;
+	}
+	
 	private void setUserSkeleton(User user){
 		try
 		{
+			getMeasurements(user.getId());
 			user.setHead(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.HEAD).getPosition()));
 			user.setNeck(convertPosition(getSkeletonCapability().getSkeletonJointPosition(user.getId(), SkeletonJoint.NECK).getPosition()));
 			
