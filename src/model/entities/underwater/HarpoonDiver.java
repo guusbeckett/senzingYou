@@ -60,7 +60,7 @@ public class HarpoonDiver extends HostileEntity
 			Point2D userP = users.get(0).getMidpoint();
 			
 			directionReversed = (getBounds().getCenterX() > userP.getX());
-			System.out.println(directionReversed);
+			//System.out.println(directionReversed);
 			valueX = (directionReversed) ? 3 : -3;
 		}
 	}
