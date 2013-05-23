@@ -12,11 +12,13 @@ import audio.ThresholdFunction;
 
 public class Song
 {
+	private int lastCall = 0;
+	private int position = 0;
 	private MP3Decoder decoder;
 	private List<List<Float>> thresholds;
 	private static final int HOP_SIZE = 512;
-	private static final int HISTORY_SIZE = 50;
 	public static final float multiplier = 2f;
+	private static final int HISTORY_SIZE = 50;
 	private static final float[] bands = { 80, 4000, 4000, 10000, 10000, 16000 };
 
 	public Song(final String track) throws FileNotFoundException, Exception
@@ -61,38 +63,53 @@ public class Song
 
 	public void play() throws InterruptedException, Exception
 	{
-		// TODO: implement play song
-		AudioDevice device = new AudioDevice();
-		float[] samples = new float[1024];
-
-		long startTime = 0;
-		while (decoder.readSamples(samples) > 0)
+		Thread th = new Thread(new Runnable()
 		{
-			device.writeSamples(samples); // plays the music
-			if (startTime == 0)
-				startTime = System.nanoTime();
-			float elapsedTime = (System.nanoTime() - startTime) / 1000000000.0f;
-			int position = (int) (elapsedTime * (44100 / HOP_SIZE));
-			Thread.sleep(20);
-		}
+			@Override
+			public void run()
+			{
+				try
+				{
+					AudioDevice device = new AudioDevice();
+					float[] samples = new float[1024];
+					long startTime = 0;
+
+					while (decoder.readSamples(samples) > 0)
+					{
+						device.writeSamples(samples); // plays the music
+
+						if (startTime == 0)
+							startTime = System.nanoTime();
+						float elapsedTime = (System.nanoTime() - startTime) / 1000000000.0f;
+						position = (int) (elapsedTime * (44100 / HOP_SIZE));
+						Thread.sleep(20);
+					}
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		});
+		th.start();
 	}
 
 	public float getThreshold()
 	{
-		// TODO: implement return
-		// return average threshold since last call
-		return 0f;
+		int old = lastCall;
+		lastCall = position;
+		float total = 0;
+		for (int i = old; i <= position; i++)
+			total += thresholds.get(0).get((i * 44100) / 512);
+		return total / (position - old);
 	}
 
 	public float getThreshold(int time)
 	{
-		// TODO: implement return
-		return 0f;
+		return thresholds.get(0).get((time * 44100) / 512);
 	}
 
 	public int getTime()
 	{
-		// TODO: implement return
-		return 0;
+		return position;
 	}
 }
