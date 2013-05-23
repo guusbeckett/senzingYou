@@ -14,6 +14,7 @@ import model.entities.Entity;
 public class Fish extends Entity
 {
 	private double baseY;
+	private List<Image> images;
 	
 	public Fish()
 	{
@@ -22,6 +23,13 @@ public class Fish extends Entity
 		baseY = Math.random() * (Camera.VIEW_HEIGHT - getDimensions().getHeight() * 4) + getDimensions().getHeight();
 		position.setLocation(0, baseY);
 		velocity = new Point2D.Double(Math.random() * 0.2 + 0.01, 0.0);
+		
+		images = new ArrayList<Image>();
+		
+		if (Math.random() <= 0.5)
+			images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/blueFish.png"));
+		else
+			images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/orangeFish.png"));
 	}
 
 	@Override
@@ -46,11 +54,6 @@ public class Fish extends Entity
 	@Override
 	public List<Image> getImages()
 	{
-		List<Image> images = new ArrayList<Image>();
-		
-		images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/blueFish.png"));
-		images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/orangeFish.png"));
-		
 		return images;
 	}
 }
