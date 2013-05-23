@@ -41,7 +41,7 @@ public abstract class PunchLevel extends Level
 					it.remove();
 				} else
 				{
-
+					boolean haveToDelete = false;
 					for (User user : getGame().getCamera().getUsers())
 					{
 						if ((entity.getBounds().getMaxX() < 0 || entity
@@ -49,16 +49,19 @@ public abstract class PunchLevel extends Level
 								|| (entity.getBounds().getMinX() > Camera.VIEW_WIDTH || entity
 										.getBounds().getMinY() > Camera.VIEW_HEIGHT))
 						{
-							it.remove();
-						} else if (hostile.getBounds().contains(
-								user.getLeftHand())
-								|| hostile.getBounds().contains(
-										user.getRightHand()))
+							haveToDelete = true;					
+						}
+						else if (hostile.getBounds().contains(user.getLeftHand())
+								|| hostile.getBounds().contains(user.getRightHand()))
 						{
 
 							user.setScore(user.getScore() + hostile.getReward());
-							it.remove();
+							haveToDelete = true;
 						}
+					}
+					
+					if(haveToDelete){
+						it.remove();
 					}
 				}
 			}

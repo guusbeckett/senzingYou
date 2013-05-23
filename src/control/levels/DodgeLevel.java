@@ -38,17 +38,22 @@ public class DodgeLevel extends Level
 				} 
 				else
 				{
+					boolean haveToDelete = false;
 					for (User user : getGame().getCamera().getUsers())
 					{
 						if ((entity.getBounds().getMaxX() < 0 || entity.getBounds().getMaxY() < 0) || (entity.getBounds().getMinX() > Camera.VIEW_WIDTH || entity.getBounds().getMinY() > Camera.VIEW_HEIGHT))
 						{
-							it.remove();						
+							haveToDelete = true;					
 						}
-						else if(user.getUserPixels().getData().readPixel((int)entity.getPosition().getX(), (int)entity.getPosition().getY()) != 0)
+						else if(user.getUserPixels().getData().readPixel((int)entity.getPosition().getX(), (int)entity.getPosition().getY()) == user.getId())
 						{
 							user.setScore(user.getScore()+hostile.getReward());
-							it.remove();
+							haveToDelete = true;
 						}
+					}
+					
+					if(haveToDelete){
+						it.remove();
 					}
 					
 				}
