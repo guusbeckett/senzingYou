@@ -5,7 +5,7 @@ import model.entities.Entity;
 
 public class Level
 {
-	protected Game game;
+	private Game game;
 
 	public Level(Game game)
 	{
@@ -19,5 +19,10 @@ public class Level
 		{
 			entity.update(time);
 		}
+	}
+
+	public Game getGame()
+	{
+		return game;
 	}
 }

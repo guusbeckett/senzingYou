@@ -20,10 +20,10 @@ public class CaveLevel extends DodgeLevel
 	{
 		super.update(time);
 		if((int)(Math.random() * time) == 1){
-			game.getEntities().add(new Droplet());
+			getGame().getEntities().add(new Droplet());
 		}
 		if((int)(Math.random() * (time * 0.5)) == 1){
-			game.getEntities().add(new Rock(game.getCamera().getUsers()));
+			getGame().getEntities().add(new Rock(getGame().getCamera().getUsers()));
 		}
 		
 	}

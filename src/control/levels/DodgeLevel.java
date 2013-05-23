@@ -24,7 +24,7 @@ public class DodgeLevel extends Level
 	{
 		super.update(time);
 
-		List<Entity> entities = game.getEntities();
+		List<Entity> entities = getGame().getEntities();
 		Iterator<Entity> it = entities.iterator();
 		while (it.hasNext())
 		{
@@ -38,7 +38,7 @@ public class DodgeLevel extends Level
 				} 
 				else
 				{
-					for (User user : game.getCamera().getUsers())
+					for (User user : getGame().getCamera().getUsers())
 					{
 						if ((entity.getBounds().getMaxX() < 0 || entity.getBounds().getMaxY() < 0) || (entity.getBounds().getMinX() > Camera.VIEW_WIDTH || entity.getBounds().getMinY() > Camera.VIEW_HEIGHT))
 						{
