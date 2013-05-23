@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import model.entities.Entity;
@@ -12,14 +13,14 @@ public class Game
 
 	public Game()
 	{
-		this.entities = new ArrayList<Entity>();
+		this.entities = Collections.synchronizedList(new ArrayList<Entity>());
 		
 		camera = new Camera();
 	}
 
 	public void clearRoom()
 	{
-
+		entities.clear();
 	}
 
 	public List<Entity> getEntities()

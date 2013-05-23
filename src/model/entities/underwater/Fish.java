@@ -1,10 +1,12 @@
 package model.entities.underwater;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.Camera;
 import model.entities.Entity;
@@ -12,26 +14,46 @@ import model.entities.Entity;
 public class Fish extends Entity
 {
 	private double baseY;
-	private final static double WIDTH = 60;
-	private final static double HEIGHT = 40;
+	private List<Image> images;
 	
 	public Fish()
 	{
-		super(new Rectangle2D.Double(-WIDTH, 0, WIDTH, HEIGHT));
+		super();
 		
-		setY((baseY = Math.random() * (Camera.VIEW_HEIGHT - HEIGHT * 4) + HEIGHT));
-		setVelocity(new Point2D.Double(Math.random() * 0.2 + 0.01, 0));
+		baseY = Math.random() * (Camera.VIEW_HEIGHT - getDimensions().getHeight() * 4) + getDimensions().getHeight();
+		position.setLocation(0, baseY);
+		velocity = new Point2D.Double(Math.random() * 0.2 + 0.01, 0.0);
 		
-		ArrayList<Image> images = new ArrayList<Image>();
-		images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/blueFish.png"));
-		images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/orangeFish.png"));
-		setImages(images);
+		images = new ArrayList<Image>();
+		
+		if (Math.random() <= 0.5)
+			images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/blueFish.png"));
+		else
+			images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/orangeFish.png"));
 	}
 
 	@Override
 	public void update(double time)
 	{
-		setX(getBounds().getX() + getVelocity().getX() * time);
-		setY(baseY + Math.sin(getBounds().getX() / Camera.VIEW_WIDTH * 2 * Math.PI) * HEIGHT);
+		super.update(time);
+		position.setLocation(position.getX() + velocity.getX() * time, baseY + Math.sin(position.getX() / Camera.VIEW_WIDTH * 2 * Math.PI) * getDimensions().getHeight());
+	}
+
+	@Override
+	public Point2D getRotationPoint()
+	{
+		return new Point2D.Double(0, 0);
+	}
+
+	@Override
+	public Dimension2D getDimensions()
+	{
+		return new Dimension(60, 40);
+	}
+
+	@Override
+	public List<Image> getImages()
+	{
+		return images;
 	}
 }
