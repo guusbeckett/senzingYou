@@ -12,7 +12,7 @@ public class Hardware
 	private static Hardware hardware = null;
 	private Scent scent;
 	private Temperature temperature;
-	private Bubbles bubbles;
+	private boolean bubbles;
 	private SerialPort serialPort;
 	private static final String PORT = "COM3";
 	private OutputStream output;
@@ -32,25 +32,19 @@ public class Hardware
 		initialize();
 	}
 
-	public Bubbles getBubbles()
+	public boolean getBubbles()
 	{
 		return bubbles;
 	}
 
-	public void setBubbles(Bubbles bubbles)
+	public void setBubbles(boolean state)
 	{
-		this.bubbles = bubbles;
-		switch (bubbles)
-		{
-		case OFF:
-			writeToArduino(0x02);
-			break;
-		case ON:
+		this.bubbles = state;
+		
+		if (state)
 			writeToArduino(0x01);
-			break;
-		default:
-			break;
-		}
+		else
+			writeToArduino(0x02);
 	}
 
 	public Scent getScent()
