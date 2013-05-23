@@ -1,12 +1,16 @@
 void setup()
 {
-  pinMode(2, OUTPUT);
+  Serial.begin(9600);
+  pinMode(8, OUTPUT);
 }
 
 void loop()
 {
-  digitalWrite(2, HIGH);
-  delay(25);
-  digitalWrite(2, LOW);
-  delay(10000);
+  if (Serial.available())
+  {
+    int value = Serial.read();
+    
+    if (value == 'M')
+      digitalWrite(8, HIGH);
+  }
 }
