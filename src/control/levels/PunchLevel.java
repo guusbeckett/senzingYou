@@ -52,7 +52,6 @@ public abstract class PunchLevel extends Level
 							it.remove();
 						}
 					}
-					
 				}
 			}
 		}
