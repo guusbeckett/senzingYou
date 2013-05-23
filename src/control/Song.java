@@ -14,6 +14,8 @@ public class Song
 {
 	private int lastCall = 0;
 	private int position = 0;
+	private float maxThreshold;
+	private float minThreshold;
 	private MP3Decoder decoder;
 	private List<List<Float>> thresholds;
 	private static final int HOP_SIZE = 512;
@@ -111,5 +113,29 @@ public class Song
 	public int getTime()
 	{
 		return position;
+	}
+
+	public float getMaxThreshold()
+	{
+		if (!thresholds.isEmpty())
+		{
+			float max = 0;
+			for (int i = 0; i < thresholds.get(0).size(); i++)
+				max = Math.max(thresholds.get(0).get(i), max);
+			maxThreshold = max;
+		}
+		return maxThreshold;
+	}
+
+	public float getMinThreshold()
+	{
+		if (!thresholds.isEmpty())
+		{
+			float min = 0;
+			for (int i = 0; i < thresholds.get(0).size(); i++)
+				min = Math.min(thresholds.get(0).get(i), min);
+			minThreshold = min;
+		}
+		return minThreshold;
 	}
 }
