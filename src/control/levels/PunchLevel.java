@@ -1,6 +1,5 @@
 package control.levels;
 
-import java.awt.geom.Rectangle2D;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,10 +11,14 @@ import model.entities.HostileEntity;
 
 public abstract class PunchLevel extends Level
 {
+	private float minThreshold;
+	private float proportion;
 
 	public PunchLevel(Game game)
 	{
 		super(game);
+		minThreshold = getGame().getSong().getMinThreshold();
+		proportion = getGame().getSong().getMaxThreshold() - minThreshold;
 	}
 
 	@Override
@@ -34,21 +37,23 @@ public abstract class PunchLevel extends Level
 				if (!hostile.isAlive())
 				{
 					it.remove();
-				} 
-				else
+				} else
 				{
 					boolean haveToDelete = false;
 					for (User user : getGame().getCamera().getUsers())
 					{
-						if ((entity.getBounds().getMaxX() < 0 || entity.getBounds().getMaxY() < 0) || (entity.getBounds().getMinX() > Camera.VIEW_WIDTH || entity.getBounds().getMinY() > Camera.VIEW_HEIGHT))
+						if ((entity.getBounds().getMaxX() < 0 || entity
+								.getBounds().getMaxY() < 0)
+								|| (entity.getBounds().getMinX() > Camera.VIEW_WIDTH || entity
+										.getBounds().getMinY() > Camera.VIEW_HEIGHT))
 						{
 							haveToDelete = true;					
 						}
-						else if(	hostile.getBounds().contains(user.getLeftHand()) ||
-							hostile.getBounds().contains(user.getRightHand()))
+						else if (hostile.getBounds().contains(user.getLeftHand())
+								|| hostile.getBounds().contains(user.getRightHand()))
 						{
-							
-							user.setScore(user.getScore()+hostile.getReward());
+
+							user.setScore(user.getScore() + hostile.getReward());
 							haveToDelete = true;
 						}
 					}
@@ -60,15 +65,19 @@ public abstract class PunchLevel extends Level
 			}
 		}
 	}
-	
+
 	public abstract List<Entity> getEntities();
+
 	public abstract List<HostileEntity> getHostileEntities();
-	
+
 	public void spawn(double time)
 	{
 		List<Entity> entities = getEntities();
 		List<HostileEntity> hostiles = getHostileEntities();
-		
-		//TODO: get game, get Song, get time and do your thing!
+
+		// TODO: get game, get Song, get time and do your thing!
+		float currentPerCent = (getGame().getSong().getThreshold() - minThreshold)
+				/ proportion * 100;
+
 	}
 }
