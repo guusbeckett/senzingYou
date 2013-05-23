@@ -11,12 +11,11 @@ import model.entities.underwater.Plant;
 
 public class UnderwaterLevel extends PunchLevel
 {
-
 	public UnderwaterLevel(Game game)
 	{
 		super(game);
 		game.setBackground(Toolkit.getDefaultToolkit().getImage("./images/underwater/background.png"));
-		// TODO Auto-generated constructor stub
+		// TODO change if needed.
 		game.getEntities().add(new Plant());
 		game.getEntities().add(new Plant());
 		game.getEntities().add(new Plant());
@@ -31,7 +30,6 @@ public class UnderwaterLevel extends PunchLevel
 	@Override
 	public Entity getRandomEntity()
 	{
-		// TODO Auto-generated method stub
 		return new Fish();
 	}
 
