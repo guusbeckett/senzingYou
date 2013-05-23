@@ -46,7 +46,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		if (cameraData != null)
 		{
 			g2.drawImage(cameraData.getImage(), null, 0, 0);
-			g2.setColor(Color.RED);
+		/*	g2.setColor(Color.RED);
 			for(User u: game.getCamera().getUsers()){
 
 				if(u.getName() != null){
@@ -56,7 +56,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 					g2.drawString("NoBody: "+u.getScore(), (int)u.getHead().getX(), (int)u.getHead().getY());
 				}
 			}
-			g2.setColor(Color.BLACK);
+			g2.setColor(Color.BLACK);*/
 			
 		}
 				
