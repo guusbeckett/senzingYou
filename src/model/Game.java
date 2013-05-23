@@ -19,7 +19,7 @@ public class Game
 
 	public void clearRoom()
 	{
-
+		entities.clear();
 	}
 
 	public List<Entity> getEntities()
