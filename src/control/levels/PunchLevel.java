@@ -17,8 +17,10 @@ public abstract class PunchLevel extends Level
 	public PunchLevel(Game game)
 	{
 		super(game);
-		minThreshold = getGame().getSong().getMinThreshold();
-		proportion = getGame().getSong().getMaxThreshold() - minThreshold;
+		if(getGame().getSong() != null){
+			minThreshold = getGame().getSong().getMinThreshold();
+			proportion = getGame().getSong().getMaxThreshold() - minThreshold;
+		}
 	}
 
 	@Override
