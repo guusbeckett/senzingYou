@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import model.entities.Entity;
@@ -8,16 +9,18 @@ import model.entities.Entity;
 public class Game
 {
 	private List<Entity> entities;
-	private CameraData cameraData;
+	private Camera camera;
 
 	public Game()
 	{
-		this.entities = new ArrayList<Entity>();
+		this.entities = Collections.synchronizedList(new ArrayList<Entity>());
+		
+		camera = new Camera();
 	}
 
 	public void clearRoom()
 	{
-
+		entities.clear();
 	}
 
 	public List<Entity> getEntities()
@@ -35,13 +38,8 @@ public class Game
 		entities.remove(entity);
 	}
 
-	public CameraData getCameraData()
+	public Camera getCamera()
 	{
-		return cameraData;
-	}
-
-	public void setCameraData(CameraData cameraData)
-	{
-		this.cameraData = cameraData;
+		return camera;
 	}
 }

@@ -1,55 +1,48 @@
 package model.entities.underwater;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import model.CameraData;
+import model.Camera;
 import model.User;
 import model.entities.HostileEntity;
 
 public class HarpoonDiver extends HostileEntity
 {
-
-	private static final int height = 256;
-	private static final int width = 256;
 	private double valueX;
-	private double startX = -width;
-	private double startY = 100;
+	private double startX;
+	private double startY = 80;
 	private boolean directionReversed = false;
 
 	public HarpoonDiver(List<User> users)
 	{
-		// TODO: implement images.
-		super(new Rectangle2D.Double(0, 0, width, height), 100, users);
-		
-		ArrayList<Image> images = new ArrayList<Image>();
-		images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/harpoonDiver.png"));
-		setImages(images);
-		
-		setVelocity(new Point2D.Double(0, 0));
-		setY(80);
+		super(users);
 		Random rand = new Random();
+		
 		switch (rand.nextInt(3))
 		{
 		case 0:
-			setX(-width);
+			startX = -getDimensions().getWidth();
+			startY = 80;
 			break;
 		case 1:
-			setX(CameraData.VIEW_WIDTH);
-			startX = CameraData.VIEW_WIDTH;
+			startX = Camera.VIEW_WIDTH;
 			break;
 		case 2:
-			setX(200);
 			startX = 200;
-			setY(-height);
-			startY = -height;
+			startY = -getDimensions().getHeight();
 			break;
 		}
+		
+		position.setLocation(startX, startY);
+		velocity = new Point2D.Double(0, 0);
+		
 		initJump();
 	}
 	
@@ -59,7 +52,7 @@ public class HarpoonDiver extends HostileEntity
 		{
 			Point2D userP = users.get(0).getMidpoint();
 			
-			directionReversed = (getBounds().getCenterX() > userP.getX());
+			directionReversed = (position.getX() > userP.getX());
 			//System.out.println(directionReversed);
 			valueX = (directionReversed) ? 3 : -3;
 		}
@@ -76,20 +69,45 @@ public class HarpoonDiver extends HostileEntity
 				double valueY = valueX * valueX;
 
 				double x = valueX * 50 / 3 + startX;
-//				if (getBounds().getCenterX() > userP.getX())
-//					x = (3 - valueX) * 50 / 3 + startX;
 				double y = valueY * 100 / 9 + startY;
 
-				if (y >= CameraData.VIEW_HEIGHT - height)
+				if (y >= Camera.VIEW_HEIGHT - getDimensions().getHeight())
 				{
 					initJump();
-					startX = getBounds().getX() - valueX * 50/3;
+					startX = position.getX() - valueX * 50/3;
 					startY = 130;
 				}
 				
-				setX(x);
-				setY(y);
+				position.setLocation(x, y);
 			}
 		}
+	}
+
+	@Override
+	public int getReward()
+	{
+		return 100;
+	}
+
+	@Override
+	public Point2D getRotationPoint()
+	{
+		return new Point2D.Double(0, 0);
+	}
+
+	@Override
+	public Dimension2D getDimensions()
+	{
+		return new Dimension(256, 256);
+	}
+
+	@Override
+	public List<Image> getImages()
+	{	
+		ArrayList<Image> images = new ArrayList<Image>();
+		
+		images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/harpoonDiver.png"));
+		
+		return images;
 	}
 }

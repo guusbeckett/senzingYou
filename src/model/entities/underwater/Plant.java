@@ -1,44 +1,55 @@
 package model.entities.underwater;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.List;
 
-import model.CameraData;
+import model.Camera;
 import model.entities.Entity;
 
 public class Plant extends Entity
 {
-
-	private final static double  WIDTH = 30;
-	private final static double  HEIGTH = 150;
-	private double degrees;
 	private int counter;
 	private double waveSpeed;
 	
 	public Plant()
 	{
-		super(new Rectangle2D.Double(0, 0, WIDTH, HEIGTH));
+		super();
 		
-		ArrayList<Image> images = new ArrayList<Image>();
-		images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/seaweed.png"));
-		setImages(images);
-		
-		setX(Math.random() * (CameraData.VIEW_WIDTH - 20) + 1);
-		setY(CameraData.VIEW_HEIGHT);
-		setRotationPoint(new Point2D.Double(WIDTH/2,0));
-		waveSpeed=(Math.random() * (1.1 - 1) + 1);
+		position.setLocation(Math.random() * (Camera.VIEW_WIDTH - 20) + 1, Camera.VIEW_HEIGHT);
+		waveSpeed = (Math.random() * (1.1 - 1) + 1);
 	}
 	
 	public void update(double time)
 	{
-		counter++;
-		degrees=Math.sin(Math.toRadians(counter*waveSpeed));
-		degrees/=2;
-		degrees+=3;
-		setRotation(degrees);
+		super.update(time);
+		rotation = Math.sin(Math.toRadians((counter++)*waveSpeed)) / 2 + 3;
+	}
+
+	@Override
+	public Point2D getRotationPoint()
+	{
+		return new Point2D.Double(getDimensions().getWidth()/2,0);
+	}
+
+	@Override
+	public Dimension2D getDimensions()
+	{
+		return new Dimension(30, 150);
+	}
+
+	@Override
+	public List<Image> getImages()
+	{
+		ArrayList<Image> images = new ArrayList<Image>();
+		
+		images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/seaweed.png"));
+		
+		return images;
 	}
 
 }
