@@ -1,7 +1,6 @@
 package control.levels;
 
 import java.awt.Toolkit;
-import java.util.List;
 
 import model.Game;
 import model.entities.Entity;
@@ -26,28 +25,19 @@ public class UnderwaterLevel extends PunchLevel
 	
 	public void update(double time)
 	{
-		super.update(time);
-		if((int)(Math.random() * time) == 1){
-			getGame().getEntities().add(new Fish());
-		}
-		if((int)(Math.random() * (time * 1.5)) == 1){
-			getGame().getEntities().add(new HarpoonDiver(getGame().getCamera().getUsers()));
-		}
-		
+		super.update(time);		
 	}
 
 	@Override
-	public List<Entity> getEntities()
+	public Entity getRandomEntity()
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return new Fish();
 	}
 
 	@Override
-	public List<HostileEntity> getHostileEntities()
+	public HostileEntity getRandomHostileEntity()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new HarpoonDiver(getGame().getCamera().getUsers());
 	}
-
 }
