@@ -15,12 +15,10 @@ import model.entities.HostileEntity;
 public class Rock extends HostileEntity
 {
 	private int size;
-	private int xLocation = (int) (Math.random() * (Camera.VIEW_WIDTH - 1) + 1);
-	private int yLocation; 
 	public Rock(List<User> users)
 	{
 		super(users);
-		position.setLocation(xLocation, 0);
+		position.setLocation((Math.random() * (Camera.VIEW_WIDTH - 1) + 1), 0);
 		size = (int) (Math.random() * (80 - 50) + 50);
 	}
 
@@ -50,8 +48,8 @@ public class Rock extends HostileEntity
 	public void update(double time)
 	{
 		super.update(time);	
-		yLocation += (int) (1/2 * 10 * Math.pow(time, 2));
-		position.setLocation(xLocation, yLocation);
+		double yLocation = position.getY() + (0.5 * 10);
+		position.setLocation(position.getX(), yLocation);
 	}
 
 	@Override

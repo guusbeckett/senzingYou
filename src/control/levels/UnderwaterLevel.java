@@ -1,5 +1,7 @@
 package control.levels;
 
+import java.awt.Toolkit;
+
 import model.Game;
 import model.entities.underwater.Fish;
 import model.entities.underwater.Plant;
@@ -11,6 +13,7 @@ public class UnderwaterLevel extends PunchLevel
 	public UnderwaterLevel(Game game)
 	{
 		super(game);
+		game.setBackground(Toolkit.getDefaultToolkit().getImage("./images/underwater/background.png"));
 		// TODO Auto-generated constructor stub
 		game.getEntities().add(new Plant());
 		game.getEntities().add(new Plant());

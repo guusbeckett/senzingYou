@@ -13,12 +13,10 @@ import model.entities.Entity;
 
 public class Droplet extends Entity
 {
-	int xLocation = (int) (Math.random() * (Camera.VIEW_WIDTH - 1) + 1);
-	int yLocation; 
 	public Droplet()
 	{
 		super();
-		position.setLocation(xLocation, 0);	
+		position.setLocation((Math.random() * (Camera.VIEW_WIDTH - 1) + 1), 0);
 	}
 
 	@Override
@@ -47,8 +45,8 @@ public class Droplet extends Entity
 	public void update(double time)
 	{
 		super.update(time);	
-		yLocation += (int) (1/2 * 10 * Math.pow(time, 2));
-		position.setLocation(xLocation, yLocation);
+		double yLocation = position.getY() + (0.5 * 10);
+		position.setLocation(position.getX(), yLocation);
 	}
 
 }

@@ -284,7 +284,7 @@ public class Camera
 			
 			Recognition recog = new Recognition(leftHandElbow, rightHandElbow, leftElbowShoulder, rightElbowShoulder, leftFootKnee, rightFootKnee, leftKneeHip, rightKneeHip, shoulder, "Scanner");			
 			
-			System.out.println(recog);
+			//System.out.println(recog);
 			
 			ArrayList<Recognition> recogs = new ArrayList<Recognition>();
 			recogs.add(new Recognition(387.156991895671, 362.86219911934603, 289.9022489645288, 247.87892129539745, 400.89900908176656, 400.89901113437736, 416.93502701957476, 416.93500264395664, 219.95290085537002, "Guus"));
@@ -297,7 +297,7 @@ public class Camera
 			for(Recognition r: recogs){
 				double dif = r.totalDif(recog);
 				
-				System.out.println(dif);
+				//System.out.println(r.getName()+": "+dif);
 				
 				if(dif < lowestAllowed){
 					user.setName(r.getName());
