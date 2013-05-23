@@ -1,7 +1,5 @@
 package control.levels;
 
-import java.util.List;
-
 import model.Game;
 import model.entities.Entity;
 import model.entities.HostileEntity;
@@ -16,17 +14,16 @@ public class SkyLevel extends PunchLevel
 	}
 
 	@Override
-	public List<Entity> getEntities()
+	public Entity getRandomEntity()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<HostileEntity> getHostileEntities()
+	public HostileEntity getRandomHostileEntity()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
