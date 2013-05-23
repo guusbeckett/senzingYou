@@ -61,6 +61,16 @@ public class Song
 					multiplier).calculate(spectralFlux.get(i));
 			thresholds.add(threshold);
 		}
+		
+		float min = 0;
+		float max = 0;
+		for (int i = 0; i < thresholds.get(0).size(); i++)
+		{
+			min = Math.min(thresholds.get(0).get(i), min);
+			max = Math.max(thresholds.get(0).get(i), max);
+		}
+		minThreshold = min;
+		maxThreshold = max;
 	}
 
 	public void play() throws InterruptedException, Exception
@@ -117,25 +127,11 @@ public class Song
 
 	public float getMaxThreshold()
 	{
-		if (!thresholds.isEmpty())
-		{
-			float max = 0;
-			for (int i = 0; i < thresholds.get(0).size(); i++)
-				max = Math.max(thresholds.get(0).get(i), max);
-			maxThreshold = max;
-		}
 		return maxThreshold;
 	}
 
 	public float getMinThreshold()
 	{
-		if (!thresholds.isEmpty())
-		{
-			float min = 0;
-			for (int i = 0; i < thresholds.get(0).size(); i++)
-				min = Math.min(thresholds.get(0).get(i), min);
-			minThreshold = min;
-		}
 		return minThreshold;
 	}
 }
