@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import model.CameraData;
+import model.Camera;
 import model.User;
 import model.entities.HostileEntity;
 
@@ -40,8 +40,8 @@ public class HarpoonDiver extends HostileEntity
 			setX(-width);
 			break;
 		case 1:
-			setX(CameraData.VIEW_WIDTH);
-			startX = CameraData.VIEW_WIDTH;
+			setX(Camera.VIEW_WIDTH);
+			startX = Camera.VIEW_WIDTH;
 			break;
 		case 2:
 			setX(200);
@@ -80,7 +80,7 @@ public class HarpoonDiver extends HostileEntity
 //					x = (3 - valueX) * 50 / 3 + startX;
 				double y = valueY * 100 / 9 + startY;
 
-				if (y >= CameraData.VIEW_HEIGHT - height)
+				if (y >= Camera.VIEW_HEIGHT - height)
 				{
 					initJump();
 					startX = getBounds().getX() - valueX * 50/3;

@@ -11,7 +11,7 @@ import java.awt.geom.AffineTransform;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import model.CameraData;
+import model.Camera;
 import model.Game;
 import model.entities.Entity;
 
@@ -32,12 +32,12 @@ public class SenzingPanel extends JPanel implements ActionListener
 	{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
-		double scaleFactor = (double)getHeight() / (double)CameraData.VIEW_HEIGHT;
+		double scaleFactor = (double)getHeight() / (double)Camera.VIEW_HEIGHT;
 		
-		g2.translate((getWidth() - (CameraData.VIEW_WIDTH * scaleFactor)) / 2, 0);
+		g2.translate((getWidth() - (Camera.VIEW_WIDTH * scaleFactor)) / 2, 0);
 		g2.scale(scaleFactor, scaleFactor);
 		
-		CameraData cameraData = game.getCameraData();
+		Camera cameraData = game.getCamera();
 		
 		//This background is purelly for the test purpuse.
 		g2.drawImage(Toolkit.getDefaultToolkit().getImage("./images/underwater/background.png"), 0, 0, null);
