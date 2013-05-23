@@ -11,8 +11,10 @@ import model.entities.HostileEntity;
 
 public abstract class PunchLevel extends Level
 {
-	private float minThreshold;
 	private float proportion;
+	private float minThreshold;
+	private int lastSpawnedHostile = 0;
+	private int lastSpawned = 0;
 
 	public PunchLevel(Game game)
 	{
@@ -63,18 +65,45 @@ public abstract class PunchLevel extends Level
 		}
 	}
 
-	public abstract List<Entity> getEntities();
+	public abstract Entity getRandomEntity();
 
-	public abstract List<HostileEntity> getHostileEntities();
+	public abstract HostileEntity getRandomHostileEntity();
 
 	public void spawn(double time)
 	{
-		List<Entity> entities = getEntities();
-		List<HostileEntity> hostiles = getHostileEntities();
+		// TODO: choose whether or not to spawn new entities
+		float current = (getGame().getSong().getThreshold() - minThreshold)
+				/ proportion;
 
-		// TODO: get game, get Song, get time and do your thing!
-		float currentPerCent = (getGame().getSong().getThreshold() - minThreshold)
-				/ proportion * 100;
+//		if (lastSpawnedHostile > ((1 / current) * 10))
+//		{
+//			getGame().getEntities().add(getRandomHostileEntity());
+//			lastSpawnedHostile = 0;
+//		} else
+//			lastSpawnedHostile += time;
+
+		if (current > 0.9 && lastSpawnedHostile > 100)
+		{
+			getGame().getEntities().add(getRandomHostileEntity());
+			lastSpawnedHostile = 0;
+		} else if (current > 0.7 && lastSpawnedHostile > 400)
+		{
+			getGame().getEntities().add(getRandomHostileEntity());
+			lastSpawnedHostile = 0;
+		} else if (current > 0.5 && lastSpawnedHostile > 950)
+		{
+			getGame().getEntities().add(getRandomHostileEntity());
+			lastSpawnedHostile = 0;
+		} else if (current > 0.2 && lastSpawnedHostile > 1900)
+		{
+			getGame().getEntities().add(getRandomHostileEntity());
+			lastSpawnedHostile = 0;
+		} else if (current > 0 && lastSpawnedHostile > 3500)
+		{
+			getGame().getEntities().add(getRandomHostileEntity());
+			lastSpawnedHostile = 0;
+		} else
+			lastSpawnedHostile += time;
 
 	}
 }
