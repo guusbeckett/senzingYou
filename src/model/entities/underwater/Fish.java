@@ -8,7 +8,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.CameraData;
+import model.Camera;
 import model.entities.Entity;
 
 public class Fish extends Entity
@@ -19,7 +19,7 @@ public class Fish extends Entity
 	{
 		super();
 		
-		baseY = Math.random() * (CameraData.VIEW_HEIGHT - getDimensions().getHeight() * 4) + getDimensions().getHeight();
+		baseY = Math.random() * (Camera.VIEW_HEIGHT - getDimensions().getHeight() * 4) + getDimensions().getHeight();
 		position.setLocation(0, baseY);
 		velocity = new Point2D.Double(Math.random() * 0.2 + 0.01, 0.0);
 	}
@@ -28,7 +28,7 @@ public class Fish extends Entity
 	public void update(double time)
 	{
 		super.update(time);
-		position.setLocation(position.getX() + velocity.getX() * time, baseY + Math.sin(position.getX() / CameraData.VIEW_WIDTH * 2 * Math.PI) * getDimensions().getHeight());
+		position.setLocation(position.getX() + velocity.getX() * time, baseY + Math.sin(position.getX() / Camera.VIEW_WIDTH * 2 * Math.PI) * getDimensions().getHeight());
 	}
 
 	@Override

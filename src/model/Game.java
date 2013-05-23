@@ -8,11 +8,13 @@ import model.entities.Entity;
 public class Game
 {
 	private List<Entity> entities;
-	private CameraData cameraData;
+	private Camera camera;
 
 	public Game()
 	{
 		this.entities = new ArrayList<Entity>();
+		
+		camera = new Camera();
 	}
 
 	public void clearRoom()
@@ -35,13 +37,8 @@ public class Game
 		entities.remove(entity);
 	}
 
-	public CameraData getCameraData()
+	public Camera getCamera()
 	{
-		return cameraData;
-	}
-
-	public void setCameraData(CameraData cameraData)
-	{
-		this.cameraData = cameraData;
+		return camera;
 	}
 }

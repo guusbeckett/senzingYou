@@ -4,7 +4,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.Iterator;
 import java.util.List;
 
-import model.CameraData;
+import model.Camera;
 import model.Game;
 import model.User;
 import model.entities.Entity;
@@ -35,14 +35,14 @@ public class PunchLevel extends Level
 				{
 					Rectangle2D bounds = entity.getBounds();
 					if ((bounds.getMaxX() < 0 || bounds.getMaxY() < 0)
-							|| (bounds.getMinX() > CameraData.VIEW_WIDTH || bounds
-									.getMinY() > CameraData.VIEW_HEIGHT))
+							|| (bounds.getMinX() > Camera.VIEW_WIDTH || bounds
+									.getMinY() > Camera.VIEW_HEIGHT))
 						it.remove();
 				} 
 				else
 				{
 					
-					for (User user : game.getCameraData().getUsers())
+					for (User user : game.getCamera().getUsers())
 					{
 						// TODO: check collision with hands
 						if(	hostile.getBounds().contains(user.getLeftHand()) ||

@@ -8,7 +8,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.CameraData;
+import model.Camera;
 import model.entities.Entity;
 
 public class Plant extends Entity
@@ -20,7 +20,7 @@ public class Plant extends Entity
 	{
 		super();
 		
-		position.setLocation(Math.random() * (CameraData.VIEW_WIDTH - 20) + 1, CameraData.VIEW_HEIGHT);
+		position.setLocation(Math.random() * (Camera.VIEW_WIDTH - 20) + 1, Camera.VIEW_HEIGHT);
 		waveSpeed = (Math.random() * (1.1 - 1) + 1);
 	}
 	

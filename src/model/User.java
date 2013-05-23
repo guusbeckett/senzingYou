@@ -201,16 +201,6 @@ public class User
 		this.midpoint = midpoint;
 	}
 
-	public Point2D getHandExact()
-	{
-		return handExact;
-	}
-
-	public void setHandExact(Point2D handExact)
-	{
-		this.handExact = handExact;
-	}
-
 	public Point3D getRightHandWorld()
 	{
 		return rightHandWorld;
