@@ -48,8 +48,7 @@ public class Rock extends HostileEntity
 	public void update(double time)
 	{
 		super.update(time);	
-		double yLocation = position.getY() + (0.5 * 10);
-		position.setLocation(position.getX(), yLocation);
+		position.setLocation(position.getX(), position.getY()+5);
 	}
 
 	@Override
