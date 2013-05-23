@@ -27,7 +27,8 @@ public abstract class PunchLevel extends Level
 	public void update(double time)
 	{
 		super.update(time);
-
+		spawn(time);
+		
 		List<Entity> entities = getGame().getEntities();
 		Iterator<Entity> it = entities.iterator();
 		while (it.hasNext())
@@ -49,18 +50,20 @@ public abstract class PunchLevel extends Level
 								|| (entity.getBounds().getMinX() > Camera.VIEW_WIDTH || entity
 										.getBounds().getMinY() > Camera.VIEW_HEIGHT))
 						{
-							haveToDelete = true;					
-						}
-						else if (hostile.getBounds().contains(user.getLeftHand())
-								|| hostile.getBounds().contains(user.getRightHand()))
+							haveToDelete = true;
+						} else if (hostile.getBounds().contains(
+								user.getLeftHand())
+								|| hostile.getBounds().contains(
+										user.getRightHand()))
 						{
 
 							user.setScore(user.getScore() + hostile.getReward());
 							haveToDelete = true;
 						}
 					}
-					
-					if(haveToDelete){
+
+					if (haveToDelete)
+					{
 						it.remove();
 					}
 				}
@@ -74,39 +77,24 @@ public abstract class PunchLevel extends Level
 
 	public void spawn(double time)
 	{
-		// TODO: choose whether or not to spawn new entities
 		float current = (getGame().getSong().getThreshold() - minThreshold)
 				/ proportion;
 
-//		if (lastSpawnedHostile > ((1 / current) * 10))
-//		{
-//			getGame().getEntities().add(getRandomHostileEntity());
-//			lastSpawnedHostile = 0;
-//		} else
-//			lastSpawnedHostile += time;
-
-		if (current > 0.9 && lastSpawnedHostile > 100)
+		if (current != 0)
 		{
-			getGame().getEntities().add(getRandomHostileEntity());
-			lastSpawnedHostile = 0;
-		} else if (current > 0.7 && lastSpawnedHostile > 400)
-		{
-			getGame().getEntities().add(getRandomHostileEntity());
-			lastSpawnedHostile = 0;
-		} else if (current > 0.5 && lastSpawnedHostile > 950)
-		{
-			getGame().getEntities().add(getRandomHostileEntity());
-			lastSpawnedHostile = 0;
-		} else if (current > 0.2 && lastSpawnedHostile > 1900)
-		{
-			getGame().getEntities().add(getRandomHostileEntity());
-			lastSpawnedHostile = 0;
-		} else if (current > 0 && lastSpawnedHostile > 3500)
-		{
-			getGame().getEntities().add(getRandomHostileEntity());
-			lastSpawnedHostile = 0;
-		} else
-			lastSpawnedHostile += time;
-
+			if (lastSpawnedHostile > (100 / (current * current * current)))
+			{
+				getGame().getEntities().add(getRandomHostileEntity());
+				lastSpawnedHostile = 0;
+			} else
+				lastSpawnedHostile += time;
+			
+			if(lastSpawned > 100 / current)
+			{
+				getGame().getEntities().add(getRandomEntity());
+				lastSpawned = 0;
+			} else
+				lastSpawned += time;
+		}
 	}
 }
