@@ -55,7 +55,7 @@ public class Rock extends HostileEntity
 	@Override
 	public int getReward()
 	{
-		return 50;
+		return -50;
 	}
 
 }

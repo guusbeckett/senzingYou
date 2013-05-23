@@ -33,24 +33,24 @@ public abstract class PunchLevel extends Level
 				HostileEntity hostile = (HostileEntity) entity;
 				if (!hostile.isAlive())
 				{
-					Rectangle2D bounds = entity.getBounds();
-					if ((bounds.getMaxX() < 0 || bounds.getMaxY() < 0)
-							|| (bounds.getMinX() > Camera.VIEW_WIDTH || bounds
-									.getMinY() > Camera.VIEW_HEIGHT))
-						it.remove();
+					it.remove();
 				} 
 				else
 				{
 					
 					for (User user : getGame().getCamera().getUsers())
 					{
-						// TODO: check collision with hands
-						if(	hostile.getBounds().contains(user.getLeftHand()) ||
-							hostile.getBounds().contains(user.getRightHand())){
+						if ((entity.getBounds().getMaxX() < 0 || entity.getBounds().getMaxY() < 0) || (entity.getBounds().getMinX() > Camera.VIEW_WIDTH || entity.getBounds().getMinY() > Camera.VIEW_HEIGHT))
+						{
+							it.remove();						
+						}
+						else if(	hostile.getBounds().contains(user.getLeftHand()) ||
+							hostile.getBounds().contains(user.getRightHand()))
+						{
+							
 							user.setScore(user.getScore()+hostile.getReward());
 							it.remove();
 						}
-						// TODO: collision with other parts
 					}
 				}
 			}
