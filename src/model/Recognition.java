@@ -108,26 +108,16 @@ public class Recognition
 
 	public double totalDif(Recognition r){
 		double totalDif = 0;
-		totalDif += getShoulder() - r.getShoulder();
-		totalDif = Math.abs(totalDif);
-		totalDif += getLeftElbowShoulder() - r.getLeftElbowShoulder();
-		totalDif = Math.abs(totalDif);
-		totalDif += getRightElbowShoulder() - r.getRightElbowShoulder();
-		totalDif = Math.abs(totalDif);
-		totalDif += getLeftFootKnee() - r.getLeftFootKnee();
-		totalDif = Math.abs(totalDif);
-		totalDif += getRightFootKnee() - r.getRightFootKnee();
-		totalDif = Math.abs(totalDif);
-		totalDif += getLeftKneeHip() - r.getLeftKneeHip();
-		totalDif = Math.abs(totalDif);
-		totalDif += getRightKneeHip() - r.getRightKneeHip();
-		totalDif = Math.abs(totalDif);
-		totalDif += getLeftHandElbow() - r.getLeftHandElbow();
-		totalDif = Math.abs(totalDif);
-		totalDif += getRightHandElbow() - r.getRightHandElbow();
-		totalDif = Math.abs(totalDif);
-		totalDif += getShoulder() - r.getShoulder();
-		totalDif = Math.abs(totalDif);
+		totalDif += Math.abs(getShoulder() - r.getShoulder());
+		totalDif += Math.abs(getLeftElbowShoulder() - r.getLeftElbowShoulder());
+		totalDif += Math.abs(getRightElbowShoulder() - r.getRightElbowShoulder());
+		totalDif += Math.abs(getLeftFootKnee() - r.getLeftFootKnee());
+		totalDif += Math.abs(getRightFootKnee() - r.getRightFootKnee());
+		totalDif += Math.abs(getLeftKneeHip() - r.getLeftKneeHip());
+		totalDif += Math.abs(getRightKneeHip() - r.getRightKneeHip());
+		totalDif += Math.abs(getLeftHandElbow() - r.getLeftHandElbow());
+		totalDif += Math.abs(getRightHandElbow() - r.getRightHandElbow());
+		totalDif += Math.abs(getShoulder() - r.getShoulder());
 		return totalDif;
 				
 	}
@@ -153,13 +143,15 @@ public class Recognition
 	@Override
 	public String toString()
 	{
-		return "Recognition [leftHandElbow=" + leftHandElbow
+		String addClass = "recogs.add(new Recognition("+leftHandElbow+", "+rightHandElbow+", "+leftElbowShoulder+", "+rightElbowShoulder+", "+leftFootKnee+", "+rightFootKnee+", "+leftKneeHip+", "+rightKneeHip+", "+shoulder+", \"Scan Name\"));";
+		String toString = "Recognition [leftHandElbow=" + leftHandElbow
 				+ ", rightHandElbow=" + rightHandElbow + ", leftElbowShoulder="
 				+ leftElbowShoulder + ", rightElbowShoulder="
 				+ rightElbowShoulder + ", leftFootKnee=" + leftFootKnee
 				+ ", rightFootKnee=" + rightFootKnee + ", leftKneeHip="
 				+ leftKneeHip + ", rightKneeHip=" + rightKneeHip
 				+ ", shoulder=" + shoulder + ", name=" + name + "]";
+		return addClass;
 	}
 	
 	

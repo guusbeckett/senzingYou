@@ -13,6 +13,7 @@ import javax.swing.Timer;
 
 import model.Camera;
 import model.Game;
+import model.User;
 import model.entities.Entity;
 
 public class SenzingPanel extends JPanel implements ActionListener
@@ -45,6 +46,17 @@ public class SenzingPanel extends JPanel implements ActionListener
 		if (cameraData != null)
 		{
 			g2.drawImage(cameraData.getImage(), null, 0, 0);
+			g2.setColor(Color.RED);
+			for(User u: game.getCamera().getUsers()){
+				if(u.getName() != null){
+					g2.drawString("Naam: "+u.getName(), (int)u.getHead().getX(), (int)u.getHead().getY());
+				}
+				else{
+					g2.drawString("NoBody", (int)u.getHead().getX(), (int)u.getHead().getY());
+				}
+			}
+			g2.setColor(Color.BLACK);
+			
 		}
 				
 		for (Entity entity : game.getEntities())
