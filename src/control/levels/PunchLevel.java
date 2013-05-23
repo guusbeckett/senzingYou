@@ -10,7 +10,7 @@ import model.User;
 import model.entities.Entity;
 import model.entities.HostileEntity;
 
-public class PunchLevel extends Level
+public abstract class PunchLevel extends Level
 {
 
 	public PunchLevel(Game game)
@@ -23,7 +23,7 @@ public class PunchLevel extends Level
 	{
 		super.update(time);
 
-		List<Entity> entities = game.getEntities();
+		List<Entity> entities = getGame().getEntities();
 		Iterator<Entity> it = entities.iterator();
 		while (it.hasNext())
 		{
@@ -33,28 +33,38 @@ public class PunchLevel extends Level
 				HostileEntity hostile = (HostileEntity) entity;
 				if (!hostile.isAlive())
 				{
-					Rectangle2D bounds = entity.getBounds();
-					if ((bounds.getMaxX() < 0 || bounds.getMaxY() < 0)
-							|| (bounds.getMinX() > Camera.VIEW_WIDTH || bounds
-									.getMinY() > Camera.VIEW_HEIGHT))
-						it.remove();
+					it.remove();
 				} 
 				else
 				{
 					
-					for (User user : game.getCamera().getUsers())
+					for (User user : getGame().getCamera().getUsers())
 					{
-						// TODO: check collision with hands
-						if(	hostile.getBounds().contains(user.getLeftHand()) ||
-							hostile.getBounds().contains(user.getRightHand())){
+						if ((entity.getBounds().getMaxX() < 0 || entity.getBounds().getMaxY() < 0) || (entity.getBounds().getMinX() > Camera.VIEW_WIDTH || entity.getBounds().getMinY() > Camera.VIEW_HEIGHT))
+						{
+							it.remove();						
+						}
+						else if(	hostile.getBounds().contains(user.getLeftHand()) ||
+							hostile.getBounds().contains(user.getRightHand()))
+						{
+							
 							user.setScore(user.getScore()+hostile.getReward());
 							it.remove();
 						}
-						// TODO: collision with other parts
 					}
-					
 				}
 			}
 		}
+	}
+	
+	public abstract List<Entity> getEntities();
+	public abstract List<HostileEntity> getHostileEntities();
+	
+	public void spawn(double time)
+	{
+		List<Entity> entities = getEntities();
+		List<HostileEntity> hostiles = getHostileEntities();
+		
+		//TODO: get game, get Song, get time and do your thing!
 	}
 }
