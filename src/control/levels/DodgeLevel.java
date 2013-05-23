@@ -44,10 +44,8 @@ public class DodgeLevel extends Level
 						{
 							it.remove();						
 						}
-						else if(	hostile.getBounds().contains(user.getLeftHand()) ||
-							hostile.getBounds().contains(user.getRightHand()))
+						else if(user.getUserPixels().getData().readPixel((int)entity.getPosition().getX(), (int)entity.getPosition().getY()) != 0)
 						{
-							
 							user.setScore(user.getScore()+hostile.getReward());
 							it.remove();
 						}
