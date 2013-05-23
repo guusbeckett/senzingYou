@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,11 +11,12 @@ public class Game
 {
 	private List<Entity> entities;
 	private Camera camera;
+	private Image background;
 
 	public Game()
 	{
 		this.entities = Collections.synchronizedList(new ArrayList<Entity>());
-		
+		background = null;
 		camera = new Camera();
 	}
 
@@ -41,5 +43,15 @@ public class Game
 	public Camera getCamera()
 	{
 		return camera;
+	}
+
+	public Image getBackground()
+	{
+		return background;
+	}
+
+	public void setBackground(Image background)
+	{
+		this.background = background;
 	}
 }

@@ -41,7 +41,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		Camera cameraData = game.getCamera();
 		
 		//This background is purelly for the test purpuse.
-		g2.drawImage(Toolkit.getDefaultToolkit().getImage("./images/underwater/background.png"), 0, 0, null);
+		g2.drawImage(game.getBackground(), 0, 0, null);
 		
 		if (cameraData != null)
 		{
