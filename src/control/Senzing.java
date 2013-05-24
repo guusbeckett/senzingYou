@@ -15,5 +15,4 @@ public class Senzing
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		ge.getDefaultScreenDevice().setFullScreenWindow(new SenzingFrame(game));
 	}
-
 }
