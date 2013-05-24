@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Image;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +20,6 @@ public class Game
 	{
 		this.entities = Collections.synchronizedList(new ArrayList<Entity>());
 		background = null;
-		song = null;
 		camera = new Camera();
 	}
 
