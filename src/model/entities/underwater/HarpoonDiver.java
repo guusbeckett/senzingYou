@@ -23,43 +23,30 @@ public class HarpoonDiver extends HostileEntity
 	private double startY = 80;
 
 	private double jumpX, jumpY;
-	private final Point2D gravity = new Point2D.Double(0, 9.81);;
+	private final Point2D gravity = new Point2D.Double(0, 0.4);
 
 	public HarpoonDiver(List<User> users)
 	{
 		super(users);
 		Random rand = new Random();
-
-		switch (rand.nextInt(3))
-		{
-		case 0:
-			startX = -getDimensions().getWidth();
-			startY = 80;
-			break;
-		case 1:
-			startX = Camera.VIEW_WIDTH;
-			break;
-		case 2:
-			startX = 200;
-			startY = -getDimensions().getHeight();
-			break;
-		}
+		startX = rand.nextInt(Camera.VIEW_WIDTH);
+		startY = -getDimensions().getHeight();
+		jumpX = 1;
 		position.setLocation(startX, startY);
 		velocity = new Point2D.Double(0, 0);
-
-		// initJump();
 	}
 
 	private void initJump()
 	{
 		if (!users.isEmpty())
 		{
-			Point2D userP = users.get(0).getMidpoint();
+			Random rd = new Random();
+			Point2D userP = users.get(rd.nextInt(users.size())).getMidpoint();
 			if (position.getX() < userP.getX())
-				jumpX = 100;
+				jumpX = 5;
 			else
-				jumpX = -100;
-			jumpY = -100;
+				jumpX = -5;
+			jumpY = -25;
 		}
 	}
 
@@ -70,15 +57,15 @@ public class HarpoonDiver extends HostileEntity
 			Point2D userP = users.get(0).getMidpoint();
 			if (userP != null)
 			{
-				if (jumpX < 0)
-					jumpX += time * 5;
-				else
-					jumpX -= time * 5;
-				jumpY -= time * 0.5 + gravity.getY() * time;
-				position = new Point2D.Double(position.getX() + jumpX,
-						position.getY() + jumpY);
-				if (position.getY() >= Camera.VIEW_HEIGHT)
+				jumpY += time / 30 + gravity.getY() * time / 30;
+				position = new Point2D.Double(position.getX() + jumpX * time
+						/ 30, position.getY() + jumpY);
+				if (position.getY() >= Camera.VIEW_HEIGHT - 80)
+				{
 					initJump();
+					System.out.println("JUMP! " + position.getX() + ", "
+							+ position.getY());
+				}
 			}
 		}
 	}
@@ -98,7 +85,7 @@ public class HarpoonDiver extends HostileEntity
 	@Override
 	public Dimension2D getDimensions()
 	{
-		return new Dimension(256, 256);
+		return new Dimension(50, 50);
 	}
 
 	@Override
@@ -111,15 +98,17 @@ public class HarpoonDiver extends HostileEntity
 
 		return images;
 	}
-	
+
 	@Override
-	public AudioInputStream getSound() throws UnsupportedAudioFileException, IOException
+	public AudioInputStream getSound() throws UnsupportedAudioFileException,
+			IOException
 	{
 		return null;
 	}
-	
+
 	@Override
-	public AudioInputStream getHitSound() throws UnsupportedAudioFileException, IOException
+	public AudioInputStream getHitSound() throws UnsupportedAudioFileException,
+			IOException
 	{
 		return null;
 	}
