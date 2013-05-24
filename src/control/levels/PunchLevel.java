@@ -1,6 +1,5 @@
 package control.levels;
 
-import java.awt.geom.Rectangle2D;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,20 +9,29 @@ import model.User;
 import model.entities.Entity;
 import model.entities.HostileEntity;
 
-public class PunchLevel extends Level
+public abstract class PunchLevel extends Level
 {
+	private float proportion;
+	private float minThreshold;
+	private int lastSpawnedHostile = 0;
+	private int lastSpawned = 0;
 
 	public PunchLevel(Game game)
 	{
 		super(game);
+		if(getGame().getSong() != null){
+			minThreshold = getGame().getSong().getMinThreshold();
+			proportion = getGame().getSong().getMaxThreshold() - minThreshold;
+		}
 	}
 
 	@Override
 	public void update(double time)
 	{
 		super.update(time);
-
-		List<Entity> entities = game.getEntities();
+		spawn(time);
+		
+		List<Entity> entities = getGame().getEntities();
 		Iterator<Entity> it = entities.iterator();
 		while (it.hasNext())
 		{
@@ -33,28 +41,62 @@ public class PunchLevel extends Level
 				HostileEntity hostile = (HostileEntity) entity;
 				if (!hostile.isAlive())
 				{
-					Rectangle2D bounds = entity.getBounds();
-					if ((bounds.getMaxX() < 0 || bounds.getMaxY() < 0)
-							|| (bounds.getMinX() > Camera.VIEW_WIDTH || bounds
-									.getMinY() > Camera.VIEW_HEIGHT))
-						it.remove();
-				} 
-				else
+					it.remove();
+				} else
 				{
-					
-					for (User user : game.getCamera().getUsers())
+					boolean haveToDelete = false;
+					for (User user : getGame().getCamera().getUsers())
 					{
-						// TODO: check collision with hands
-						if(	hostile.getBounds().contains(user.getLeftHand()) ||
-							hostile.getBounds().contains(user.getRightHand())){
-							user.setScore(user.getScore()+hostile.getReward());
-							it.remove();
+						if ((entity.getBounds().getMaxX() < 0 || entity
+								.getBounds().getMaxY() < 0)
+								|| (entity.getBounds().getMinX() > Camera.VIEW_WIDTH || entity
+										.getBounds().getMinY() > Camera.VIEW_HEIGHT))
+						{
+							haveToDelete = true;
+						} else if (hostile.getBounds().contains(
+								user.getLeftHand())
+								|| hostile.getBounds().contains(
+										user.getRightHand()))
+						{
+
+							user.setScore(user.getScore() + hostile.getReward());
+							haveToDelete = true;
 						}
-						// TODO: collision with other parts
 					}
-					
+
+					if (haveToDelete)
+					{
+						it.remove();
+					}
 				}
 			}
+		}
+	}
+
+	public abstract Entity getRandomEntity();
+
+	public abstract HostileEntity getRandomHostileEntity();
+
+	public void spawn(double time)
+	{
+		float current = (getGame().getSong().getThreshold() - minThreshold)
+				/ proportion;
+
+		if (current != 0)
+		{
+			if (lastSpawnedHostile > (100 / (current * current * current)))
+			{
+				getGame().getEntities().add(getRandomHostileEntity());
+				lastSpawnedHostile = 0;
+			} else
+				lastSpawnedHostile += time;
+			
+			if(lastSpawned > 100 / current)
+			{
+				getGame().getEntities().add(getRandomEntity());
+				lastSpawned = 0;
+			} else
+				lastSpawned += time;
 		}
 	}
 }

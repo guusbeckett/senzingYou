@@ -12,7 +12,8 @@ public class User
 	private UserGenerator userGenerator;
 	private Point2D head, neck, leftShoulder, rightShoulder, torso, 
 	leftElbow, rightElbow, leftHand, rightHand, leftHip, rightHip, 
-	leftKnee, rightKnee, leftFoot, rightFoot, midpoint, handExact;
+	leftKnee, rightKnee, leftFoot, rightFoot, midpoint;
+	private String name;
 	
 	private Point3D rightHandWorld;
 	
@@ -20,6 +21,7 @@ public class User
 	{
 		this.id = id;
 		this.userGenerator = userGenerator;
+		this.name = null;
 	}
 
 	public int getId()
@@ -219,6 +221,16 @@ public class User
 	public void setScore(int score)
 	{
 		this.score = score;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
 	}
 
 

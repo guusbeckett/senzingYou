@@ -1,17 +1,21 @@
 package control.levels;
 
+import java.awt.Toolkit;
+
 import model.Game;
+import model.entities.Entity;
+import model.entities.HostileEntity;
 import model.entities.underwater.Fish;
-import model.entities.underwater.Plant;
 import model.entities.underwater.HarpoonDiver;
+import model.entities.underwater.Plant;
 
 public class UnderwaterLevel extends PunchLevel
 {
-
 	public UnderwaterLevel(Game game)
 	{
 		super(game);
-		// TODO Auto-generated constructor stub
+		game.setBackground(Toolkit.getDefaultToolkit().getImage("./images/underwater/background.png"));
+		// TODO change if needed.
 		game.getEntities().add(new Plant());
 		game.getEntities().add(new Plant());
 		game.getEntities().add(new Plant());
@@ -20,14 +24,18 @@ public class UnderwaterLevel extends PunchLevel
 	
 	public void update(double time)
 	{
-		super.update(time);
-		if((int)(Math.random() * time) == 1){
-			game.getEntities().add(new Fish());
-		}
-		if((int)(Math.random() * (time * 1.5)) == 1){
-			game.getEntities().add(new HarpoonDiver(game.getCamera().getUsers()));
-		}
-		
+		super.update(time);		
 	}
 
+	@Override
+	public Entity getRandomEntity()
+	{
+		return new Fish();
+	}
+
+	@Override
+	public HostileEntity getRandomHostileEntity()
+	{
+		return new HarpoonDiver(getGame().getCamera().getUsers());
+	}
 }

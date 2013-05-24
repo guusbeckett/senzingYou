@@ -1,10 +1,14 @@
 package model.entities.cave;
 
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.List;
 
+import model.Camera;
 import model.entities.Entity;
 
 public class Droplet extends Entity
@@ -12,36 +16,37 @@ public class Droplet extends Entity
 	public Droplet()
 	{
 		super();
-		// TODO Auto-generated constructor stub
+		position.setLocation((Math.random() * (Camera.VIEW_WIDTH - 1) + 1), 0);
 	}
 
 	@Override
 	public Point2D getRotationPoint()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new Point2D.Double(getDimensions().getWidth()/2,getDimensions().getHeight()/2);
 	}
 
 	@Override
 	public Dimension2D getDimensions()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new Dimension(30, 30);
 	}
 
 	@Override
 	public List<Image> getImages()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Image> images = new ArrayList<Image>();
+		
+		images.add(Toolkit.getDefaultToolkit().getImage("./images/cave/droplet.png"));
+		
+		return images;
 	}
 
 	@Override
 	public void update(double time)
 	{
-		super.update(time);
-		// TODO Auto-generated method stub
-		
+		super.update(time);	
+		double yLocation = position.getY() + (0.5 * 10);
+		position.setLocation(position.getX(), yLocation);
 	}
 
 }
