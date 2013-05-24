@@ -16,7 +16,7 @@ public class Droplet extends Entity
 	public Droplet()
 	{
 		super();
-		position.setLocation((Math.random() * (Camera.VIEW_WIDTH - 1) + 1), 0);
+		position.setLocation((Math.random() * (Camera.VIEW_WIDTH - 1) + 1), -30);
 	}
 
 	@Override
@@ -45,8 +45,6 @@ public class Droplet extends Entity
 	public void update(double time)
 	{
 		super.update(time);	
-		double yLocation = position.getY() + (0.5 * 10);
-		position.setLocation(position.getX(), yLocation);
+		position.setLocation(position.getX(), position.getY()+8);
 	}
-
 }
