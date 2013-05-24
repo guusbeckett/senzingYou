@@ -1,6 +1,5 @@
 package model;
 
-import org.OpenNI.SkeletonJoint;
 
 public class Recognition
 {
