@@ -61,11 +61,7 @@ public class HarpoonDiver extends HostileEntity
 				position = new Point2D.Double(position.getX() + jumpX * time
 						/ 30, position.getY() + jumpY);
 				if (position.getY() >= Camera.VIEW_HEIGHT - 80)
-				{
 					initJump();
-					System.out.println("JUMP! " + position.getX() + ", "
-							+ position.getY());
-				}
 			}
 		}
 	}
