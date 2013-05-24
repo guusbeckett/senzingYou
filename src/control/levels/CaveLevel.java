@@ -15,7 +15,7 @@ public class CaveLevel extends DodgeLevel
 	{
 		super(game);
 		game.setBackground(Toolkit.getDefaultToolkit().getImage("./images/cave/background.png"));
-		// TODO Auto-generated constructor stub
+		game.setGround(Toolkit.getDefaultToolkit().getImage("./images/cave/ground.jpg"));
 	}
 
 	public void update(double time)
