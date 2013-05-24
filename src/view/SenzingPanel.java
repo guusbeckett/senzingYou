@@ -89,8 +89,9 @@ public class SenzingPanel extends JPanel implements ActionListener
 			
 			Color[] colors = new Color[]{Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY};
 			for(User u: game.getCamera().getUsers()){
-				drawText(g2, ""+u.getScore(), colors[(u.getId() - 1)], new Point2D.Double(u.getHead().getX(), 70));
+				drawText(g2, ""+u.getScore(), colors[(u.getId() - 1)%colors.length], new Point2D.Double(u.getHead().getX(), 70));
 			}
+			
 		}
 		
 	}
