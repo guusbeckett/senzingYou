@@ -1,10 +1,14 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 
 import javax.swing.JPanel;
@@ -18,6 +22,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 {
 	private static final  long serialVersionUID = 1L;
 	private Game game;
+	private Font font = new Font("Serif", Font.BOLD, 144);
 
 	public SenzingPanel(Game game)
 	{
@@ -25,6 +30,13 @@ public class SenzingPanel extends JPanel implements ActionListener
 		this.game = game;
 		setBackground(Color.BLACK);
 		new Timer(1000/30, this).start();
+	}
+	
+	private void drawText(Graphics2D g2, String text)
+	{
+		FontRenderContext frc = g2.getFontRenderContext();
+		GlyphVector gv = font.createGlyphVector(frc, text);
+		g2.draw(gv.getOutline(100, 200));
 	}
 	
 	public void paintComponent(Graphics g)
@@ -36,27 +48,8 @@ public class SenzingPanel extends JPanel implements ActionListener
 		g2.translate((getWidth() - (Camera.VIEW_WIDTH * scaleFactor)) / 2, 0);
 		g2.scale(scaleFactor, scaleFactor);
 		
-		Camera cameraData = game.getCamera();
-		
-		//This background is purelly for the test purpuse.
 		g2.drawImage(game.getBackground(), 0, 0, null);
-		
-		if (cameraData != null)
-		{
-			g2.drawImage(cameraData.getImage(), null, 0, 0);
-		/*	g2.setColor(Color.RED);
-			for(User u: game.getCamera().getUsers()){
-
-				if(u.getName() != null){
-					g2.drawString(u.getName()+": "+u.getScore(), (int)u.getHead().getX(), (int)u.getHead().getY());
-				}
-				else{
-					g2.drawString("NoBody: "+u.getScore(), (int)u.getHead().getX(), (int)u.getHead().getY());
-				}
-			}
-			g2.setColor(Color.BLACK);*/
-			
-		}
+		g2.drawImage(game.getCamera().getImage(), null, 0, 0);
 				
 		for (Entity entity : game.getEntities())
 		{
@@ -68,12 +61,21 @@ public class SenzingPanel extends JPanel implements ActionListener
 				transform.scale(entity.getDimensions().getWidth() / entity.getImage().getWidth(null), entity.getDimensions().getHeight() / entity.getImage().getHeight(null));
 				g2.drawImage(entity.getImage(), transform, null);
 			}
-			
-			else
-			{
-				//g2.fill(transform.createTransformedShape(entity.getDimensions()));
+		}
+		
+		drawText(g2, "Test");
+		
+		/*	g2.setColor(Color.RED);
+		for(User u: game.getCamera().getUsers()){
+
+			if(u.getName() != null){
+				g2.drawString(u.getName()+": "+u.getScore(), (int)u.getHead().getX(), (int)u.getHead().getY());
+			}
+			else{
+				g2.drawString("NoBody: "+u.getScore(), (int)u.getHead().getX(), (int)u.getHead().getY());
 			}
 		}
+		g2.setColor(Color.BLACK);*/
 	}
 
 	@Override
