@@ -40,7 +40,7 @@ public class Rock extends HostileEntity
 	{
 		ArrayList<Image> images = new ArrayList<Image>();
 		
-		images.add(Toolkit.getDefaultToolkit().getImage("./images/cave/droplet.png"));
+		images.add(Toolkit.getDefaultToolkit().getImage("./images/cave/stone.png"));
 		
 		return images;
 	}
@@ -49,7 +49,7 @@ public class Rock extends HostileEntity
 	public void update(double time)
 	{
 		super.update(time);	
-		position.setLocation(position.getX(), position.getY()+5);
+		position.setLocation(position.getX(), position.getY() + 0.15 * time);
 	}
 
 	@Override
