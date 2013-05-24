@@ -5,9 +5,10 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sound.sampled.AudioInputStream;
 
 import model.Camera;
 import model.entities.Entity;
@@ -53,14 +54,14 @@ public class Plant extends Entity
 		return images;
 	}
 	
-	public File getSound()
+	public AudioInputStream getSound()
 	{
 //		File file = new File("./audio/underwater/");
 //		return file; 
 		return null;
 	}
 	
-	public File getHitSound()
+	public AudioInputStream getHitSound()
 	{
 //		File file = new File("./audio/underwater/");
 //		return file;
