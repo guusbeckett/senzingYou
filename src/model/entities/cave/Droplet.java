@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class Droplet extends Entity
 	public Droplet()
 	{
 		super();
-		position.setLocation((Math.random() * (Camera.VIEW_WIDTH - 1) + 1), -30) ;
+		position.setLocation((Math.random() * (Camera.VIEW_WIDTH - 1) + 1), -30);
 	}
 
 	@Override
@@ -45,6 +46,20 @@ public class Droplet extends Entity
 	public void update(double time)
 	{
 		super.update(time);	
-		position.setLocation(position.getX(), position.getY()+8);
+		position.setLocation(position.getX(), position.getY()+ 0.25 * time);
 	}
+	
+	public File getSound()
+	{
+		File file = new File("./audio/cave/droplet.wav");
+		return file; 
+	}
+	
+	public File getHitSound()
+	{
+		File file = new File("./audio/cave/droplet.wav");
+		return file; 
+	}
+	
+	
 }
