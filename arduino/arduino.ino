@@ -120,11 +120,11 @@ void setup()
 {
   Serial.begin(9600);
   pinMode(11, OUTPUT);
+  pinMode(13, OUTPUT);
 }
 
 void loop()
 {
-  Serial.print("test");
   if (Serial.available())
   {
     int value = Serial.read();
@@ -132,7 +132,7 @@ void loop()
     if (value == 'M')
     {
       setDeviceState(11, 'A', true);
-      digitalWrite(8, HIGH);
+      digitalWrite(13, HIGH);
     }
   }
 }
