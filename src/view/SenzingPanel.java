@@ -3,7 +3,6 @@ package view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
@@ -13,7 +12,6 @@ import javax.swing.Timer;
 
 import model.Camera;
 import model.Game;
-import model.User;
 import model.entities.Entity;
 
 public class SenzingPanel extends JPanel implements ActionListener
