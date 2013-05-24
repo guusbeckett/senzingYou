@@ -9,7 +9,6 @@ import javax.swing.Timer;
 import model.Game;
 import control.levels.CaveLevel;
 import control.levels.Level;
-import control.levels.UnderwaterLevel;
 
 public class GameController implements ActionListener
 {
