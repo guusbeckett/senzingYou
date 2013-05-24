@@ -46,7 +46,7 @@ public class HarpoonDiver extends HostileEntity
 				jumpX = 5;
 			else
 				jumpX = -5;
-			jumpY = -25;
+			jumpY = -30;
 		}
 	}
 
@@ -85,7 +85,7 @@ public class HarpoonDiver extends HostileEntity
 	@Override
 	public Dimension2D getDimensions()
 	{
-		return new Dimension(50, 50);
+		return new Dimension(60, 60);
 	}
 
 	@Override
