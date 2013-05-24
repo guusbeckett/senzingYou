@@ -13,7 +13,7 @@ import control.levels.UnderwaterLevel;
 
 public class GameController implements ActionListener
 {
-	private static final String audioURL = "src/audio/samples/"; 
+	private static final String audioURL = "audio/"; 
 	private Game game;
 	private Level level;
 	private final int UPDATES_PER_SECOND = 30;
@@ -23,7 +23,7 @@ public class GameController implements ActionListener
 		this.game = game;
 		try
 		{
-			game.setSong(new Song(audioURL +"Canon in D Major"));
+			game.setSong(new Song(audioURL + "Canon in D Major.mp3"));
 			game.getSong().play();
 		} catch (FileNotFoundException e)
 		{
