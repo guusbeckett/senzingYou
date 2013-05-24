@@ -45,6 +45,6 @@ public class Droplet extends Entity
 	public void update(double time)
 	{
 		super.update(time);	
-		position.setLocation(position.getX(), position.getY()+8);
+		position.setLocation(position.getX(), position.getY()+ 0.25 * time);
 	}
 }
