@@ -71,9 +71,9 @@ public class HarpoonDiver extends HostileEntity
 			if (userP != null)
 			{
 				if (jumpX < 0)
-					jumpX += time * 0.5;
+					jumpX += time * 5;
 				else
-					jumpX -= time * 0.5;
+					jumpX -= time * 5;
 				jumpY -= time * 0.5 + gravity.getY() * time;
 				position = new Point2D.Double(position.getX() + jumpX,
 						position.getY() + jumpY);
