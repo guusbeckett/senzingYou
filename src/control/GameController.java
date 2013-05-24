@@ -23,7 +23,7 @@ public class GameController implements ActionListener
 		this.game = game;
 		try
 		{
-			game.setSong(new Song(audioURL + "Canon in D Major.mp3"));
+			game.setSong(new Song(audioURL + "mozart.mp3"));
 			game.getSong().play();
 		} catch (FileNotFoundException e)
 		{

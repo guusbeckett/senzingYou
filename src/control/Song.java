@@ -12,11 +12,12 @@ import audio.ThresholdFunction;
 
 public class Song
 {
-	private int lastCall = 0;
+	private String track;
+	private float lastCall = 0;
 	private int position = 0;
+	private float elapsedTime;
 	private float maxThreshold;
 	private float minThreshold;
-	private MP3Decoder decoder;
 	private List<List<Float>> thresholds;
 	private static final int HOP_SIZE = 512;
 	public static final float multiplier = 2f;
@@ -25,7 +26,8 @@ public class Song
 
 	public Song(final String track) throws FileNotFoundException, Exception
 	{
-		decoder = new MP3Decoder(new FileInputStream(track));
+		this.track = track;
+		MP3Decoder decoder = new MP3Decoder(new FileInputStream(track));
 		SpectrumProvider spectrumProvider = new SpectrumProvider(decoder, 1024,
 				HOP_SIZE, true);
 		float[] spectrum = spectrumProvider.nextSpectrum();
@@ -82,20 +84,37 @@ public class Song
 			{
 				try
 				{
-					AudioDevice device = new AudioDevice();
 					float[] samples = new float[1024];
+					MP3Decoder reader = new MP3Decoder( new FileInputStream( track ) );
+					AudioDevice device = new AudioDevice( );
 					long startTime = 0;
-
-					while (decoder.readSamples(samples) > 0)
+					
+					while( reader.readSamples( samples ) > 0 )
 					{
-						device.writeSamples(samples); // plays the music
-
+						device.writeSamples( samples );
 						if (startTime == 0)
 							startTime = System.nanoTime();
-						float elapsedTime = (System.nanoTime() - startTime) / 1000000000.0f;
+						elapsedTime = (System.nanoTime() - startTime) / 1000000000.0f;
 						position = (int) (elapsedTime * (44100 / HOP_SIZE));
 						Thread.sleep(20);
 					}
+					
+//					Thread.sleep( 10000 );
+//					AudioDevice device = new AudioDevice();
+//					float[] samples = new float[1024];
+//					long startTime = 0;
+//
+//					System.out.print(samples);
+//					while (decoder.readSamples(samples) > 0)
+//					{
+//						device.writeSamples(samples); // plays the music
+//
+//						if (startTime == 0)
+//							startTime = System.nanoTime();
+//						float elapsedTime = (System.nanoTime() - startTime) / 1000000000.0f;
+//						position = (int) (elapsedTime * (44100 / HOP_SIZE));
+//						Thread.sleep(20);
+//					}
 				} catch (Exception e)
 				{
 					e.printStackTrace();
@@ -106,18 +125,19 @@ public class Song
 	}
 
 	public float getThreshold()
-	{
-		int old = lastCall;
-		lastCall = position;
+	{	
 		float total = 0;
-		for (int i = old; i <= position; i++)
-			total += thresholds.get(0).get((i * 44100) / 512);
-		return total / (position - old);
+		int first = (int)(lastCall * 44100 / 512);
+		int last = (int)(elapsedTime * 44100 / 512);
+		for (int i = first; i < last; i++)
+			total += getThreshold(i);
+		lastCall = elapsedTime;
+		return total / (last - first);
 	}
 
-	public float getThreshold(int time)
+	public float getThreshold(int index)
 	{
-		return thresholds.get(0).get((time * 44100) / 512);
+		return thresholds.get(0).get(index);
 	}
 
 	public int getTime()
