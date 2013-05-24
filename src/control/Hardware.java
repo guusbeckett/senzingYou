@@ -29,80 +29,6 @@ public class Hardware
 
 	public Hardware()
 	{
-		initialize();
-	}
-
-	public boolean getBubbles()
-	{
-		return bubbles;
-	}
-
-	public void setBubbles(boolean state)
-	{
-		this.bubbles = state;
-		
-		if (state)
-			writeToArduino(0x01);
-		else
-			writeToArduino(0x02);
-	}
-
-	public Scent getScent()
-	{
-		return scent;
-	}
-
-	public void setScent(Scent scent)
-	{
-		this.scent = scent;
-		switch (scent)
-		{
-		case DULL:
-			writeToArduino(0x24);
-			break;
-		case FOREST:
-			writeToArduino(0x22);
-			break;
-		case FRESH:
-			writeToArduino(0x25);
-			break;
-		case INCENSE:
-			writeToArduino(0x21);
-			break;
-		case SEA:
-			writeToArduino(0x23);
-			break;
-		default:
-			break;
-		}
-	}
-
-	public Temperature getTemperature()
-	{
-		return temperature;
-	}
-
-	public void setTemperature(Temperature temperature)
-	{
-		this.temperature = temperature;
-		switch (temperature)
-		{
-		case COLD:
-			writeToArduino(0x12);
-			break;
-		case NORMAL:
-			writeToArduino(0x13);
-			break;
-		case WARM:
-			writeToArduino(0x11);
-			break;
-		default:
-			break;
-		}
-	}
-
-	public void initialize()
-	{
 		try
 		{
 			CommPortIdentifier portId = CommPortIdentifier
@@ -123,14 +49,85 @@ public class Hardware
 		}
 	}
 
+	public boolean getBubbles()
+	{
+		return bubbles;
+	}
+
+	public void setBubbles(boolean state)
+	{
+		this.bubbles = state;
+		
+		if (state)
+			writeToArduino(0x00);
+		else
+			writeToArduino(0x01);
+	}
+
+	public Scent getScent()
+	{
+		return scent;
+	}
+
+	public void setScent(Scent scent)
+	{
+		this.scent = scent;
+		switch (scent)
+		{
+		case DULL:
+			writeToArduino(0x23);
+			break;
+		case FOREST:
+			writeToArduino(0x21);
+			break;
+		case FRESH:
+			writeToArduino(0x24);
+			break;
+		case INCENSE:
+			writeToArduino(0x20);
+			break;
+		case SEA:
+			writeToArduino(0x22);
+			break;
+		default:
+			break;
+		}
+	}
+
+	public Temperature getTemperature()
+	{
+		return temperature;
+	}
+
+	public void setTemperature(Temperature temperature)
+	{
+		this.temperature = temperature;
+
+		switch (temperature)
+		{
+		case COLD:
+			writeToArduino(0x11);
+			break;
+		case NORMAL:
+			writeToArduino(0x12);
+			break;
+		case WARM:
+			writeToArduino(0x10);
+			break;
+		default:
+			break;
+		}
+	}
+
 	public void writeToArduino(int command)
 	{
 		try
 		{
+			System.out.println(command);
 			output.write(command);
+			output.flush();
 		} catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
