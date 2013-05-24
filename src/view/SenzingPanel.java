@@ -1,10 +1,12 @@
 package view;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.FontRenderContext;
@@ -22,7 +24,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 {
 	private static final  long serialVersionUID = 1L;
 	private Game game;
-	private Font font = new Font("Serif", Font.BOLD, 144);
+	private Font font = new Font("Arial", Font.BOLD, 60);
 
 	public SenzingPanel(Game game)
 	{
@@ -36,7 +38,12 @@ public class SenzingPanel extends JPanel implements ActionListener
 	{
 		FontRenderContext frc = g2.getFontRenderContext();
 		GlyphVector gv = font.createGlyphVector(frc, text);
-		g2.draw(gv.getOutline(100, 200));
+		Shape outline = gv.getOutline(10, 70);
+		g2.setColor(Color.ORANGE);
+		g2.fill(outline);
+		g2.setColor(Color.BLACK);
+		g2.setStroke(new BasicStroke(2));
+		g2.draw(outline);
 	}
 	
 	public void paintComponent(Graphics g)
