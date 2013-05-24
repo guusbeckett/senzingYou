@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.OpenNI.ActiveHandEventArgs;
+import org.OpenNI.AlternativeViewpointCapability;
 import org.OpenNI.CalibrationProgressEventArgs;
 import org.OpenNI.CalibrationProgressStatus;
 import org.OpenNI.Context;
@@ -20,6 +21,7 @@ import org.OpenNI.IObservable;
 import org.OpenNI.IObserver;
 import org.OpenNI.ImageGenerator;
 import org.OpenNI.InactiveHandEventArgs;
+import org.OpenNI.License;
 import org.OpenNI.OutArg;
 import org.OpenNI.Point3D;
 import org.OpenNI.ScriptNode;
@@ -53,14 +55,29 @@ public class Camera
 		this.users = new ArrayList<User>();
 		try
 		{
-			OutArg<ScriptNode> scriptNode = new OutArg<ScriptNode>();
-			context = Context.createFromXmlFile("./OpenNIConfig.xml", scriptNode);	
+			context = new Context();
+			
+			// add the NITE License 
+		    License license = new License("PrimeSense", "0KOIk2JeIBYClPWVnMoRKn5cdY4=");   // vendor, key
+		    context.addLicense(license); 
+		    
+		    //Generator
 			depthGenerator = DepthGenerator.create(context);
 			userGenerator = UserGenerator.create(context);
 			handsGenerator = HandsGenerator.create(context);
 			imageGenerator = ImageGenerator.create(context);
 			skeletonCapability = userGenerator.getSkeletonCapability();
 			
+			//RGB image and Scene merge
+			boolean hasAltView = depthGenerator.isCapabilitySupported("AlternativeViewPoint");
+			if (hasAltView)
+			{ 
+				AlternativeViewpointCapability altViewCap = depthGenerator.getAlternativeViewpointCapability();
+				altViewCap.setViewpoint(imageGenerator); 
+			}
+			
+			// set Mirror mode for all 
+		    context.setGlobalMirror(true);
 			
 			//
 			//USERS
@@ -193,7 +210,7 @@ public class Camera
 		int y = 0;
 		
 		int loop = 0;
-		int verbreed = 40;
+		int verbreed = 0;
 		int lastX = (verbreed + 1) *-1;
 		int lastY = (verbreed + 1) *-1;
 
