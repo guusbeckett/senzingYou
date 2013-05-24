@@ -18,7 +18,7 @@ public class Rock extends HostileEntity
 	public Rock(List<User> users)
 	{
 		super(users);
-		position.setLocation((Math.random() * (Camera.VIEW_WIDTH - 1) + 1), -30);
+		position.setLocation((Math.random() * (Camera.VIEW_WIDTH - 1) + 1), -30) ;
 		size = (int) (Math.random() * (80 - 50) + 50);
 	}
 
