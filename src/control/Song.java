@@ -127,7 +127,9 @@ public class Song
 	public float getThreshold()
 	{	
 		float total = 0;
-		int first = (int)(lastCall * 44100 / 512);
+		int first = (int)(lastCall * 44100 / 512) - 1;
+		if (first < 0)
+			first = 0;
 		int last = (int)(elapsedTime * 44100 / 512);
 		for (int i = first; i < last; i++)
 			total += getThreshold(i);
