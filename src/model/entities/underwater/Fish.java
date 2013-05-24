@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,5 +56,18 @@ public class Fish extends Entity
 	public List<Image> getImages()
 	{
 		return images;
+	}
+	
+	public File getSound()
+	{
+		File file = new File("./audio/underwater/bubbles.wav");
+		return file; 
+	}
+	
+	public File getHitSound()
+	{
+//		File file = new File("./audio/underwater/");
+//		return file;
+		return null; 
 	}
 }

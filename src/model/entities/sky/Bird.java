@@ -3,6 +3,7 @@ package model.entities.sky;
 import java.awt.Image;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
+import java.io.File;
 import java.util.List;
 
 import model.User;
@@ -49,6 +50,20 @@ public class Bird extends HostileEntity
 		super.update(time);
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public File getSound()
+	{
+//		File file = new File("./audio/sky/");
+//		return file; 
+		return null;
+	}
+	
+	public File getHitSound()
+	{
+//		File file = new File("./audio/sky/");
+//		return file;
+		return null; 
 	}
 
 }

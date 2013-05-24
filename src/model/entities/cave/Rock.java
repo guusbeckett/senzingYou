@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Rock extends HostileEntity
 	public Rock(List<User> users)
 	{
 		super(users);
-		position.setLocation((Math.random() * (Camera.VIEW_WIDTH - 1) + 1), -30) ;
+		position.setLocation((Math.random() * (Camera.VIEW_WIDTH - 1) + 1), -30);
 		size = (int) (Math.random() * (80 - 50) + 50);
 	}
 
@@ -55,6 +56,19 @@ public class Rock extends HostileEntity
 	public int getReward()
 	{
 		return -50;
+	}
+	
+	public File getSound()
+	{
+		File file = new File("./audio/cave/rock.wav");
+		return file; 
+	}
+	
+	public File getHitSound()
+	{
+//		File file = new File("./audio/cave/droplet.wav");
+//		return file;
+		return null; 
 	}
 
 }

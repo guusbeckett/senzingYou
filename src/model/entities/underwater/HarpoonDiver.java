@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -109,5 +110,19 @@ public class HarpoonDiver extends HostileEntity
 		images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/harpoonDiver.png"));
 		
 		return images;
+	}
+	
+	public File getSound()
+	{
+//		File file = new File("./audio/underwater/");
+//		return file; 
+		return null;
+	}
+	
+	public File getHitSound()
+	{
+//		File file = new File("./audio/underwater/");
+//		return file;
+		return null; 
 	}
 }

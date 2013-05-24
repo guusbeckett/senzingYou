@@ -3,6 +3,7 @@ package model.entities.desert;
 import java.awt.Image;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
+import java.io.File;
 import java.util.List;
 
 import model.User;
@@ -52,4 +53,18 @@ public class Scorpion extends HostileEntity
 		
 	}
 
+	public File getSound()
+	{
+//		File file = new File("./audio/desert/");
+//		return file; 
+		return null;
+	}
+	
+	public File getHitSound()
+	{
+//		File file = new File("./audio/desert/");
+//		return file;
+		return null; 
+	}
+	
 }
