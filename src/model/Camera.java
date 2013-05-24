@@ -34,7 +34,7 @@ public class Camera
 {
 	public static final int VIEW_WIDTH = 640; //640
 	public static final int VIEW_HEIGHT = 480; //480
-	private Context context;
+	private Context context = null;
 	private DepthGenerator depthGenerator;
 	private UserGenerator userGenerator;
 	private HandsGenerator handsGenerator;
@@ -53,6 +53,15 @@ public class Camera
 		{
 			OutArg<ScriptNode> scriptNode = new OutArg<ScriptNode>();
 			context = Context.createFromXmlFile("./OpenNIConfig.xml", scriptNode);	
+		}
+		catch (GeneralException e)
+		{
+			// No Kinect connected...
+			return;
+		}
+		
+		try
+		{
 			depthGenerator = DepthGenerator.create(context);
 			userGenerator = UserGenerator.create(context);
 			handsGenerator = HandsGenerator.create(context);
@@ -233,7 +242,15 @@ public class Camera
 	}
 
 	private BufferedImage getImageRGB()
-	{
+	{		
+		int[] imageRGBArray = new int[VIEW_WIDTH * VIEW_HEIGHT];
+		BufferedImage image = new BufferedImage(VIEW_WIDTH, VIEW_HEIGHT, BufferedImage.TYPE_INT_RGB);
+		
+		if (context == null || imageGenerator == null)
+		{
+			return image;
+		}
+	
 		try
 		{
 			context.waitAnyUpdateAll();
@@ -242,10 +259,6 @@ public class Camera
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		int[] imageRGBArray = new int[VIEW_WIDTH * VIEW_HEIGHT];
-		BufferedImage image = new BufferedImage(VIEW_WIDTH, VIEW_HEIGHT, BufferedImage.TYPE_INT_RGB);
 		
 		int i = 0;
 		int r = 0;
