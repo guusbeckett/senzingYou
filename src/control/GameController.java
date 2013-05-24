@@ -21,7 +21,7 @@ public class GameController implements ActionListener
 		this.game = game;
 		
 		//TODO: implement random level selection.
-		level = new UnderwaterLevel(game);
+		level = new CaveLevel(game);
 		(new Timer(1000/UPDATES_PER_SECOND, this)).start();
 	}
 

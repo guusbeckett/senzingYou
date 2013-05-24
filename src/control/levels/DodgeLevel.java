@@ -74,24 +74,32 @@ public abstract class DodgeLevel extends Level
 
 	public void spawn(double time)
 	{
-		float current = (getGame().getSong().getThreshold() - minThreshold)
-				/ proportion;
-
-		if (current != 0)
-		{
-			if (lastSpawnedHostile > (100 / (current * current * current)))
+		if(getGame().getSong() != null){
+			float current = (getGame().getSong().getThreshold() - minThreshold)
+					/ proportion;
+	
+			if (current != 0)
 			{
-				getGame().getEntities().add(getRandomHostileEntity());
-				lastSpawnedHostile = 0;
-			} else
-				lastSpawnedHostile += time;
-			
-			if(lastSpawned > 100 / current)
-			{
+				if (lastSpawnedHostile > (100 / (current * current * current)))
+				{
+					getGame().getEntities().add(getRandomHostileEntity());
+					lastSpawnedHostile = 0;
+				} else
+					lastSpawnedHostile += time;
+				
+				if(lastSpawned > 100 / current)
+				{
+					getGame().getEntities().add(getRandomEntity());
+					lastSpawned = 0;
+				} else
+					lastSpawned += time;
+			}
+		}
+		else{
+			if((int)(Math.random() * (time * 1.0)) == 1){
 				getGame().getEntities().add(getRandomEntity());
-				lastSpawned = 0;
-			} else
-				lastSpawned += time;
+				getGame().getEntities().add(getRandomHostileEntity());
+			}
 		}
 	}
 }
