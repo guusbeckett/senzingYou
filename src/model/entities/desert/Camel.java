@@ -3,8 +3,14 @@ package model.entities.desert;
 import java.awt.Image;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
-import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import sun.applet.Main;
 
 import model.entities.Entity;
 
@@ -45,18 +51,16 @@ public class Camel extends Entity
 		
 	}
 	
-	public File getSound()
+	@Override
+	public AudioInputStream getSound() throws UnsupportedAudioFileException, IOException
 	{
-//		File file = new File("./audio/desert/");
-//		return file; 
 		return null;
 	}
-
-	public File getHitSound()
+	
+	@Override
+	public AudioInputStream getHitSound() throws UnsupportedAudioFileException, IOException
 	{
-//		File file = new File("./audio/desert/");
-//		return file;
-		return null; 
+		return null;
 	}
 	
 }

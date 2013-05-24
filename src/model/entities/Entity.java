@@ -4,8 +4,11 @@ import java.awt.Image;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public abstract class Entity
 {
@@ -53,6 +56,6 @@ public abstract class Entity
 	public abstract Point2D getRotationPoint();
 	public abstract Dimension2D getDimensions();
 	public abstract List<Image> getImages();
-	public abstract File getSound();
-	public abstract File getHitSound();
+	public abstract AudioInputStream getSound() throws UnsupportedAudioFileException, IOException;
+	public abstract AudioInputStream getHitSound() throws UnsupportedAudioFileException, IOException;
 }
