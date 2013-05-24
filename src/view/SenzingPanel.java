@@ -12,12 +12,15 @@ import java.awt.event.ActionListener;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+import java.util.Random;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import model.Camera;
 import model.Game;
+import model.User;
 import model.entities.Entity;
 
 public class SenzingPanel extends JPanel implements ActionListener
@@ -36,10 +39,15 @@ public class SenzingPanel extends JPanel implements ActionListener
 	
 	private void drawText(Graphics2D g2, String text)
 	{
+		drawText(g2, text, Color.ORANGE, new Point2D.Double(10, 70));
+	}
+	
+	private void drawText(Graphics2D g2, String text, Color color, Point2D p2)
+	{
 		FontRenderContext frc = g2.getFontRenderContext();
 		GlyphVector gv = font.createGlyphVector(frc, text);
-		Shape outline = gv.getOutline(10, 70);
-		g2.setColor(Color.ORANGE);
+		Shape outline = gv.getOutline((int)p2.getX(), (int)p2.getY());
+		g2.setColor(color);
 		g2.fill(outline);
 		g2.setColor(Color.BLACK);
 		g2.setStroke(new BasicStroke(2));
@@ -71,19 +79,12 @@ public class SenzingPanel extends JPanel implements ActionListener
 			}
 		}
 		
-		drawText(g2, "Test");
-		
-		/*	g2.setColor(Color.RED);
+		Color[] colors = new Color[]{Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY};
+		Random r = new Random();
 		for(User u: game.getCamera().getUsers()){
-
-			if(u.getName() != null){
-				g2.drawString(u.getName()+": "+u.getScore(), (int)u.getHead().getX(), (int)u.getHead().getY());
-			}
-			else{
-				g2.drawString("NoBody: "+u.getScore(), (int)u.getHead().getX(), (int)u.getHead().getY());
-			}
+			
+			drawText(g2, ""+u.getScore(), colors[(u.getId() - 1)], new Point2D.Double(u.getHead().getX(), 70));
 		}
-		g2.setColor(Color.BLACK);*/
 	}
 
 	@Override
