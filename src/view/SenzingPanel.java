@@ -1,23 +1,33 @@
 package view;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+import java.util.Random;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import model.Camera;
 import model.Game;
+import model.User;
 import model.entities.Entity;
 
 public class SenzingPanel extends JPanel implements ActionListener
 {
 	private static final  long serialVersionUID = 1L;
 	private Game game;
+	private Font font = new Font("Arial", Font.BOLD, 60);
 
 	public SenzingPanel(Game game)
 	{
@@ -27,36 +37,35 @@ public class SenzingPanel extends JPanel implements ActionListener
 		new Timer(1000/30, this).start();
 	}
 	
+	private void drawText(Graphics2D g2, String text)
+	{
+		drawText(g2, text, Color.ORANGE, new Point2D.Double(10, 70));
+	}
+	
+	private void drawText(Graphics2D g2, String text, Color color, Point2D p2)
+	{
+		FontRenderContext frc = g2.getFontRenderContext();
+		GlyphVector gv = font.createGlyphVector(frc, text);
+		Shape outline = gv.getOutline((int)p2.getX(), (int)p2.getY());
+		g2.setColor(color);
+		g2.fill(outline);
+		g2.setColor(Color.BLACK);
+		g2.setStroke(new BasicStroke(2));
+		g2.draw(outline);
+	}
+	
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
+
 		double scaleFactor = (double)getHeight() / (double)Camera.VIEW_HEIGHT;
-		
 		g2.translate((getWidth() - (Camera.VIEW_WIDTH * scaleFactor)) / 2, 0);
 		g2.scale(scaleFactor, scaleFactor);
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		Camera cameraData = game.getCamera();
-		
-		//This background is purelly for the test purpuse.
 		g2.drawImage(game.getBackground(), 0, 0, null);
-		
-		if (cameraData != null)
-		{
-			g2.drawImage(cameraData.getImage(), null, 0, 0);
-		/*	g2.setColor(Color.RED);
-			for(User u: game.getCamera().getUsers()){
-
-				if(u.getName() != null){
-					g2.drawString(u.getName()+": "+u.getScore(), (int)u.getHead().getX(), (int)u.getHead().getY());
-				}
-				else{
-					g2.drawString("NoBody: "+u.getScore(), (int)u.getHead().getX(), (int)u.getHead().getY());
-				}
-			}
-			g2.setColor(Color.BLACK);*/
-			
-		}
+		g2.drawImage(game.getCamera().getImage(), null, 0, 0);
 				
 		for (Entity entity : game.getEntities())
 		{
@@ -68,11 +77,13 @@ public class SenzingPanel extends JPanel implements ActionListener
 				transform.scale(entity.getDimensions().getWidth() / entity.getImage().getWidth(null), entity.getDimensions().getHeight() / entity.getImage().getHeight(null));
 				g2.drawImage(entity.getImage(), transform, null);
 			}
+		}
+		
+		Color[] colors = new Color[]{Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY};
+		Random r = new Random();
+		for(User u: game.getCamera().getUsers()){
 			
-			else
-			{
-				//g2.fill(transform.createTransformedShape(entity.getDimensions()));
-			}
+			drawText(g2, ""+u.getScore(), colors[(u.getId() - 1)], new Point2D.Double(u.getHead().getX(), 70));
 		}
 	}
 

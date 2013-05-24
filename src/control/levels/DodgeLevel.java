@@ -1,5 +1,7 @@
 package control.levels;
 
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.util.Iterator;
 import java.util.List;
 
@@ -42,7 +44,10 @@ public abstract class DodgeLevel extends Level
 						{
 							haveToDelete = true;					
 						}
-						else if(user.getUserPixels().getData().readPixel((int)entity.getPosition().getX(), (int)entity.getPosition().getY()) == user.getId())
+						else if(user.getUserPixels().getData().readPixel((int)entity.getBounds().getX(), (int)entity.getBounds().getY()) == user.getId() ||
+								user.getUserPixels().getData().readPixel((int)entity.getBounds().getMaxX(), (int)entity.getBounds().getY()) == user.getId() ||
+								user.getUserPixels().getData().readPixel((int)entity.getBounds().getX(), (int)entity.getBounds().getMaxY()) == user.getId() ||
+								user.getUserPixels().getData().readPixel((int)entity.getBounds().getMaxX(), (int)entity.getBounds().getMaxY()) == user.getId())
 						{
 							user.setScore(user.getScore()+hostile.getReward());
 							haveToDelete = true;

@@ -9,6 +9,7 @@ import javax.swing.Timer;
 import model.Game;
 import control.levels.CaveLevel;
 import control.levels.Level;
+import control.levels.UnderwaterLevel;
 
 public class GameController implements ActionListener
 {
@@ -22,7 +23,7 @@ public class GameController implements ActionListener
 		this.game = game;
 		try
 		{
-			game.setSong(new Song(audioURL + "mozart.mp3"));
+			game.setSong(new Song(audioURL + "evil.mp3"));
 			game.getSong().play();
 		} catch (FileNotFoundException e)
 		{

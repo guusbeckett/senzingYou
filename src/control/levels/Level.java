@@ -33,7 +33,7 @@ public abstract class Level
 
 			for (Entity entity : game.getEntities())
 			{
-				entity.update(time * current * 5.0);
+				entity.update(time * current * 3.0);
 			}
 		}
 	}
