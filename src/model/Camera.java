@@ -61,6 +61,14 @@ public class Camera
 		    License license = new License("PrimeSense", "0KOIk2JeIBYClPWVnMoRKn5cdY4=");   // vendor, key
 		    context.addLicense(license); 
 		    
+		    //So that he doesn't do the rest when he crash on this..
+		    depthGenerator = DepthGenerator.create(context);
+		}
+		catch(Exception e){
+			return;
+		}
+		
+		try{
 		    //Generator
 			depthGenerator = DepthGenerator.create(context);
 			userGenerator = UserGenerator.create(context);
@@ -194,7 +202,6 @@ public class Camera
 	}
 	
 	public BufferedImage getImage(){
-		//return getImageRGB();
 		return getImageCut();
 	}
 	
@@ -209,41 +216,24 @@ public class Camera
 		int x = 0;
 		int y = 0;
 		
-		int loop = 0;
-		int verbreed = 0;
-		int lastX = (verbreed + 1) *-1;
-		int lastY = (verbreed + 1) *-1;
-
 		if(userBuffer != null){
 			while (userBuffer.remaining() > 0) {
 			      short userID = userBuffer.get();
 			      if (userID == 0){ // if not a user then it is a background
-			    	  if(((lastX +verbreed) > x && (lastX) < x) && (lastX != (verbreed + 1) *-1)){
-			    		  Color color = new Color(imgCam.getRGB(x, y));
-			    		  Color colorEdit = new Color(color.getRed(), color.getGreen(), color.getBlue(), 250);
-			    		  img.setRGB(x, y, colorEdit.getRGB());
-			    	  }
-			    	  else{
 			    		  Color color = new Color(imgCam.getRGB(x, y));
 			    		  Color colorEdit = new Color(color.getRed(), color.getGreen(), color.getBlue(), 100);
-			    		  img.setRGB(x, y, colorEdit.getRGB());
-			    	  }
-			    		  
+			    		  img.setRGB(x, y, colorEdit.getRGB());			    		  
 			      }
 			      else{
 			    	  img.setRGB(x, y, imgCam.getRGB(x, y));
-			    	  lastX = x;
-			    	  lastY = y;
 			      }
 			      
 			      //Handle the rest of the images
 			      x++;
 			      if(x >= img.getWidth()){
 			    	  x = 0;
-			    	  lastY = 0;
 			    	  y++;
 			      }	
-			      loop++;
 			}
 			
 		}
