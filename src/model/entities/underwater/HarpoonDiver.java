@@ -5,10 +5,13 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
-import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import model.Camera;
 import model.User;
@@ -16,16 +19,17 @@ import model.entities.HostileEntity;
 
 public class HarpoonDiver extends HostileEntity
 {
-	private double valueX;
 	private double startX;
 	private double startY = 80;
-	private boolean directionReversed = false;
+
+	private double jumpX, jumpY;
+	private final Point2D gravity = new Point2D.Double(0, 9.81);;
 
 	public HarpoonDiver(List<User> users)
 	{
 		super(users);
 		Random rand = new Random();
-		
+
 		switch (rand.nextInt(3))
 		{
 		case 0:
@@ -40,22 +44,22 @@ public class HarpoonDiver extends HostileEntity
 			startY = -getDimensions().getHeight();
 			break;
 		}
-		
 		position.setLocation(startX, startY);
 		velocity = new Point2D.Double(0, 0);
-		
-		initJump();
+
+		// initJump();
 	}
-	
+
 	private void initJump()
 	{
 		if (!users.isEmpty())
 		{
 			Point2D userP = users.get(0).getMidpoint();
-			
-			directionReversed = (position.getX() > userP.getX());
-			//System.out.println(directionReversed);
-			valueX = (directionReversed) ? 3 : -3;
+			if (position.getX() < userP.getX())
+				jumpX = 100;
+			else
+				jumpX = -100;
+			jumpY = -100;
 		}
 	}
 
@@ -66,20 +70,15 @@ public class HarpoonDiver extends HostileEntity
 			Point2D userP = users.get(0).getMidpoint();
 			if (userP != null)
 			{
-				valueX += time * ((directionReversed) ? -0.001 : 0.001);
-				double valueY = valueX * valueX;
-
-				double x = valueX * 50 / 3 + startX;
-				double y = valueY * 100 / 9 + startY;
-
-				if (y >= Camera.VIEW_HEIGHT - getDimensions().getHeight())
-				{
+				if (jumpX < 0)
+					jumpX += time * 0.5;
+				else
+					jumpX -= time * 0.5;
+				jumpY -= time * 0.5 + gravity.getY() * time;
+				position = new Point2D.Double(position.getX() + jumpX,
+						position.getY() + jumpY);
+				if (position.getY() >= Camera.VIEW_HEIGHT)
 					initJump();
-					startX = position.getX() - valueX * 50/3;
-					startY = 130;
-				}
-				
-				position.setLocation(x, y);
 			}
 		}
 	}
@@ -104,25 +103,24 @@ public class HarpoonDiver extends HostileEntity
 
 	@Override
 	public List<Image> getImages()
-	{	
+	{
 		ArrayList<Image> images = new ArrayList<Image>();
-		
-		images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/harpoonDiver.png"));
-		
+
+		images.add(Toolkit.getDefaultToolkit().getImage(
+				"./images/underwater/harpoonDiver.png"));
+
 		return images;
 	}
 	
-	public File getSound()
+	@Override
+	public AudioInputStream getSound() throws UnsupportedAudioFileException, IOException
 	{
-//		File file = new File("./audio/underwater/");
-//		return file; 
 		return null;
 	}
 	
-	public File getHitSound()
+	@Override
+	public AudioInputStream getHitSound() throws UnsupportedAudioFileException, IOException
 	{
-//		File file = new File("./audio/underwater/");
-//		return file;
-		return null; 
+		return null;
 	}
 }

@@ -1,7 +1,5 @@
 package audio;
 
-import java.io.FileInputStream;
-
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioFormat.Encoding;
 import javax.sound.sampled.AudioSystem;

@@ -5,9 +5,15 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
-import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import sun.applet.Main;
 
 import model.Camera;
 import model.User;
@@ -58,17 +64,16 @@ public class Rock extends HostileEntity
 		return -50;
 	}
 	
-	public File getSound()
+	@Override
+	public AudioInputStream getSound() throws UnsupportedAudioFileException, IOException
 	{
-		File file = new File("./audio/cave/rock.wav");
-		return file; 
+		return AudioSystem.getAudioInputStream(Main.class.getResourceAsStream("./audio/cave/rock.wav"));
 	}
 	
-	public File getHitSound()
+	@Override
+	public AudioInputStream getHitSound() throws UnsupportedAudioFileException, IOException
 	{
-//		File file = new File("./audio/cave/droplet.wav");
-//		return file;
-		return null; 
+		return AudioSystem.getAudioInputStream(Main.class.getResourceAsStream("./audio/cave/rock.wav"));
 	}
 
 }
