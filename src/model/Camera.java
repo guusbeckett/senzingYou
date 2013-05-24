@@ -22,9 +22,7 @@ import org.OpenNI.IObserver;
 import org.OpenNI.ImageGenerator;
 import org.OpenNI.InactiveHandEventArgs;
 import org.OpenNI.License;
-import org.OpenNI.OutArg;
 import org.OpenNI.Point3D;
-import org.OpenNI.ScriptNode;
 import org.OpenNI.SkeletonCapability;
 import org.OpenNI.SkeletonJoint;
 import org.OpenNI.SkeletonProfile;
@@ -139,7 +137,9 @@ public class Camera
 				@Override
 				public void update(IObservable<ActiveHandEventArgs> arg0,
 						ActiveHandEventArgs arg1){
-						setPreciseHand(convertPosition(arg1.getPosition()));
+						Point2D p2 = convertPosition(arg1.getPosition());
+						setPreciseHand(p2);
+						//System.out.println("HandTracking updated - X: "+p2.getX()+", Y: "+p2.getY());
 				}
 			});
 			
@@ -201,7 +201,19 @@ public class Camera
 		return users;
 	}
 	
+	public void updateContext(){
+		try
+		{
+			context.waitAnyUpdateAll();
+		} catch (StatusException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public BufferedImage getImage(){
+		updateContext();
 		return getImageCut();
 	}
 	
@@ -249,15 +261,6 @@ public class Camera
 		if (context == null || imageGenerator == null)
 		{
 			return image;
-		}
-	
-		try
-		{
-			context.waitAnyUpdateAll();
-		} catch (StatusException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		
 		int i = 0;
