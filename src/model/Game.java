@@ -15,6 +15,7 @@ public class Game
 	private Camera camera;
 	private Image background;
 	private Song song;
+	private Image ground;
 
 	public Game()
 	{
@@ -56,6 +57,16 @@ public class Game
 	public void setBackground(Image background)
 	{
 		this.background = background;
+	}
+
+	public Image getGround()
+	{
+		return ground;
+	}
+
+	public void setGround(Image ground)
+	{
+		this.ground = ground;
 	}
 
 	public Song getSong()

@@ -15,7 +15,7 @@ public class UnderwaterLevel extends PunchLevel
 	{
 		super(game);
 		game.setBackground(Toolkit.getDefaultToolkit().getImage("./images/underwater/background.png"));
-		// TODO change if needed.
+		game.setGround(Toolkit.getDefaultToolkit().getImage("./images/underwater/ground.jpg"));
 		game.getEntities().add(new Plant());
 		game.getEntities().add(new Plant());
 		game.getEntities().add(new Plant());
