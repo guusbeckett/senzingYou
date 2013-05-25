@@ -8,27 +8,14 @@ void setup()
   Serial.begin(9600);
 }
 
-void setBubbles(int value)
+void sprayScent(int pin)
 {
-  
+  // spray scent connected on pin
 }
 
-void setScent(int value)
+void setDeviceState(char c, boolean state)
 {
-    
-}
-
-void setTemperature(int value)
-{
-  char temperatureDevices[3] = { 'A', 'C', 0 };
-  int temperatureDevice = temperatureDevices[value];
-  
-  if (temperatureDevice != currentTemperatureDevice)
-  {
-    transmitter.sendSignal(1, currentTemperatureDevice, false);
-    transmitter.sendSignal(1, temperatureDevice, true);
-    currentTemperatureDevice = temperatureDevice;
-  }
+  transmitter.sendSignal(1, c, state);
 }
 
 void loop()
@@ -37,25 +24,32 @@ void loop()
   {
     int value = Serial.read();
     
-    setTemperature(0x1);
+    int opcode = value >> 4;
+    int param = value & 0xF;
     
-    switch (value >> 4)
+    switch (opcode)
     {
       case 0x0:
       {
-        setBubbles(value & 0xF);
+        Serial.write(0);
         break;
       }
       
       case 0x1:
       {
-        setTemperature(value & 0xF);
+        sprayScent(param);
         break; 
       }
       
       case 0x2:
       {
-        setScent(value & 0xF);
+        setDeviceState(param, false);
+        break;
+      }
+      
+      case 0x3:
+      {
+        setDeviceState(param, true);
         break;
       }
     }
