@@ -2,5 +2,5 @@ package control;
 
 public enum Temperature
 {
-	WARM, COLD, NORMAL;
+	WARM, COLD, NORMAL, BUBBLES;
 }
