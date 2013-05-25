@@ -21,6 +21,7 @@ public abstract class Level
 			minThreshold = getGame().getSong().getMinThreshold();
 			proportion = getGame().getSong().getMaxThreshold() - minThreshold;
 		}
+		this.game.setLevelMenu(false);
 	}
 
 	public void update(double time)

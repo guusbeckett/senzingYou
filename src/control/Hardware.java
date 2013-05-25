@@ -121,14 +121,16 @@ public class Hardware
 
 	public void writeToArduino(int command)
 	{
-		try
+		if (output != null)
 		{
-			System.out.println(command);
-			output.write(command);
-			output.flush();
-		} catch (IOException e)
-		{
-			e.printStackTrace();
+			try
+			{
+				output.write(command);
+				output.flush();
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 

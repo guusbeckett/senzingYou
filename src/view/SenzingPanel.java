@@ -65,26 +65,35 @@ public class SenzingPanel extends JPanel implements ActionListener
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		g2.drawImage(game.getBackground(), 0, 0, null);
-		g2.drawImage(game.getCamera().getImage(), null, 0, 0);
-				
-		for (Entity entity : game.getEntities())
-		{
-			AffineTransform transform = AffineTransform.getRotateInstance(entity.getRotation(), entity.getRotationPoint().getX() + entity.getPosition().getX(), entity.getRotationPoint().getY() + entity.getPosition().getY());
-			
-			if (entity.getImage() != null)
-			{
-				transform.translate(entity.getPosition().getX(), entity.getPosition().getY());
-				transform.scale(entity.getDimensions().getWidth() / entity.getImage().getWidth(null), entity.getDimensions().getHeight() / entity.getImage().getHeight(null));
-				g2.drawImage(entity.getImage(), transform, null);
-			}
+		if(!game.isLevelMenu()){
+			g2.drawImage(game.getCamera().getImage(), null, 0, 0);
+		}
+		else{
+			game.getCamera().updateContext();
 		}
 		
-		Color[] colors = new Color[]{Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY};
-		Random r = new Random();
-		for(User u: game.getCamera().getUsers()){
+		
+			for (Entity entity : game.getEntities())
+			{
+				AffineTransform transform = AffineTransform.getRotateInstance(entity.getRotation(), entity.getRotationPoint().getX() + entity.getPosition().getX(), entity.getRotationPoint().getY() + entity.getPosition().getY());
+				
+				if (entity.getImage() != null)
+				{
+					transform.translate(entity.getPosition().getX(), entity.getPosition().getY());
+					transform.scale(entity.getDimensions().getWidth() / entity.getImage().getWidth(null), entity.getDimensions().getHeight() / entity.getImage().getHeight(null));
+					g2.drawImage(entity.getImage(), transform, null);
+				}
+			}
+		
+		if(!game.isLevelMenu()){
 			
-			drawText(g2, ""+u.getScore(), colors[(u.getId() - 1)%colors.length], new Point2D.Double(u.getHead().getX(), 70));
+			Color[] colors = new Color[]{Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY};
+			for(User u: game.getCamera().getUsers()){
+				drawText(g2, ""+u.getScore(), colors[(u.getId() - 1)%colors.length], new Point2D.Double(u.getHead().getX(), 70));
+			}
+			
 		}
+		
 	}
 
 	@Override

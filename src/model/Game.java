@@ -16,7 +16,8 @@ public class Game
 	private Image background;
 	private Song song;
 	private Image ground;
-
+	private boolean levelMenu;
+	
 	public Game()
 	{
 		this.entities = Collections.synchronizedList(new ArrayList<Entity>());
@@ -77,5 +78,15 @@ public class Game
 	public void setSong(Song song)
 	{
 		this.song = song;
+	}
+
+	public boolean isLevelMenu()
+	{
+		return levelMenu;
+	}
+
+	public void setLevelMenu(boolean levelMenu)
+	{
+		this.levelMenu = levelMenu;
 	}
 }
