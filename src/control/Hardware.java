@@ -5,6 +5,7 @@ import gnu.io.NoSuchPortException;
 import gnu.io.SerialPort;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 public class Hardware
@@ -17,6 +18,7 @@ public class Hardware
 	
 	private SerialPort serialPort;
 	private OutputStream output;
+	private InputStream input;
 	
 	public static Hardware getInstance()
 	{
@@ -28,21 +30,40 @@ public class Hardware
 
 	public Hardware()
 	{
+		connect();
+		
 		try
 		{
-			CommPortIdentifier portId = CommPortIdentifier.getPortIdentifier(PORT);
-			serialPort = (SerialPort) portId.open(this.getClass().getName(), 2000);
-			serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
-			output = serialPort.getOutputStream();
-		} catch (NoSuchPortException npE)
+			/* Wait for connection to estabilish */
+			while (input.available() <= 0)
+				writeToArduino(0x00);
+		} catch (IOException e)
 		{
-			System.err.println(npE.toString());
-		} catch (Exception e)
-		{
-			System.err.println(e.toString());
+			e.printStackTrace();
 		}
 	}
 
+	
+	private void connect()
+	{
+		try
+		{
+			CommPortIdentifier portId = CommPortIdentifier.getPortIdentifier(PORT);
+			
+			serialPort = (SerialPort) portId.open(this.getClass().getName(), 2000);
+			serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+			
+			input = serialPort.getInputStream();
+			output = serialPort.getOutputStream();
+		} catch (NoSuchPortException e)
+		{
+			// No such port
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public Scent getScent()
 	{
 		return scent;
