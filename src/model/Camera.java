@@ -207,8 +207,7 @@ public class Camera
 			context.waitAnyUpdateAll();
 		} catch (StatusException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return;
 		}
 	}
 	
