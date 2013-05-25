@@ -139,7 +139,11 @@ public class Song
 
 	public float getThreshold(int index)
 	{
-		return thresholds.get(0).get(index);
+		//JW Fix otherwise big indexout of bounce exception
+		if(thresholds.get(0).size() <= index){
+			return thresholds.get(0).get(index);
+		}
+		return 0;
 	}
 
 	public int getTime()

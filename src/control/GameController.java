@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import javax.swing.Timer;
 
 import model.Game;
+import control.levels.CaveLevel;
 import control.levels.Level;
 import control.levels.UnderwaterLevel;
 
@@ -35,7 +36,7 @@ public class GameController implements ActionListener
 		}
 		
 		//TODO: implement random level selection.
-		level = new UnderwaterLevel(game);
+		level = new CaveLevel(game);
 		(new Timer(1000/UPDATES_PER_SECOND, this)).start();
 	}
 
