@@ -13,7 +13,6 @@ public class Hardware
 	private static final String PORT = "COM3";
 	
 	private static Hardware hardware = null;
-	private Scent scent;
 	private Temperature temperature;
 	
 	private SerialPort serialPort;
@@ -29,22 +28,6 @@ public class Hardware
 	}
 
 	public Hardware()
-	{
-		connect();
-		
-		try
-		{
-			/* Wait for connection to estabilish */
-			while (input.available() <= 0)
-				writeToArduino(0x00);
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	
-	private void connect()
 	{
 		try
 		{
@@ -62,31 +45,21 @@ public class Hardware
 		{
 			e.printStackTrace();
 		}
+		
+		try
+		{
+			/* Wait for connection to establish */
+			while (input.available() <= 0)
+			{
+				writeToArduino(0x00);
+			}
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
-	public Scent getScent()
-	{
-		return scent;
-	}
-
-	public void setScent(Scent scent)
-	{
-		writeToArduino(0x10 | scent.ordinal());
-		this.scent = scent;
-	}
-
-	public Temperature getTemperature()
-	{
-		return temperature;
-	}
-
-	public void setTemperature(Temperature temperature)
-	{
-		writeToArduino(0x10 | temperature.ordinal());
-		this.temperature = temperature;
-	}
-
-	public void writeToArduino(int command)
+	private void writeToArduino(int command)
 	{
 		if (output != null)
 		{
@@ -114,5 +87,15 @@ public class Hardware
 	{
 		close();
 		super.finalize();
+	}
+
+	public void sprayScent(Scent scent)
+	{
+		writeToArduino(0x10 | (scent.ordinal() + 3));
+	}
+
+	public void setDeviceState(char c, boolean state)
+	{
+		writeToArduino((state ? 0x20 : 0x10) | (c - 'A'));
 	}
 }

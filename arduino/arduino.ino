@@ -43,13 +43,13 @@ void loop()
       
       case 0x2:
       {
-        setDeviceState(param, false);
+        setDeviceState(param + 'A', false);
         break;
       }
       
       case 0x3:
       {
-        setDeviceState(param, true);
+        setDeviceState(param + 'A', true);
         break;
       }
     }
