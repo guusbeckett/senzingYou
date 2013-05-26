@@ -1,13 +1,13 @@
 package model;
 
 import java.awt.Image;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import model.entities.Entity;
 import control.Song;
+import control.levels.Level;
 
 public class Game
 {
@@ -17,6 +17,8 @@ public class Game
 	private Song song;
 	private Image ground;
 	private boolean levelMenu;
+	private Level level;
+	
 	
 	public Game()
 	{
@@ -88,5 +90,15 @@ public class Game
 	public void setLevelMenu(boolean levelMenu)
 	{
 		this.levelMenu = levelMenu;
+	}
+
+	public Level getLevel()
+	{
+		return level;
+	}
+
+	public void setLevel(Level level)
+	{
+		this.level = level;
 	}
 }

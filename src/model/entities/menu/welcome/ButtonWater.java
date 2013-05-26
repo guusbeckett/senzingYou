@@ -13,14 +13,16 @@ import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import model.entities.Entity;
+import control.levels.UnderwaterLevel;
+import model.Game;
+import model.entities.MenuEntity;
 
-public class ButtonWater extends Entity
+public class ButtonWater extends MenuEntity
 {
 	public ButtonWater()
 	{
 		super();
-		position.setLocation(30, 100);
+		position.setLocation(275, 200);
 	}
 	
 	@Override
@@ -40,7 +42,7 @@ public class ButtonWater extends Entity
 	{
 		// TODO Auto-generated method stub
 		ArrayList<Image> images = new ArrayList<Image>();
-		images.add(Toolkit.getDefaultToolkit().getImage("./images/menu/128_dutchFlag.png"));
+		images.add(Toolkit.getDefaultToolkit().getImage("./images/menu/welcome/level/underwaterLevel.png"));
 		return images;
 		
 	}
@@ -57,6 +59,10 @@ public class ButtonWater extends Entity
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public void actionToPerform(Game game){
+		game.setLevel(new UnderwaterLevel(game));
 	}
 
 }
