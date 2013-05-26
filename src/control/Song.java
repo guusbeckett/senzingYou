@@ -12,6 +12,8 @@ import audio.ThresholdFunction;
 
 public class Song
 {
+	private Thread th;
+	
 	private String track;
 	private float lastCall = 0;
 	private int position = 0;
@@ -77,7 +79,7 @@ public class Song
 
 	public void play() throws InterruptedException, Exception
 	{
-		Thread th = new Thread(new Runnable()
+		th = new Thread(new Runnable()
 		{
 			@Override
 			public void run()
@@ -122,6 +124,10 @@ public class Song
 			}
 		});
 		th.start();
+	}
+	
+	public void stop(){
+		th.interrupt();	//Have to fix this small issue because I get a interupt error on Thread.sleep
 	}
 
 	public float getThreshold()

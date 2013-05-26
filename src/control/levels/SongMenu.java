@@ -24,6 +24,9 @@ public class SongMenu extends MenuLevel
 		String fileName = "evil.mp3";
 				try
 				{
+					if(game.getSong() != null){
+						game.getSong().stop();
+					}
 					game.setSong(new Song("audio/"+fileName));
 					game.getSong().play();
 				} catch (FileNotFoundException e)
