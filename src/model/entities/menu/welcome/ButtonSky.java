@@ -13,19 +13,18 @@ import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import control.GameController;
-import control.levels.CaveLevel;
-import control.levels.RainforestLevel;
-import control.levels.SongMenu;
 import model.Game;
 import model.entities.MenuEntity;
+import control.levels.CaveLevel;
+import control.levels.SkyLevel;
+import control.levels.SongMenu;
 
-public class ButtonRainforest extends MenuEntity
+public class ButtonSky extends MenuEntity
 {
-	public ButtonRainforest()
+	public ButtonSky()
 	{
 		super();
-		position.setLocation(150, 380);
+		position.setLocation(10, 380);
 	}
 	
 	@Override
@@ -71,7 +70,7 @@ public class ButtonRainforest extends MenuEntity
 	
 	public void goToLevel(Game game){
 		game.getEntities().clear();
-		game.setLevel(new RainforestLevel(game));
+		game.setLevel(new SkyLevel(game));
 	}
 
 }

@@ -12,4 +12,5 @@ public abstract class MenuEntity extends Entity
 	}
 
 	public abstract void actionToPerform(Game game);
+	public abstract void goToLevel(Game game);
 }

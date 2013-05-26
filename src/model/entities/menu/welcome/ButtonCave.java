@@ -16,6 +16,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import model.Game;
 import model.entities.MenuEntity;
 import control.levels.CaveLevel;
+import control.levels.SongMenu;
+import control.levels.UnderwaterLevel;
 
 public class ButtonCave extends MenuEntity
 {
@@ -62,6 +64,11 @@ public class ButtonCave extends MenuEntity
 	}
 	
 	public void actionToPerform(Game game){
+		game.getEntities().clear();
+		game.setLevel(new SongMenu(game, this));
+	}
+	
+	public void goToLevel(Game game){
 		game.getEntities().clear();
 		game.setLevel(new CaveLevel(game));
 	}

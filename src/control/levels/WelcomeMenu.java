@@ -3,13 +3,13 @@ package control.levels;
 import java.awt.Toolkit;
 import java.util.Collections;
 
-import control.GameController;
 import model.Game;
 import model.entities.Entity;
 import model.entities.HostileEntity;
 import model.entities.menu.welcome.ButtonCave;
 import model.entities.menu.welcome.ButtonDesert;
 import model.entities.menu.welcome.ButtonRainforest;
+import model.entities.menu.welcome.ButtonSky;
 import model.entities.menu.welcome.ButtonWater;
 
 public class WelcomeMenu extends MenuLevel
@@ -23,6 +23,7 @@ public class WelcomeMenu extends MenuLevel
 		game.getEntities().add(new ButtonCave());
 		game.getEntities().add(new ButtonDesert());
 		game.getEntities().add(new ButtonRainforest());
+		game.getEntities().add(new ButtonSky());
 		Collections.reverse(game.getEntities());	//So that the hand come first!
 	}
 
