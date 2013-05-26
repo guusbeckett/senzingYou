@@ -32,17 +32,13 @@ public abstract class MenuLevel extends Level
 			h.setVisible(false);
 		}
 		
-
-		List<Entity> entities = getGame().getEntities();
-		Iterator<Entity> it = entities.iterator();
-		while (it.hasNext())
-		{
-			Entity entity = it.next();
+		for(Entity entity: getGame().getEntities()){
 			if (entity instanceof MenuEntity)
 			{
 				MenuEntity mEntity = (MenuEntity)entity;
 				if(mEntity.getBounds().contains(h.getBounds())){
 					mEntity.actionToPerform(getGame());
+					break;
 				}
 			}
 		}

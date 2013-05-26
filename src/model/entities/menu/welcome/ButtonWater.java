@@ -62,6 +62,7 @@ public class ButtonWater extends MenuEntity
 	}
 	
 	public void actionToPerform(Game game){
+		game.getEntities().clear();
 		game.setLevel(new UnderwaterLevel(game));
 	}
 
