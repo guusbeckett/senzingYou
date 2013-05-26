@@ -22,7 +22,7 @@ public abstract class DodgeLevel extends Level
 	public void update(double time)
 	{
 		super.update(time);
-
+		
 		List<Entity> entities = getGame().getEntities();
 		Iterator<Entity> it = entities.iterator();
 		while (it.hasNext())
