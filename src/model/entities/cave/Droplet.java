@@ -53,6 +53,7 @@ public class Droplet extends Entity
 	{
 		super.update(time);	
 		position.setLocation(position.getX(), position.getY()+ 0.25 * time);
+		playSound(time);
 	}
 	
 	@Override
@@ -67,5 +68,8 @@ public class Droplet extends Entity
 		return AudioSystem.getAudioInputStream(Main.class.getResourceAsStream("./audio/cave/droplet.wav"));
 	}
 	
-	
+	public void playSound(double time)
+	{
+		
+	}
 }
