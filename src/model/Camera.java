@@ -30,6 +30,8 @@ import org.OpenNI.StatusException;
 import org.OpenNI.UserEventArgs;
 import org.OpenNI.UserGenerator;
 
+import sun.java2d.pipe.OutlineTextRenderer;
+
 public class Camera
 {
 	public static final int VIEW_WIDTH = 640; //640
@@ -147,8 +149,21 @@ public class Camera
 			handsGenerator.getHandDestroyEvent().addObserver(new IObserver<InactiveHandEventArgs>(){
 				@Override
 				public void update(IObservable<InactiveHandEventArgs> arg0,
-						InactiveHandEventArgs arg1){
-						setPreciseHand(null);
+						InactiveHandEventArgs arg1){						
+						if(!getUsers().isEmpty()){
+							try
+							{
+								handsGenerator.StartTracking(getUsers().get(0).getRightHandWorld());
+							} catch (StatusException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						else{
+							setPreciseHand(null);
+						}
+						
 				}
 			});
 			
@@ -163,11 +178,7 @@ public class Camera
 					{
 					if (arg1.getStatus() == CalibrationProgressStatus.OK){
 						skeletonCapability.startTracking(arg1.getUser());
-						for(User user: getUsers()){
-							if(user.getId() == arg1.getUser()){
-								handsGenerator.StartTracking(skeletonCapability.getSkeletonJointPosition(user.getId(), SkeletonJoint.RIGHT_HAND).getPosition());
-							}
-						}
+						handsGenerator.StartTracking(skeletonCapability.getSkeletonJointPosition(arg1.getUser(), SkeletonJoint.RIGHT_HAND).getPosition());
 					}
 					else if (arg1.getStatus() != CalibrationProgressStatus.MANUAL_ABORT)
 					{
@@ -237,6 +248,55 @@ public class Camera
 			      }
 			      else{
 			    	  img.setRGB(x, y, imgCam.getRGB(x, y));
+			      }
+			      
+			      //Handle the rest of the images
+			      x++;
+			      if(x >= img.getWidth()){
+			    	  x = 0;
+			    	  y++;
+			      }	
+			}
+			
+		}
+		
+		return img;
+	}
+	
+	
+	public BufferedImage getDepthImage(){
+		ShortBuffer userBuffer = null;
+		BufferedImage img = new BufferedImage(VIEW_WIDTH, VIEW_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		for(User user: getUsers()){
+			userBuffer = user.getUserPixels().getData().createShortBuffer();
+		}
+		
+		int x = 0;
+		int y = 0;
+		
+		boolean outline = false;
+		
+		if(userBuffer != null){
+			while (userBuffer.remaining() > 0) {
+			      short userID = userBuffer.get();
+			      if (userID == 0){ // if not a user then it is a background
+			    	  if(outline){
+			    		  img.setRGB(x, y, Color.BLACK.getRGB());
+			    	  }
+			    	  else{
+			    		  img.setRGB(x, y, Color.TRANSLUCENT);
+			    	  }
+			    	  outline = false;
+			      }
+			      else{
+			    	  if(!outline){
+			    		  img.setRGB(x, y, Color.BLACK.getRGB());
+			    	  }
+			    	  else{
+			    		  img.setRGB(x, y, Color.WHITE.getRGB());
+			    	  }
+			    	  outline = true;
+			    	  
 			      }
 			      
 			      //Handle the rest of the images

@@ -26,6 +26,11 @@ public abstract class Level
 
 	public void update(double time)
 	{
+		if(getGame().getCamera().getUsers().isEmpty()){
+			getGame().getEntities().clear();
+			getGame().setLevel(new WelcomeMenu(getGame()));
+		}
+		
 		if (getGame().getSong() != null)
 		{
 			float current = (getGame().getSong().getThreshold() - minThreshold)

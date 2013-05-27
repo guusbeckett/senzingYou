@@ -1,18 +1,22 @@
 package control.levels;
 
+import java.util.Iterator;
+import java.util.List;
+
 import model.Game;
 import model.enitities.menu.Hand;
+import model.entities.Entity;
+import model.entities.MenuEntity;
+import control.GameController;
 
 public abstract class MenuLevel extends Level
 {
-	private Game game;
 	private Hand h;
 	public MenuLevel(Game game)
 	{
 		super(game);
-		this.game = game;
-		this.game.setLevelMenu(true);
-		this.game.getEntities().add(h = new Hand());
+		game.setLevelMenu(true);
+		game.getEntities().add(h = new Hand());
 	}
 	
 	public void spawn(double time, float current){
@@ -20,20 +24,23 @@ public abstract class MenuLevel extends Level
 	}
 	
 	public void update(double time){
-		if(game.getCamera().getPreciseHand() != null){
-			if(!game.getCamera().getUsers().isEmpty()){
-				if(game.getCamera().getUsers().get(0).getRightHand().distance(game.getCamera().getPreciseHand()) > 100){
-					h.setPosition(game.getCamera().getUsers().get(0).getRightHand());	
+		if(getGame().getCamera().getPreciseHand() != null){
+			h.setPosition(getGame().getCamera().getPreciseHand());	
+			h.setVisible(true);
+		}
+		else{
+			h.setVisible(false);
+		}
+		
+		for(Entity entity: getGame().getEntities()){
+			if (entity instanceof MenuEntity)
+			{
+				MenuEntity mEntity = (MenuEntity)entity;
+				if(mEntity.getBounds().contains(h.getBounds())){
+					mEntity.actionToPerform(getGame());
+					break;
 				}
-				else{
-					h.setPosition(game.getCamera().getPreciseHand());	
-				}
-				
 			}
-			else{
-				h.setPosition(game.getCamera().getPreciseHand());	
-			}
-			
 		}
 	}
 

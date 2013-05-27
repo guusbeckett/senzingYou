@@ -13,7 +13,6 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
-import java.util.Random;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -37,10 +36,6 @@ public class SenzingPanel extends JPanel implements ActionListener
 		new Timer(1000/30, this).start();
 	}
 	
-	private void drawText(Graphics2D g2, String text)
-	{
-		drawText(g2, text, Color.ORANGE, new Point2D.Double(10, 70));
-	}
 	
 	private void drawText(Graphics2D g2, String text, Color color, Point2D p2)
 	{
@@ -65,10 +60,13 @@ public class SenzingPanel extends JPanel implements ActionListener
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		g2.drawImage(game.getBackground(), 0, 0, null);
+		
 		if(!game.isLevelMenu()){
+			//Also update the context and also print the webcam image!
 			g2.drawImage(game.getCamera().getImage(), null, 0, 0);
 		}
 		else{
+			//Update the context of the Kinect			
 			game.getCamera().updateContext();
 		}
 		
