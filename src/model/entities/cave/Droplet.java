@@ -9,14 +9,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
-import sun.applet.Main;
 
 import model.Camera;
 import model.entities.Entity;
+import sun.applet.Main;
 
 public class Droplet extends Entity
 {
@@ -59,7 +63,7 @@ public class Droplet extends Entity
 	@Override
 	public AudioInputStream getSound() throws UnsupportedAudioFileException, IOException
 	{
-		return AudioSystem.getAudioInputStream(Main.class.getResourceAsStream("./audio/cave/droplet.wav"));
+		return AudioSystem.getAudioInputStream(getClass().getResource("./audio/cave/droplet.wav"));
 	}
 	
 	@Override
@@ -70,6 +74,30 @@ public class Droplet extends Entity
 	
 	public void playSound(double time)
 	{
-		
+		if(position.getY() >= Camera.VIEW_HEIGHT)
+		{
+			try
+			{
+				AudioInputStream in = getSound();
+				AudioFormat format = in.getFormat();
+				DataLine.Info info = new DataLine.Info(Clip.class, format);
+				Clip clip = (Clip) AudioSystem.getLine(info);
+				clip.open(in);
+				FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+				System.out.println(time);
+			} catch (UnsupportedAudioFileException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (LineUnavailableException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }
