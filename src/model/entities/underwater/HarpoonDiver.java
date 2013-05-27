@@ -46,7 +46,7 @@ public class HarpoonDiver extends HostileEntity
 				jumpX = 5;
 			else
 				jumpX = -5;
-			jumpY = -25;
+			jumpY = -30;
 		}
 	}
 
@@ -61,11 +61,7 @@ public class HarpoonDiver extends HostileEntity
 				position = new Point2D.Double(position.getX() + jumpX * time
 						/ 30, position.getY() + jumpY);
 				if (position.getY() >= Camera.VIEW_HEIGHT - 80)
-				{
 					initJump();
-					System.out.println("JUMP! " + position.getX() + ", "
-							+ position.getY());
-				}
 			}
 		}
 	}
@@ -85,7 +81,7 @@ public class HarpoonDiver extends HostileEntity
 	@Override
 	public Dimension2D getDimensions()
 	{
-		return new Dimension(50, 50);
+		return new Dimension(60, 60);
 	}
 
 	@Override

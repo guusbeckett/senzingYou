@@ -17,13 +17,22 @@ import model.entities.Entity;
 
 public class Hand extends Entity
 {
+	private boolean visible = false;
+	
 	public Hand()
 	{
 		super();
+		
 	}
 	
 	public void setPosition(Point2D p2){
-		position = p2;
+			if(p2 == null){
+				setVisible(true);
+			}
+			else{
+				setVisible(false);
+			}
+			position = p2;
 	}
 	
 	@Override
@@ -42,6 +51,10 @@ public class Hand extends Entity
 	public List<Image> getImages()
 	{
 		// TODO Auto-generated method stub
+		if(!isVisible()){
+			return null;
+		}
+		
 		ArrayList<Image> images = new ArrayList<Image>();
 		images.add(Toolkit.getDefaultToolkit().getImage("./images/menu/hand.png"));
 		return images;
@@ -60,6 +73,16 @@ public class Hand extends Entity
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public boolean isVisible()
+	{
+		return visible;
+	}
+
+	public void setVisible(boolean visible)
+	{
+		this.visible = visible;
 	}
 
 }
