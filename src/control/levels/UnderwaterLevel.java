@@ -8,12 +8,15 @@ import model.entities.HostileEntity;
 import model.entities.underwater.Fish;
 import model.entities.underwater.HarpoonDiver;
 import model.entities.underwater.Plant;
+import control.Climate;
+import control.Hardware;
 
 public class UnderwaterLevel extends PunchLevel
 {
 	public UnderwaterLevel(Game game)
 	{
 		super(game);
+		Hardware.getInstance().setClimate(Climate.COLD);
 		game.setBackground(Toolkit.getDefaultToolkit().getImage("./images/underwater/background.png"));
 		game.setGround(Toolkit.getDefaultToolkit().getImage("./images/underwater/ground.jpg"));
 		game.getEntities().add(new Plant());

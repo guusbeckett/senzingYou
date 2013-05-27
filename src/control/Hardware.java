@@ -91,7 +91,7 @@ public class Hardware
 	
 	private void setDeviceState(char c, boolean state)
 	{
-		writeToArduino((state ? 0x20 : 0x10) | (c - 'A'));
+		writeToArduino((state ? 0x30 : 0x20) | (c - 'A'));
 	}
 	
 	private char[] getDevicesForClimate(Climate climate)
@@ -124,7 +124,11 @@ public class Hardware
 	
 	public void setClimate(Climate climate)
 	{
-		setClimateState(this.climate, false);
+		if (this.climate != null)
+		{
+			setClimateState(this.climate, false);
+		}
+		
 		this.climate = climate;
 		setClimateState(this.climate, true);
 	}
