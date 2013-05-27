@@ -13,7 +13,7 @@ public class Hardware
 	private static final String PORT = "COM3";
 	
 	private static Hardware hardware = null;
-	private Temperature temperature;
+	private Climate climate;
 	
 	private SerialPort serialPort;
 	private OutputStream output;
@@ -88,14 +88,49 @@ public class Hardware
 		close();
 		super.finalize();
 	}
+	
+	private void setDeviceState(char c, boolean state)
+	{
+		writeToArduino((state ? 0x20 : 0x10) | (c - 'A'));
+	}
+	
+	private char[] getDevicesForClimate(Climate climate)
+	{
+		switch (climate)
+		{
+		case COLD:
+			return new char[] { 'C' };
+
+		case WARM:
+			return new char[] { 'B' };
+			
+		case MOIST:
+			return new char[] { 'A' };
+			
+		default: // NORMAL
+			return new char[0];
+		}
+	}
+	
+	private void setClimateState(Climate climate, boolean state)
+	{
+		char[] devices = getDevicesForClimate(climate);
+		
+		for (char c : devices)
+		{
+			setDeviceState(c, state);
+		}
+	}
+	
+	public void setClimate(Climate climate)
+	{
+		setClimateState(this.climate, false);
+		this.climate = climate;
+		setClimateState(this.climate, true);
+	}
 
 	public void sprayScent(Scent scent)
 	{
 		writeToArduino(0x10 | (scent.ordinal() + 3));
-	}
-
-	public void setDeviceState(char c, boolean state)
-	{
-		writeToArduino((state ? 0x20 : 0x10) | (c - 'A'));
 	}
 }
