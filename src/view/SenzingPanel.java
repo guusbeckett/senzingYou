@@ -45,10 +45,20 @@ public class SenzingPanel extends JPanel implements ActionListener
 	
 	private void drawText(Graphics2D g2, String text, Color color, int size, Point2D p2)
 	{
+		AffineTransform transform = new AffineTransform();
+		transform.translate(p2.getX(), p2.getY());
+		drawText(g2, text, color, size, transform);
+	}
+	
+	private void drawText(Graphics2D g2, String text, Color color, int size, AffineTransform transform)
+	{
 		Font font = new Font("Arial", Font.BOLD, size);
 		FontRenderContext frc = g2.getFontRenderContext();
 		GlyphVector gv = font.createGlyphVector(frc, text);
-		Shape outline = gv.getOutline((int)p2.getX(), (int)p2.getY());
+		Shape outline = gv.getOutline(0, 0);
+		if(transform != null){
+			outline = transform.createTransformedShape(outline);
+		}
 		g2.setColor(color);
 		g2.fill(outline);
 		g2.setColor(Color.BLACK);
@@ -93,10 +103,14 @@ public class SenzingPanel extends JPanel implements ActionListener
 						if(hostile.getReward() <= 0){
 							transform.scale(entity.getDimensions().getWidth() / losingImage.getWidth(null), entity.getDimensions().getHeight() / losingImage.getHeight(null));
 							g2.drawImage(losingImage, transform, null);
+							transform.translate(0, (rewardImage.getWidth(null) / 1.5));
+							drawText(g2, ""+hostile.getReward(), Color.BLUE, 250, transform);
 						}
 						else{
 							transform.scale(entity.getDimensions().getWidth() / rewardImage.getWidth(null), entity.getDimensions().getHeight() / rewardImage.getHeight(null));
 							g2.drawImage(rewardImage, transform, null);
+							transform.translate(0, (rewardImage.getWidth(null) / 1.5));
+							drawText(g2, ""+hostile.getReward(), Color.GREEN, 250, transform);
 						}
 					}
 					
