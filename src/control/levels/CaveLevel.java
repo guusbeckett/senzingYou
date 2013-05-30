@@ -43,4 +43,16 @@ public class CaveLevel extends DodgeLevel
 	{
 		return new Rock(getGame().getCamera().getUsers());
 	}
+
+	@Override
+	public int getEntitySpawnRate()
+	{
+		return 100;
+	}
+
+	@Override
+	public int getHostileEntitySpawnRate()
+	{
+		return 300;
+	}
 }

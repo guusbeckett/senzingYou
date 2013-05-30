@@ -50,4 +50,16 @@ public class DesertLevel extends PunchLevel
 		else
 			return new Scorpion(getGame().getCamera().getUsers());
 	}
+
+	@Override
+	public int getEntitySpawnRate()
+	{
+		return 100;
+	}
+
+	@Override
+	public int getHostileEntitySpawnRate()
+	{
+		return 300;
+	}
 }

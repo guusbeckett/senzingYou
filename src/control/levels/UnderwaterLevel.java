@@ -63,4 +63,16 @@ public class UnderwaterLevel extends PunchLevel
 		File file = new File("./audio/underwater/background sfx.wav");
 		return AudioSystem.getAudioInputStream(file);
 	}
+
+	@Override
+	public int getEntitySpawnRate()
+	{
+		return 100;
+	}
+
+	@Override
+	public int getHostileEntitySpawnRate()
+	{
+		return 300;
+	}
 }
