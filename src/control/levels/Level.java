@@ -48,7 +48,7 @@ public abstract class Level
 
 	public abstract HostileEntity getRandomHostileEntity();
 
-	public void spawn(double time, float current)
+	public void spawn(double time, float current) 
 	{
 
 		if (current != 0)
