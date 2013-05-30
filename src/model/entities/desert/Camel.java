@@ -1,63 +1,81 @@
 package model.entities.desert;
 
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import model.Camera;
 import model.entities.Entity;
 
 public class Camel extends Entity
 {
+	private List<Image> images;
+
 	public Camel()
 	{
 		super();
-		// TODO Auto-generated constructor stub
+		Random r = new Random();
+		if (r.nextInt(2) == 1)
+		{
+			position.setLocation(0, 300);
+			velocity = new Point2D.Double(Math.random() * 0.2 + 0.01, 0.0);
+		} else
+		{
+			position.setLocation(Camera.VIEW_WIDTH, 300);
+			velocity = new Point2D.Double(Math.random() * -0.2 + 0.01, 0.0);
+		}
+
+		images = new ArrayList<Image>();
+		images.add(Toolkit.getDefaultToolkit().getImage(
+				"./images/desert/camel.png"));
 	}
 
 	@Override
 	public Point2D getRotationPoint()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new Point2D.Double(0, 0);
 	}
 
 	@Override
 	public Dimension2D getDimensions()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new Dimension(150, 150);
 	}
 
 	@Override
 	public List<Image> getImages()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return images;
 	}
 
 	@Override
 	public void update(double time)
 	{
 		super.update(time);
-		// TODO Auto-generated method stub
-		
+		position.setLocation(position.getX() + velocity.getX() * time / 30, 300); //TODO test if "/30" is good enough
 	}
-	
+
 	@Override
-	public AudioInputStream getSound() throws UnsupportedAudioFileException, IOException
+	public AudioInputStream getSound() throws UnsupportedAudioFileException,
+			IOException
 	{
 		return null;
 	}
-	
+
 	@Override
-	public AudioInputStream getHitSound() throws UnsupportedAudioFileException, IOException
+	public AudioInputStream getHitSound() throws UnsupportedAudioFileException,
+			IOException
 	{
 		return null;
 	}
-	
+
 }

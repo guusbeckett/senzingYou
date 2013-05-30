@@ -1,5 +1,6 @@
 package model.entities.rainforest;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
@@ -11,14 +12,21 @@ import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import model.Camera;
 import model.entities.Entity;
 
 public class Bird extends Entity
 {
+	private double baseY;
 	private ArrayList<Image> images = new ArrayList<Image>();
+	
 	public Bird()
 	{
 		super();
+		baseY = Math.random() * (Camera.VIEW_HEIGHT - getDimensions().getHeight() * 4) + getDimensions().getHeight();
+		position.setLocation(0, baseY);
+		velocity = new Point2D.Double(Math.random() * 0.2 + 0.01, 0.0);
+		
 		images.add(Toolkit.getDefaultToolkit().getImage("./images/rainforest/parrot/parrot0.png"));
 		images.add(Toolkit.getDefaultToolkit().getImage("./images/rainforest/parrot/parrot1.png"));
 	}
@@ -26,15 +34,13 @@ public class Bird extends Entity
 	@Override
 	public Point2D getRotationPoint()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new Point2D.Double(0, 0);
 	}
 
 	@Override
 	public Dimension2D getDimensions()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new Dimension(60, 40);
 	}
 
 	@Override
@@ -48,6 +54,7 @@ public class Bird extends Entity
 	public void update(double time)
 	{
 		super.update(time);
+		position.setLocation(position.getX() + velocity.getX() * time, baseY + Math.sin(position.getX() / Camera.VIEW_WIDTH * 2 * Math.PI) * getDimensions().getHeight());
 		// TODO Auto-generated method stub
 		
 	}
