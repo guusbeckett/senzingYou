@@ -52,7 +52,7 @@ public abstract class DodgeLevel extends Level
 							hostile.kill();
 						}
 						
-						if(hostile.getDeadTime() >= 2000){
+						if(hostile.getDeadTime() >= 450){
 							it.remove();
 						}
 				}

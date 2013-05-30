@@ -26,38 +26,34 @@ public abstract class PunchLevel extends Level
 		while (it.hasNext())
 		{
 			Entity entity = it.next();
-			if (entity instanceof HostileEntity)
+			if ((entity.getBounds().getMaxX() < 0 || entity.getBounds().getMaxY() < 0) || 
+				(entity.getBounds().getMinX() > Camera.VIEW_WIDTH || entity.getBounds().getMinY() > Camera.VIEW_HEIGHT))
 			{
-				HostileEntity hostile = (HostileEntity) entity;
-				if (!hostile.isAlive())
+				it.remove();
+			}
+			else{
+				if (entity instanceof HostileEntity)
 				{
-					it.remove();
-				} else
-				{
-					boolean haveToDelete = false;
-					for (User user : getGame().getCamera().getUsers())
-					{
-						if ((entity.getBounds().getMaxX() < 0 || entity
-								.getBounds().getMaxY() < 0)
-								|| (entity.getBounds().getMinX() > Camera.VIEW_WIDTH || entity
-										.getBounds().getMinY() > Camera.VIEW_HEIGHT))
+					HostileEntity hostile = (HostileEntity) entity;
+						boolean kill = false;
+						
+						for (User user : getGame().getCamera().getUsers())
 						{
-							haveToDelete = true;
-						} else if (hostile.getBounds().contains(
-								user.getLeftHand())
-								|| hostile.getBounds().contains(
-										user.getRightHand()))
-						{
-
-							user.setScore(user.getScore() + hostile.getReward());
-							haveToDelete = true;
+							if (hostile.getBounds().contains(user.getLeftHand())
+							|| hostile.getBounds().contains(user.getRightHand()))
+							{
+								user.setScore(user.getScore() + hostile.getReward());
+								kill = true;
+							}
 						}
-					}
-
-					if (haveToDelete)
-					{
-						it.remove();
-					}
+						
+						if(hostile.isAlive() && kill){
+							hostile.kill();
+						}
+						
+						if(hostile.getDeadTime() >= 450){
+							it.remove();
+						}
 				}
 			}
 		}
