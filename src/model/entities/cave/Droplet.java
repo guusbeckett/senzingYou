@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,7 +28,8 @@ import control.Senzing;
 public class Droplet extends Entity
 {
 	private AudioInputStream stream;
-	
+	private boolean playedSound = false;
+
 	public Droplet()
 	{
 		super();
@@ -37,7 +39,8 @@ public class Droplet extends Entity
 	@Override
 	public Point2D getRotationPoint()
 	{
-		return new Point2D.Double(getDimensions().getWidth()/2,getDimensions().getHeight()/2);
+		return new Point2D.Double(getDimensions().getWidth() / 2,
+				getDimensions().getHeight() / 2);
 	}
 
 	@Override
@@ -50,63 +53,69 @@ public class Droplet extends Entity
 	public List<Image> getImages()
 	{
 		ArrayList<Image> images = new ArrayList<Image>();
-		
-		images.add(Toolkit.getDefaultToolkit().getImage("./images/cave/droplet.png"));
-		
+
+		images.add(Toolkit.getDefaultToolkit().getImage(
+				"./images/cave/droplet.png"));
+
 		return images;
 	}
 
 	@Override
 	public void update(double time)
 	{
-		super.update(time);	
-		position.setLocation(position.getX(), position.getY()+ 0.25 * time);
+		super.update(time);
+		position.setLocation(position.getX(), position.getY() + 0.25 * time);
 		playSound(time);
 	}
-	
+
 	@Override
-	public AudioInputStream getSound() throws UnsupportedAudioFileException, IOException
+	public AudioInputStream getSound() throws UnsupportedAudioFileException,
+			IOException
 	{
-		return AudioSystem.getAudioInputStream(getClass().getResource("./audio/cave/droplet.wav"));
+		File file = new File("./audio/cave/droplet.wav");
+		return AudioSystem.getAudioInputStream(file);
 	}
-	
+
 	@Override
-	public AudioInputStream getHitSound() throws UnsupportedAudioFileException, IOException
+	public AudioInputStream getHitSound() throws UnsupportedAudioFileException,
+			IOException
 	{
-		return AudioSystem.getAudioInputStream(Main.class.getResourceAsStream("./audio/cave/droplet.wav"));
+		File file = new File("./audio/cave/droplet.wav");
+		return AudioSystem.getAudioInputStream(file);
 	}
-	
+
 	public void playSound(double time)
 	{
-		if(position.getY() >= Camera.VIEW_HEIGHT)
+		if (!playedSound)
 		{
-			try
+			if (position.getY() >= Camera.VIEW_HEIGHT)
 			{
-				URL url = Senzing.class.getResource("./audio/cave/droplet.wav");
-				System.out.println(url.getFile());
-				stream = AudioSystem.getAudioInputStream(url);
-				AudioFormat format = stream.getFormat();
-				DataLine.Info info = new DataLine.Info(Clip.class, format);
-				Clip clip = (Clip) AudioSystem.getClip();
-				clip.open(stream);
-				FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-				volumeControl.setValue((float) (time/(1000/30)));
-				clip.start();
-//				while(clip.isActive())
-//				{}
-//				clip.close();
-			} catch (UnsupportedAudioFileException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (LineUnavailableException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				try
+				{
+					stream = getSound();
+					AudioFormat format = stream.getFormat();
+					DataLine.Info info = new DataLine.Info(Clip.class, format);
+					Clip clip = (Clip) AudioSystem.getClip();
+					clip.open(stream);
+					FloatControl volumeControl = (FloatControl) clip
+							.getControl(FloatControl.Type.MASTER_GAIN);
+					volumeControl.setValue((float) (time / (1000 / 30)));
+					clip.loop(0);
+					clip.start();
+					playedSound = true;
+				} catch (UnsupportedAudioFileException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (LineUnavailableException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
