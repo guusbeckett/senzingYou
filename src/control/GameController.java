@@ -19,6 +19,14 @@ public class GameController implements ActionListener
 		
 		game.setLevel(new WelcomeMenu(game));
 		(new Timer(1000/UPDATES_PER_SECOND, this)).start();
+		(new Timer(200, new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				
+			}
+		})).start();
 	}
 
 	@Override
