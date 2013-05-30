@@ -38,22 +38,16 @@ public class Hardware
 			
 			input = serialPort.getInputStream();
 			output = serialPort.getOutputStream();
-		} catch (NoSuchPortException e)
-		{
-			// No such port
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-		try
-		{
+			
 			/* Wait for connection to establish */
 			while (input.available() <= 0)
 			{
 				writeToArduino(0x00);
-			}
-		} catch (IOException e)
+			}			
+		} catch (NoSuchPortException e)
+		{
+			// No such port
+		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
