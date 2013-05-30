@@ -21,7 +21,6 @@ public class Game
 	private Image background;
 	private Song song;
 	private Image ground;
-	private boolean levelMenu;
 	private Level level;
 	private List<Drive> drives;
 	private Clip clip;
@@ -101,16 +100,6 @@ public class Game
 	public void setSong(Song song)
 	{
 		this.song = song;
-	}
-
-	public boolean isLevelMenu()
-	{
-		return levelMenu;
-	}
-
-	public void setLevelMenu(boolean levelMenu)
-	{
-		this.levelMenu = levelMenu;
 	}
 
 	public Level getLevel()
