@@ -84,7 +84,11 @@ public class Droplet extends Entity
 				Clip clip = (Clip) AudioSystem.getLine(info);
 				clip.open(in);
 				FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-				System.out.println(time);
+				volumeControl.setValue((float) (time/(1000/30)));
+				clip.start();
+				while(clip.isActive())
+				{}
+				clip.close();
 			} catch (UnsupportedAudioFileException e)
 			{
 				// TODO Auto-generated catch block
