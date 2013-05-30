@@ -1,13 +1,9 @@
 package control.levels;
 
-import java.util.Iterator;
-import java.util.List;
-
 import model.Game;
 import model.enitities.menu.Hand;
 import model.entities.Entity;
 import model.entities.MenuEntity;
-import control.GameController;
 
 public abstract class MenuLevel extends Level
 {

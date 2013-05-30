@@ -17,7 +17,6 @@ import model.Game;
 import model.entities.MenuEntity;
 import control.levels.CaveLevel;
 import control.levels.SongMenu;
-import control.levels.UnderwaterLevel;
 
 public class ButtonCave extends MenuEntity
 {

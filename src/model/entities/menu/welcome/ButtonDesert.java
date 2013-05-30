@@ -15,7 +15,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import model.Game;
 import model.entities.MenuEntity;
-import control.levels.CaveLevel;
 import control.levels.DesertLevel;
 import control.levels.SongMenu;
 

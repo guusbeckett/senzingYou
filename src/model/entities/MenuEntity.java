@@ -1,6 +1,5 @@
 package model.entities;
 
-import control.GameController;
 import model.Game;
 
 

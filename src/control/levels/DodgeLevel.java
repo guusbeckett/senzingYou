@@ -1,7 +1,5 @@
 package control.levels;
 
-import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
 import java.util.Iterator;
 import java.util.List;
 

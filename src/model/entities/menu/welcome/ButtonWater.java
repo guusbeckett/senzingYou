@@ -13,11 +13,10 @@ import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import control.levels.RainforestLevel;
-import control.levels.SongMenu;
-import control.levels.UnderwaterLevel;
 import model.Game;
 import model.entities.MenuEntity;
+import control.levels.SongMenu;
+import control.levels.UnderwaterLevel;
 
 public class ButtonWater extends MenuEntity
 {

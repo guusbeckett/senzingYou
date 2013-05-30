@@ -13,12 +13,10 @@ import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import control.GameController;
-import control.levels.CaveLevel;
-import control.levels.RainforestLevel;
-import control.levels.SongMenu;
 import model.Game;
 import model.entities.MenuEntity;
+import control.levels.RainforestLevel;
+import control.levels.SongMenu;
 
 public class ButtonRainforest extends MenuEntity
 {
