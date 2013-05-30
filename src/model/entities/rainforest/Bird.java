@@ -1,9 +1,11 @@
 package model.entities.rainforest;
 
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
@@ -13,10 +15,12 @@ import model.entities.Entity;
 
 public class Bird extends Entity
 {
+	private ArrayList<Image> images = new ArrayList<Image>();
 	public Bird()
 	{
 		super();
-		// TODO Auto-generated constructor stub
+		images.add(Toolkit.getDefaultToolkit().getImage("./images/rainforest/parrot/parrot0.png"));
+		images.add(Toolkit.getDefaultToolkit().getImage("./images/rainforest/parrot/parrot1.png"));
 	}
 
 	@Override
@@ -36,8 +40,8 @@ public class Bird extends Entity
 	@Override
 	public List<Image> getImages()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		
+		return images;
 	}
 
 	@Override

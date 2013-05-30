@@ -1,31 +1,28 @@
 package model.entities.rainforest;
 
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import model.User;
-import model.entities.HostileEntity;
+import model.entities.Entity;
 
-public class Snake extends HostileEntity
+public class Snake extends Entity
 {
-	public Snake(List<User> users)
+	private ArrayList<Image> images = new ArrayList<Image>();
+	public Snake()
 	{
-		super(users);
-		// TODO Auto-generated method stub
+		super();
+		images.add(Toolkit.getDefaultToolkit().getImage("./images/rainforest/snake.png"));
 	}
 
-	@Override
-	public int getReward()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public Point2D getRotationPoint()
