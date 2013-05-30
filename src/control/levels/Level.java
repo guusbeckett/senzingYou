@@ -30,6 +30,7 @@ public abstract class Level
 		{
 			float current = (getGame().getSong().getThreshold() - minThreshold)
 					/ proportion;
+			System.out.println(proportion);
 			spawn(time, current);
 
 			for (Entity entity : game.getEntities())
