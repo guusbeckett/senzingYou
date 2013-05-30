@@ -143,13 +143,13 @@ public class Recognition
 	public String toString()
 	{
 		String addClass = "recogs.add(new Recognition("+leftHandElbow+", "+rightHandElbow+", "+leftElbowShoulder+", "+rightElbowShoulder+", "+leftFootKnee+", "+rightFootKnee+", "+leftKneeHip+", "+rightKneeHip+", "+shoulder+", \"Scan Name\"));";
-		String toString = "Recognition [leftHandElbow=" + leftHandElbow
-				+ ", rightHandElbow=" + rightHandElbow + ", leftElbowShoulder="
-				+ leftElbowShoulder + ", rightElbowShoulder="
-				+ rightElbowShoulder + ", leftFootKnee=" + leftFootKnee
-				+ ", rightFootKnee=" + rightFootKnee + ", leftKneeHip="
-				+ leftKneeHip + ", rightKneeHip=" + rightKneeHip
-				+ ", shoulder=" + shoulder + ", name=" + name + "]";
+//		String toString = "Recognition [leftHandElbow=" + leftHandElbow
+//				+ ", rightHandElbow=" + rightHandElbow + ", leftElbowShoulder="
+//				+ leftElbowShoulder + ", rightElbowShoulder="
+//				+ rightElbowShoulder + ", leftFootKnee=" + leftFootKnee
+//				+ ", rightFootKnee=" + rightFootKnee + ", leftKneeHip="
+//				+ leftKneeHip + ", rightKneeHip=" + rightKneeHip
+//				+ ", shoulder=" + shoulder + ", name=" + name + "]";
 		return addClass;
 	}
 	

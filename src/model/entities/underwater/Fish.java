@@ -10,12 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import model.Camera;
 import model.entities.Entity;
-import sun.applet.Main;
 
 public class Fish extends Entity
 {

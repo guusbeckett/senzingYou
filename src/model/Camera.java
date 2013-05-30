@@ -30,8 +30,6 @@ import org.OpenNI.StatusException;
 import org.OpenNI.UserEventArgs;
 import org.OpenNI.UserGenerator;
 
-import sun.java2d.pipe.OutlineTextRenderer;
-
 public class Camera
 {
 	public static final int VIEW_WIDTH = 640; //640
@@ -114,7 +112,7 @@ public class Camera
 				@Override
 				public void update(IObservable<UserEventArgs> arg0,
 						UserEventArgs arg1){
-						  Iterator itr = getUsers().iterator();
+						  Iterator<User> itr = getUsers().iterator();
 					      while(itr.hasNext()) {
 					         User user = (User)itr.next();
 					         if(user.getId() == arg1.getId()){

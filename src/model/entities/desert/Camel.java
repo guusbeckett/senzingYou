@@ -7,10 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
-import sun.applet.Main;
 
 import model.entities.Entity;
 
