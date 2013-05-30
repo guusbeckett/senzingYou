@@ -65,7 +65,7 @@ public class Cloud extends Entity
 	public void update(double time)
 	{
 		super.update(time);
-		position.setLocation(position.getX() + velocity.getX() * time / 30, baseY);
+		position.setLocation(position.getX() + velocity.getX() * time / 10, baseY);
 	}
 
 	@Override

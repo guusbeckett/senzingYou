@@ -5,8 +5,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.FontRenderContext;
@@ -21,18 +23,23 @@ import model.Camera;
 import model.Game;
 import model.User;
 import model.entities.Entity;
+import model.entities.HostileEntity;
 import control.Song;
 
 public class SenzingPanel extends JPanel implements ActionListener
 {
 	private static final  long serialVersionUID = 1L;
 	private Game game;
+	private Image rewardImage, losingImage;
+	
 	public SenzingPanel(Game game)
 	{
 		super();
 		this.game = game;
 		setBackground(Color.BLACK);
 		new Timer(1000/30, this).start();
+		rewardImage = Toolkit.getDefaultToolkit().getImage("./images/reward.png");
+		losingImage = Toolkit.getDefaultToolkit().getImage("./images/losingpoint.png");
 	}
 	
 	
@@ -64,13 +71,42 @@ public class SenzingPanel extends JPanel implements ActionListener
 
 		for (Entity entity : game.getEntities())
 		{
-			AffineTransform transform = AffineTransform.getRotateInstance(entity.getRotation(), entity.getRotationPoint().getX() + entity.getPosition().getX(), entity.getRotationPoint().getY() + entity.getPosition().getY());
-			
+			AffineTransform transform = AffineTransform.getRotateInstance(entity.getRotation(), entity.getRotationPoint().getX() + entity.getPosition().getX(), entity.getRotationPoint().getY() + entity.getPosition().getY());			
 			if (entity.getImage() != null)
 			{
-				transform.translate(entity.getPosition().getX(), entity.getPosition().getY());
-				transform.scale(entity.getDimensions().getWidth() / entity.getImage().getWidth(null), entity.getDimensions().getHeight() / entity.getImage().getHeight(null));
-				g2.drawImage(entity.getImage(), transform, null);
+				
+				
+				//Only if hostile we need to show them the bonus
+				if (entity instanceof HostileEntity)
+				{
+					HostileEntity hostile = (HostileEntity) entity;
+					if(hostile.isAlive()){
+						transform.translate(entity.getPosition().getX(), entity.getPosition().getY());
+						transform.scale(entity.getDimensions().getWidth() / entity.getImage().getWidth(null), entity.getDimensions().getHeight() / entity.getImage().getHeight(null));
+						g2.drawImage(entity.getImage(), transform, null);
+					}
+					//Anders is hij dood!
+					else{
+						transform.rotate(0);
+						transform.translate(hostile.getDeadLocation().getX(), hostile.getDeadLocation().getY());
+						
+						if(hostile.getReward() <= 0){
+							transform.scale(entity.getDimensions().getWidth() / losingImage.getWidth(null), entity.getDimensions().getHeight() / losingImage.getHeight(null));
+							g2.drawImage(losingImage, transform, null);
+						}
+						else{
+							transform.scale(entity.getDimensions().getWidth() / rewardImage.getWidth(null), entity.getDimensions().getHeight() / rewardImage.getHeight(null));
+							g2.drawImage(rewardImage, transform, null);
+						}
+					}
+					
+				}
+				//Entity
+				else{
+					transform.translate(entity.getPosition().getX(), entity.getPosition().getY());
+					transform.scale(entity.getDimensions().getWidth() / entity.getImage().getWidth(null), entity.getDimensions().getHeight() / entity.getImage().getHeight(null));
+					g2.drawImage(entity.getImage(), transform, null);
+				}
 			}
 		}
 		
