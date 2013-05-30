@@ -61,7 +61,7 @@ public class Camel extends Entity
 	public void update(double time)
 	{
 		super.update(time);
-		position.setLocation(position.getX() + velocity.getX() * time, 300);
+		position.setLocation(position.getX() + velocity.getX() * time / 30, 300); //TODO test if "/30" is good enough
 	}
 
 	@Override
