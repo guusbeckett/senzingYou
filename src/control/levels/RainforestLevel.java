@@ -9,6 +9,7 @@ import model.entities.rainforest.Banana;
 import model.entities.rainforest.Bird;
 import model.entities.rainforest.Snake;
 import model.entities.rainforest.Tree;
+import view.ground.RainforestGround;
 
 public class RainforestLevel extends DodgeLevel
 {
@@ -18,6 +19,7 @@ public class RainforestLevel extends DodgeLevel
 		super(game);
 		game.setBackground(Toolkit.getDefaultToolkit().getImage(
 				"./images/rainforest/background.png"));
+		game.setGroundRenderer(new RainforestGround());
 		game.getEntities().add(new Tree());
 		// TODO Auto-generated constructor stub
 	}

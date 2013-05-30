@@ -2,6 +2,8 @@ package control.levels;
 
 import java.awt.Toolkit;
 
+import view.ground.CaveGround;
+
 import model.Game;
 import model.entities.Entity;
 import model.entities.HostileEntity;
@@ -16,7 +18,7 @@ public class CaveLevel extends DodgeLevel
 		super(game);
 
 		game.setBackground(Toolkit.getDefaultToolkit().getImage("./images/cave/background.png"));
-		game.setGround(Toolkit.getDefaultToolkit().getImage("./images/cave/ground.jpg"));
+		game.setGroundRenderer(new CaveGround());
 	}
 
 	public void update(double time)

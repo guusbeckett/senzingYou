@@ -7,6 +7,7 @@ import model.entities.Entity;
 import model.entities.HostileEntity;
 import model.entities.sky.Bird;
 import model.entities.sky.Cloud;
+import view.ground.SkyGround;
 import control.Climate;
 import control.Hardware;
 
@@ -19,8 +20,7 @@ public class SkyLevel extends PunchLevel
 		Hardware.getInstance().setClimate(Climate.WARM);
 		game.setBackground(Toolkit.getDefaultToolkit().getImage(
 				"./images/sky/background.jpg"));
-		game.setGround(Toolkit.getDefaultToolkit().getImage(
-				"./images/sky/ground.jpg"));
+		game.setGroundRenderer(new SkyGround());
 	}
 
 	public void update(double time)
