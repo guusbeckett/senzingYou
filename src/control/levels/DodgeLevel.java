@@ -26,36 +26,35 @@ public abstract class DodgeLevel extends Level
 		while (it.hasNext())
 		{
 			Entity entity = it.next();
-			if (entity instanceof HostileEntity)
+			//If the images get out of the screen!
+			if ((entity.getBounds().getMaxX() < 0 || entity.getBounds().getMaxY() < 0) || (entity.getBounds().getMinX() > Camera.VIEW_WIDTH || entity.getBounds().getMinY() > Camera.VIEW_HEIGHT))
 			{
-				HostileEntity hostile = (HostileEntity) entity;
-				if (!hostile.isAlive())
+				it.remove();
+			}
+			else{
+				if (entity instanceof HostileEntity)
 				{
-					it.remove();
-				} 
-				else
-				{
-					boolean haveToDelete = false;
-					for (User user : getGame().getCamera().getUsers())
-					{
-						if ((entity.getBounds().getMaxX() < 0 || entity.getBounds().getMaxY() < 0) || (entity.getBounds().getMinX() > Camera.VIEW_WIDTH || entity.getBounds().getMinY() > Camera.VIEW_HEIGHT))
+					HostileEntity hostile = (HostileEntity) entity;
+					boolean killing = false;
+						for (User user : getGame().getCamera().getUsers())
 						{
-							haveToDelete = true;					
+							if(hostile.isAlive() && (user.getUserPixels().getData().readPixel((int)entity.getBounds().getX(), (int)entity.getBounds().getY()) == user.getId() ||
+									user.getUserPixels().getData().readPixel((int)entity.getBounds().getMaxX(), (int)entity.getBounds().getY()) == user.getId() ||
+									user.getUserPixels().getData().readPixel((int)entity.getBounds().getX(), (int)entity.getBounds().getMaxY()) == user.getId() ||
+									user.getUserPixels().getData().readPixel((int)entity.getBounds().getMaxX(), (int)entity.getBounds().getMaxY()) == user.getId()))
+							{
+								user.setScore(user.getScore()+hostile.getReward());
+								killing = true;
+							}
 						}
-						else if(user.getUserPixels().getData().readPixel((int)entity.getBounds().getX(), (int)entity.getBounds().getY()) == user.getId() ||
-								user.getUserPixels().getData().readPixel((int)entity.getBounds().getMaxX(), (int)entity.getBounds().getY()) == user.getId() ||
-								user.getUserPixels().getData().readPixel((int)entity.getBounds().getX(), (int)entity.getBounds().getMaxY()) == user.getId() ||
-								user.getUserPixels().getData().readPixel((int)entity.getBounds().getMaxX(), (int)entity.getBounds().getMaxY()) == user.getId())
-						{
-							user.setScore(user.getScore()+hostile.getReward());
-							haveToDelete = true;
+						
+						if(hostile.isAlive() && killing){
+							hostile.kill();
 						}
-					}
-					
-					if(haveToDelete){
-						it.remove();
-					}
-					
+						
+						if(hostile.getDeadTime() >= 2000){
+							it.remove();
+						}
 				}
 			}
 		}
