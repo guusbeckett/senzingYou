@@ -16,6 +16,7 @@ public abstract class Entity
 	protected Point2D position;
 	protected Point2D velocity;
 	protected double rotation;
+	private int timer;
 	
 	public Entity()
 	{
@@ -51,6 +52,17 @@ public abstract class Entity
 	public void update(double time)
 	{
 		// TODO animate
+		List<Image> images = getImages();
+		timer+=time;
+		if(timer >= 10){
+			timer = 0;
+			if(images != null){
+				if (index >= (images.size() -1))
+					index = 0;
+				else
+					index++;
+			}
+		}
 	}
 	
 	public abstract Point2D getRotationPoint();
