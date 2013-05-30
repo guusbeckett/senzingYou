@@ -15,6 +15,8 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -83,11 +85,15 @@ public class SenzingPanel extends JPanel implements ActionListener
 		{
 			AffineTransform transform = AffineTransform.getRotateInstance(entity.getRotation(), entity.getRotationPoint().getX() + entity.getPosition().getX(), entity.getRotationPoint().getY() + entity.getPosition().getY());			
 			if (entity.getImage() != null)
-			{
-				
-				
-				//Only if hostile we need to show them the bonus
-				if (entity instanceof HostileEntity)
+			{				
+				//Only if hostile we need to show them the bonus'
+				//Entity
+				if(!(entity instanceof HostileEntity)){
+					transform.translate(entity.getPosition().getX(), entity.getPosition().getY());
+					transform.scale(entity.getDimensions().getWidth() / entity.getImage().getWidth(null), entity.getDimensions().getHeight() / entity.getImage().getHeight(null));
+					g2.drawImage(entity.getImage(), transform, null);
+				}
+				else if (entity instanceof HostileEntity)
 				{
 					HostileEntity hostile = (HostileEntity) entity;
 					if(hostile.isAlive()){
@@ -115,20 +121,25 @@ public class SenzingPanel extends JPanel implements ActionListener
 					}
 					
 				}
-				//Entity
-				else{
-					transform.translate(entity.getPosition().getX(), entity.getPosition().getY());
-					transform.scale(entity.getDimensions().getWidth() / entity.getImage().getWidth(null), entity.getDimensions().getHeight() / entity.getImage().getHeight(null));
-					g2.drawImage(entity.getImage(), transform, null);
-				}
+				
 			}
 		}
 		
-		Color[] colors = new Color[]{Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY};
-		for(User u: game.getCamera().getUsers())
-		{
-			if (u.isVisible())
-				drawText(g2, ""+u.getScore(), colors[(u.getId() - 1)%colors.length], 70, new Point2D.Double(u.getHead().getX(), 70));
+		if(!game.getCamera().getUsers().isEmpty()){
+			Color[] colors = new Color[]{Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY};
+			ArrayList<User> copyUsers = new ArrayList<User>();
+			copyUsers.addAll(game.getCamera().getUsers());
+			Collections.sort(copyUsers);
+			int x = 30;
+			int scoreWidth = (game.getCamera().VIEW_WIDTH - x) / copyUsers.size();
+	
+			for(User u: copyUsers)
+			{
+				if (u.isVisible()){
+					drawText(g2, ""+u.getScore(), colors[(u.getId() - 1)%colors.length], 25, new Point2D.Double(x, 25));
+				}
+				x+=scoreWidth;
+			}
 		}
 		
 		Song song = game.getSong();

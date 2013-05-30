@@ -6,7 +6,7 @@ import org.OpenNI.Point3D;
 import org.OpenNI.SceneMetaData;
 import org.OpenNI.UserGenerator;
 
-public class User
+public class User implements Comparable<User>
 {
 	private int id, score;
 	private UserGenerator userGenerator;
@@ -243,6 +243,14 @@ public class User
 	public void setVisible(boolean visible)
 	{
 		this.visible = visible;
+	}
+
+	@Override
+	public int compareTo(User u)
+	{
+		double ownX = getHead().getX();
+		double otherX = u.getHead().getX();
+		return (int)(ownX - otherX);
 	}
 
 
