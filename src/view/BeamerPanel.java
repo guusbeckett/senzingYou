@@ -34,7 +34,8 @@ public class BeamerPanel extends JPanel implements ActionListener
 		g2.translate((getWidth() - (Camera.VIEW_WIDTH * scaleFactor)) / 2, 0);
 		g2.scale(scaleFactor, scaleFactor);
 
-		game.getGroundRenderer().draw(g2);
+		if (game.getGroundRenderer() != null)
+			game.getGroundRenderer().draw(g2);
 	}
 
 	@Override
