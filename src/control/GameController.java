@@ -2,6 +2,7 @@ package control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.List;
 
 import javax.swing.Timer;
@@ -28,8 +29,12 @@ public class GameController implements ActionListener
 			{
 				List<Drive> justConnected = game.getJustConnectedDrives();
 				
-				if (justConnected.size() > 0)
-					System.out.println(justConnected);
+				for (Drive drive : justConnected)
+				{
+					List<File> songs = drive.getSongs();
+					
+					System.out.println(songs);
+				}
 			}
 		})).start();
 	}
