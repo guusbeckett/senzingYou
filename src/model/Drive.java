@@ -48,9 +48,16 @@ public class Drive
 	
 				else
 				{
-					if (file.getName().endsWith(".mp3"))
+					String name = file.getName();
+					
+					int i = name.lastIndexOf('.');
+					
+					if (i > 0)
 					{
-						songs.add(file);
+						if (name.substring(i+1).compareToIgnoreCase("mp3") == 0)
+						{
+							songs.add(file);
+						}
 					}
 				}
 			}
