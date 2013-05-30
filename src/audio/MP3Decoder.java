@@ -97,7 +97,7 @@ public class MP3Decoder implements Decoder
 
 	class MP3AudioFileReader extends TAudioFileReader
 	{
-		public static final int INITAL_READ_LENGTH = 128000;
+		public static final int INITAL_READ_LENGTH = 128000*32;
 		private static final int MARK_LIMIT = INITAL_READ_LENGTH + 1;
 		private final AudioFormat.Encoding[][] sm_aEncodings = {
 				{ MpegEncoding.MPEG2L1, MpegEncoding.MPEG2L2,

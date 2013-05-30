@@ -15,6 +15,7 @@ import model.entities.HostileEntity;
 import model.entities.underwater.Fish;
 import model.entities.underwater.HarpoonDiver;
 import model.entities.underwater.Plant;
+import view.ground.UnderwaterGround;
 import control.Climate;
 import control.Hardware;
 
@@ -24,10 +25,10 @@ public class UnderwaterLevel extends PunchLevel
 	{
 		super(game);
 		Hardware.getInstance().setClimate(Climate.COLD);
+		
 		game.setBackground(Toolkit.getDefaultToolkit().getImage(
 				"./images/underwater/background.png"));
-		game.setGround(Toolkit.getDefaultToolkit().getImage(
-				"./images/underwater/ground.jpg"));
+		game.setGroundRenderer(new UnderwaterGround());
 		try
 		{
 			game.setBackgroundSound(getSound());
@@ -62,5 +63,17 @@ public class UnderwaterLevel extends PunchLevel
 	{
 		File file = new File("./audio/underwater/background sfx.wav");
 		return AudioSystem.getAudioInputStream(file);
+	}
+
+	@Override
+	public int getEntitySpawnRate()
+	{
+		return 100;
+	}
+
+	@Override
+	public int getHostileEntitySpawnRate()
+	{
+		return 300;
 	}
 }

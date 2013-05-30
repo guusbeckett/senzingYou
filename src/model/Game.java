@@ -11,6 +11,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 
 import model.entities.Entity;
+import view.ground.GroundRenderer;
 import control.Song;
 import control.levels.Level;
 
@@ -20,7 +21,7 @@ public class Game
 	private Camera camera;
 	private Image background;
 	private Song song;
-	private Image ground;
+	private GroundRenderer groundRenderer;
 	private Level level;
 	private List<Drive> drives;
 	private Clip clip;
@@ -82,14 +83,14 @@ public class Game
 		this.background = background;
 	}
 
-	public Image getGround()
+	public GroundRenderer getGroundRenderer()
 	{
-		return ground;
+		return groundRenderer;
 	}
 
-	public void setGround(Image ground)
+	public void setGroundRenderer(GroundRenderer groundRenderer)
 	{
-		this.ground = ground;
+		this.groundRenderer = groundRenderer;
 	}
 
 	public Song getSong()

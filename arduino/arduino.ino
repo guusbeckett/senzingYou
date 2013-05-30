@@ -1,7 +1,6 @@
 #include <RemoteTransmitter.h>
 
 ActionTransmitter transmitter(11);
-char currentTemperatureDevice = 0;
 
 void setup()
 {
@@ -10,7 +9,9 @@ void setup()
 
 void sprayScent(int pin)
 {
-  // spray scent connected on pin
+  digitalWrite(pin, HIGH);   // turn the spray on
+  delay(200);               // wait for 0,2 seconds
+  digitalWrite(pin, LOW);  // turn the spray off
 }
 
 void setDeviceState(char c, boolean state)
