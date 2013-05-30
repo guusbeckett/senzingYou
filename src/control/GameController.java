@@ -55,23 +55,23 @@ public class GameController implements ActionListener
 							switch (currentStage)
 							{
 							case 0:
-								game.setLevel(new RainforestLevel(game));
+								game.setLevel(new DesertLevel(game));
 								break;
 								
 							case 1:
-								game.setLevel(new CaveLevel(game));
+								game.setLevel(new RainforestLevel(game));
 								break;
 							
 							case 2:
-								game.setLevel(new UnderwaterLevel(game));
+								game.setLevel(new CaveLevel(game));
 								break;
 							
 							case 3:
-								game.setLevel(new SkyLevel(game));
+								game.setLevel(new UnderwaterLevel(game));
 								break;
 							
 							case 4:
-								game.setLevel(new DesertLevel(game));
+								game.setLevel(new SkyLevel(game));
 								break;
 							}
 							
