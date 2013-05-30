@@ -11,8 +11,10 @@ import javax.swing.Timer;
 import model.Drive;
 import model.Game;
 import control.levels.CaveLevel;
+import control.levels.DesertLevel;
 import control.levels.Level;
 import control.levels.RainforestLevel;
+import control.levels.SkyLevel;
 import control.levels.UnderwaterLevel;
 
 public class GameController implements ActionListener
@@ -51,6 +53,14 @@ public class GameController implements ActionListener
 						
 						case 2:
 							game.setLevel(new RainforestLevel(game));
+							break;
+						
+						case 3:
+							game.setLevel(new SkyLevel(game));
+							break;
+						
+						case 4:
+							game.setLevel(new DesertLevel(game));
 							break;
 						}
 						
