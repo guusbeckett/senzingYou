@@ -21,13 +21,12 @@ import model.Camera;
 import model.Game;
 import model.User;
 import model.entities.Entity;
+import control.Song;
 
 public class SenzingPanel extends JPanel implements ActionListener
 {
 	private static final  long serialVersionUID = 1L;
 	private Game game;
-	private Font font = new Font("Arial", Font.BOLD, 60);
-
 	public SenzingPanel(Game game)
 	{
 		super();
@@ -37,8 +36,9 @@ public class SenzingPanel extends JPanel implements ActionListener
 	}
 	
 	
-	private void drawText(Graphics2D g2, String text, Color color, Point2D p2)
+	private void drawText(Graphics2D g2, String text, Color color, int size, Point2D p2)
 	{
+		Font font = new Font("Arial", Font.BOLD, size);
 		FontRenderContext frc = g2.getFontRenderContext();
 		GlyphVector gv = font.createGlyphVector(frc, text);
 		Shape outline = gv.getOutline((int)p2.getX(), (int)p2.getY());
@@ -77,7 +77,17 @@ public class SenzingPanel extends JPanel implements ActionListener
 		Color[] colors = new Color[]{Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY};
 		for(User u: game.getCamera().getUsers())
 		{
-			drawText(g2, ""+u.getScore(), colors[(u.getId() - 1)%colors.length], new Point2D.Double(u.getHead().getX(), 70));
+			drawText(g2, ""+u.getScore(), colors[(u.getId() - 1)%colors.length], 70, new Point2D.Double(u.getHead().getX(), 70));
+		}
+		
+		Song song = game.getSong();
+		
+		if (song != null)
+		{
+			int time = (int)song.getTime();
+			int length = (int)song.getLength();
+			
+			drawText(g2, String.format("%02d:%02d / %02d:%02d", time / 60, time % 60, length / 60, length % 60), Color.ORANGE, 25, new Point2D.Double(8, 25));
 		}
 	}
 
