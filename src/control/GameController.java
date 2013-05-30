@@ -9,7 +9,7 @@ import javax.swing.Timer;
 
 import model.Drive;
 import model.Game;
-import control.levels.WelcomeMenu;
+import control.levels.Level;
 
 public class GameController implements ActionListener
 {
@@ -20,7 +20,7 @@ public class GameController implements ActionListener
 	{
 		this.game = g;
 		
-		game.setLevel(new WelcomeMenu(game));
+		//game.setLevel(new WelcomeMenu(game));
 		(new Timer(1000/UPDATES_PER_SECOND, this)).start();
 		(new Timer(200, new ActionListener()
 		{
@@ -42,6 +42,11 @@ public class GameController implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		game.getLevel().update(1000 / UPDATES_PER_SECOND);
+		Level level = game.getLevel();
+		
+		if (level != null)
+		{
+			level.update(1000 / UPDATES_PER_SECOND);
+		}
 	}
 }
