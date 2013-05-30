@@ -1,9 +1,11 @@
 package model.entities.rainforest;
 
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
@@ -14,10 +16,11 @@ import model.entities.HostileEntity;
 
 public class Snake extends HostileEntity
 {
+	private ArrayList<Image> images = new ArrayList<Image>();
 	public Snake(List<User> users)
 	{
 		super(users);
-		// TODO Auto-generated method stub
+		images.add(Toolkit.getDefaultToolkit().getImage("./images/rainforest/snake.png"));
 	}
 
 	@Override

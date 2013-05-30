@@ -3,6 +3,8 @@ package control.levels;
 import model.Game;
 import model.entities.Entity;
 import model.entities.HostileEntity;
+import model.entities.rainforest.Banana;
+import model.entities.rainforest.Bird;
 
 public class RainforestLevel extends DodgeLevel
 {
@@ -17,13 +19,13 @@ public class RainforestLevel extends DodgeLevel
 	public Entity getRandomEntity()
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return new Bird();
 	}
 
 	@Override
 	public HostileEntity getRandomHostileEntity()
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return new Banana(getGame().getCamera().getUsers());
 	}
 }
