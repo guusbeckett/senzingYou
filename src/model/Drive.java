@@ -22,21 +22,10 @@ public class Drive
 	
 	public boolean wasJustConnected()
 	{
-		if (connected)
-		{
-			return false;
-		}
+		boolean wasAlreadyConnected = connected;
 		
-		return (connected = file.canRead());
-	}
-	
-	public boolean wasJustDisconnected()
-	{
-		if (!connected)
-		{
-			return false;
-		}
-		
-		return !(connected = file.canRead());
+		connected = file.canRead();
+				
+		return (wasAlreadyConnected) ? false : connected;
 	}
 }
