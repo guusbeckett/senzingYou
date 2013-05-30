@@ -24,7 +24,7 @@ public class Camel extends Entity
 	{
 		super();
 		Random r = new Random();
-		if (r.nextInt(2) == 1)
+		if (r.nextBoolean())
 		{
 			position.setLocation(0, 300);
 			velocity = new Point2D.Double(Math.random() * 0.2 + 0.01, 0.0);

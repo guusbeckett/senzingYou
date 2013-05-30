@@ -14,6 +14,7 @@ public class User
 	leftElbow, rightElbow, leftHand, rightHand, leftHip, rightHip, 
 	leftKnee, rightKnee, leftFoot, rightFoot, midpoint;
 	private String name;
+	private boolean visible;
 	
 	private Point3D rightHandWorld;
 	
@@ -22,6 +23,7 @@ public class User
 		this.id = id;
 		this.userGenerator = userGenerator;
 		this.name = null;
+		this.visible = true;
 	}
 
 	public int getId()
@@ -231,6 +233,16 @@ public class User
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	public boolean isVisible()
+	{
+		return visible;
+	}
+
+	public void setVisible(boolean visible)
+	{
+		this.visible = visible;
 	}
 
 
