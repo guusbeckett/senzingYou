@@ -1,6 +1,12 @@
 package control.levels;
 
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import model.Game;
 import model.entities.Entity;
@@ -19,6 +25,13 @@ public class UnderwaterLevel extends PunchLevel
 		Hardware.getInstance().setClimate(Climate.COLD);
 		game.setBackground(Toolkit.getDefaultToolkit().getImage("./images/underwater/background.png"));
 		game.setGround(Toolkit.getDefaultToolkit().getImage("./images/underwater/ground.jpg"));
+		try
+		{
+			game.setBackgroundSound(getSound());
+		} catch (IOException | UnsupportedAudioFileException e)
+		{
+			e.printStackTrace();
+		}
 		game.getEntities().add(new Plant());
 		game.getEntities().add(new Plant());
 		game.getEntities().add(new Plant());
@@ -40,5 +53,12 @@ public class UnderwaterLevel extends PunchLevel
 	public HostileEntity getRandomHostileEntity()
 	{
 		return new HarpoonDiver(getGame().getCamera().getUsers());
+	}
+	
+	public AudioInputStream getSound() throws UnsupportedAudioFileException,
+	IOException
+	{
+		File file = new File("./audio/underwater/background sfx.wav");
+		return AudioSystem.getAudioInputStream(file);
 	}
 }

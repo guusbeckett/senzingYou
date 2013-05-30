@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+
 import model.entities.Entity;
 import control.Song;
 import control.levels.Level;
@@ -19,6 +24,7 @@ public class Game
 	private boolean levelMenu;
 	private Level level;
 	private List<Drive> drives;
+	private Clip clip;
 
 	public Game()
 	{
@@ -32,6 +38,14 @@ public class Game
 		
 		background = null;
 		camera = new Camera();
+		
+		try
+		{
+			clip = (Clip) AudioSystem.getClip();
+		} catch (LineUnavailableException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public void clearRoom()
@@ -122,5 +136,24 @@ public class Game
 		}
 		
 		return justConnected;
+	}
+
+	public void setBackgroundSound(AudioInputStream backgroundSound)
+	{
+		if (clip.isOpen())
+			clip.close();
+		
+		if (backgroundSound != null)
+		{
+			try
+			{
+				clip.open(backgroundSound);
+				clip.loop(Clip.LOOP_CONTINUOUSLY);
+				clip.start();
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 }
