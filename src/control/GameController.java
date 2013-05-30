@@ -28,6 +28,8 @@ public class GameController implements ActionListener
 	{
 		this.game = g;
 		
+		Hardware.getInstance(); // init hardware before loading music
+		
 		(new Timer(1000/UPDATES_PER_SECOND, this)).start();
 		(new Timer(200, new ActionListener()
 		{
