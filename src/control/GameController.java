@@ -10,12 +10,17 @@ import javax.swing.Timer;
 
 import model.Drive;
 import model.Game;
+import control.levels.CaveLevel;
+import control.levels.DesertLevel;
 import control.levels.Level;
 import control.levels.RainforestLevel;
+import control.levels.SkyLevel;
+import control.levels.UnderwaterLevel;
 
 public class GameController implements ActionListener
 {
 	private Game game;
+	private int activeStage;
 	private final int UPDATES_PER_SECOND = 30;
 
 	public GameController(Game g)
@@ -28,24 +33,59 @@ public class GameController implements ActionListener
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				List<Drive> justConnected = game.getJustConnectedDrives();
-				
-				for (Drive drive : justConnected)
+				if (game.getSong() != null)
 				{
-					List<File> songs = drive.getSongs();
-					File file = songs.get((new Random()).nextInt(songs.size()));
-					System.out.println(file);
+					double lengthOfStage = game.getSong().getLength() / 5;
+					int currentStage = (int)Math.floor(game.getSong().getTime() / lengthOfStage);
 					
-					try
+					if (currentStage != activeStage)
 					{
-						game.setSong(new Song(file));
-						game.getSong().play();				
-						game.setLevel(new RainforestLevel(game));
-					} catch (Exception ex)
-					{
-						ex.printStackTrace();
+						switch (currentStage)
+						{
+						case 0:
+							game.setLevel(new UnderwaterLevel(game));
+							break;
+							
+						case 1:
+							game.setLevel(new CaveLevel(game));
+							break;
+						
+						case 2:
+							game.setLevel(new RainforestLevel(game));
+							break;
+						
+						case 3:
+							game.setLevel(new SkyLevel(game));
+							break;
+						
+						case 4:
+							game.setLevel(new DesertLevel(game));
+							break;
+						}
+						
+						activeStage = currentStage;
 					}
+				}
+				
+				else
+				{
+					List<Drive> justConnected = game.getJustConnectedDrives();
 					
+					for (Drive drive : justConnected)
+					{
+						List<File> songs = drive.getSongs();
+						File file = songs.get((new Random()).nextInt(songs.size()));
+						
+						try
+						{
+							game.setSong(new Song(file));
+							game.getSong().play();
+							activeStage = -1;
+						} catch (Exception ex)
+						{
+							ex.printStackTrace();
+						}
+					}
 				}
 			}
 		})).start();
