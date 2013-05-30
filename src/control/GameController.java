@@ -43,7 +43,7 @@ public class GameController implements ActionListener
 						switch (currentStage)
 						{
 						case 0:
-							game.setLevel(new UnderwaterLevel(game));
+							game.setLevel(new RainforestLevel(game));
 							break;
 							
 						case 1:
@@ -51,7 +51,7 @@ public class GameController implements ActionListener
 							break;
 						
 						case 2:
-							game.setLevel(new RainforestLevel(game));
+							game.setLevel(new UnderwaterLevel(game));
 							break;
 						
 						case 3:

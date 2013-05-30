@@ -18,6 +18,7 @@ public class RainforestLevel extends DodgeLevel
 		super(game);
 		game.setBackground(Toolkit.getDefaultToolkit().getImage(
 				"./images/rainforest/background.png"));
+		game.getEntities().add(new Tree());
 		// TODO Auto-generated constructor stub
 	}
 
@@ -25,10 +26,7 @@ public class RainforestLevel extends DodgeLevel
 	public Entity getRandomEntity()
 	{
 		// TODO Auto-generated method stub
-		if(Math.random() < 0.3){
-			return new Tree();
-		}
-		else if(Math.random() > 0.7){
+		if(Math.random() > 0.5){
 			return new Bird();
 		}
 		else{
