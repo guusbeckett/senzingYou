@@ -21,6 +21,11 @@ public class Drive
 	{
 		return letter + ":/";
 	}
+	
+	public boolean isConnected()
+	{
+		return (connected = file.canRead());
+	}
 
 	public boolean wasJustConnected()
 	{

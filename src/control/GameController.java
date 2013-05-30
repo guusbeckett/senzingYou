@@ -20,12 +20,15 @@ import control.levels.UnderwaterLevel;
 public class GameController implements ActionListener
 {
 	private Game game;
+	private Drive drive;
 	private int activeStage;
 	private final int UPDATES_PER_SECOND = 30;
 
 	public GameController(Game g)
 	{
 		this.game = g;
+		
+		Hardware.getInstance(); // init hardware before loading music
 		
 		(new Timer(1000/UPDATES_PER_SECOND, this)).start();
 		(new Timer(200, new ActionListener()
@@ -35,35 +38,45 @@ public class GameController implements ActionListener
 			{
 				if (game.getSong() != null)
 				{
-					double lengthOfStage = game.getSong().getLength() / 5;
-					int currentStage = (int)Math.floor(game.getSong().getTime() / lengthOfStage);
-					
-					if (currentStage != activeStage)
+					if (!drive.isConnected())
 					{
-						switch (currentStage)
+						game.getSong().stop();
+						game.setSong(null);
+						game.setLevel(null);
+					}
+					
+					else
+					{
+						double lengthOfStage = game.getSong().getLength() / 5;
+						int currentStage = (int)Math.floor(game.getSong().getTime() / lengthOfStage);
+						
+						if (currentStage != activeStage)
 						{
-						case 0:
-							game.setLevel(new UnderwaterLevel(game));
-							break;
+							switch (currentStage)
+							{
+							case 0:
+								game.setLevel(new UnderwaterLevel(game));
+								break;
+								
+							case 1:
+								game.setLevel(new CaveLevel(game));
+								break;
 							
-						case 1:
-							game.setLevel(new CaveLevel(game));
-							break;
-						
-						case 2:
-							game.setLevel(new RainforestLevel(game));
-							break;
-						
-						case 3:
-							game.setLevel(new SkyLevel(game));
-							break;
-						
-						case 4:
-							game.setLevel(new DesertLevel(game));
-							break;
+							case 2:
+								game.setLevel(new RainforestLevel(game));
+								break;
+							
+							case 3:
+								game.setLevel(new SkyLevel(game));
+								break;
+							
+							case 4:
+								game.setLevel(new DesertLevel(game));
+								break;
+							}
+							
+							activeStage = currentStage;
 						}
-						
-						activeStage = currentStage;
 					}
 				}
 				
@@ -71,8 +84,9 @@ public class GameController implements ActionListener
 				{
 					List<Drive> justConnected = game.getJustConnectedDrives();
 					
-					for (Drive drive : justConnected)
+					if (justConnected.size() > 0)
 					{
+						drive = justConnected.get(0);
 						List<File> songs = drive.getSongs();
 						File file = songs.get((new Random()).nextInt(songs.size()));
 						
