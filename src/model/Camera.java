@@ -100,15 +100,45 @@ public class Camera
 							} 
 						}catch (StatusException e)
 						{
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						
 						getUsers().add(new User(arg1.getId(), userGenerator));
 					}
 			});
 			
-			//Check if the user is away
+			//Check if the user re-entered
 			userGenerator.getUserExitEvent().addObserver(new IObserver<UserEventArgs>(){
+				@Override
+				public void update(IObservable<UserEventArgs> arg0,
+						UserEventArgs arg1){
+					for (User user : getUsers())
+					{
+						if (user.getId() == arg1.getId())
+						{
+							user.setVisible(true);
+						}
+					}
+				}
+			});
+			
+			//Check if the user left
+			userGenerator.getUserExitEvent().addObserver(new IObserver<UserEventArgs>(){
+				@Override
+				public void update(IObservable<UserEventArgs> arg0,
+						UserEventArgs arg1){
+					for (User user : getUsers())
+					{
+						if (user.getId() == arg1.getId())
+						{
+							user.setVisible(false);
+						}
+					}
+				}
+			});
+			
+			//Check if the user was lost
+			userGenerator.getLostUserEvent().addObserver(new IObserver<UserEventArgs>(){
 				@Override
 				public void update(IObservable<UserEventArgs> arg0,
 						UserEventArgs arg1){
@@ -230,7 +260,7 @@ public class Camera
 		BufferedImage img = new BufferedImage(VIEW_WIDTH, VIEW_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		BufferedImage imgCam = getImageRGB();
 		for(User user: getUsers()){
-			userBuffer = user.getUserPixels().getData().createShortBuffer();
+			userBuffer = getUsers().get(0).getUserPixels().getData().createShortBuffer();
 		}
 		
 		int x = 0;
