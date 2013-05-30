@@ -1,5 +1,6 @@
 package model.entities.rainforest;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
@@ -22,15 +23,13 @@ public class Tree extends Entity
 	@Override
 	public Point2D getRotationPoint()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new Point2D.Double(0, 0);
 	}
 
 	@Override
 	public Dimension2D getDimensions()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new Dimension(60, 40);
 	}
 
 	@Override

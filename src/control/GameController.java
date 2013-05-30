@@ -4,12 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.Timer;
 
 import model.Drive;
 import model.Game;
-import control.levels.WelcomeMenu;
+import control.levels.Level;
+import control.levels.RainforestLevel;
 
 public class GameController implements ActionListener
 {
@@ -20,7 +22,6 @@ public class GameController implements ActionListener
 	{
 		this.game = g;
 		
-		game.setLevel(new WelcomeMenu(game));
 		(new Timer(1000/UPDATES_PER_SECOND, this)).start();
 		(new Timer(200, new ActionListener()
 		{
@@ -32,8 +33,19 @@ public class GameController implements ActionListener
 				for (Drive drive : justConnected)
 				{
 					List<File> songs = drive.getSongs();
+					File file = songs.get((new Random()).nextInt(songs.size()));
+					System.out.println(file);
 					
-					System.out.println(songs);
+					try
+					{
+						game.setSong(new Song(file));
+						game.getSong().play();				
+						game.setLevel(new RainforestLevel(game));
+					} catch (Exception ex)
+					{
+						ex.printStackTrace();
+					}
+					
 				}
 			}
 		})).start();
@@ -42,6 +54,11 @@ public class GameController implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		game.getLevel().update(1000 / UPDATES_PER_SECOND);
+		Level level = game.getLevel();
+		
+		if (level != null)
+		{
+			level.update(1000 / UPDATES_PER_SECOND);
+		}
 	}
 }

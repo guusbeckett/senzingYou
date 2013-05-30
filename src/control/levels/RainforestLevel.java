@@ -39,3 +39,4 @@ public class RainforestLevel extends DodgeLevel
 		return new Banana(getGame().getCamera().getUsers());
 	}
 }
+
