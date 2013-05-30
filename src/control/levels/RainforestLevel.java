@@ -1,5 +1,7 @@
 package control.levels;
 
+import java.awt.Toolkit;
+
 import model.Game;
 import model.entities.Entity;
 import model.entities.HostileEntity;
@@ -14,6 +16,8 @@ public class RainforestLevel extends DodgeLevel
 	public RainforestLevel(Game game)
 	{
 		super(game);
+		game.setBackground(Toolkit.getDefaultToolkit().getImage(
+				"./images/rainforest/background.png"));
 		// TODO Auto-generated constructor stub
 	}
 
