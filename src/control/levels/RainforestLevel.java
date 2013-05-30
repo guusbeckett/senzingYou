@@ -5,6 +5,8 @@ import model.entities.Entity;
 import model.entities.HostileEntity;
 import model.entities.rainforest.Banana;
 import model.entities.rainforest.Bird;
+import model.entities.rainforest.Snake;
+import model.entities.rainforest.Tree;
 
 public class RainforestLevel extends DodgeLevel
 {
@@ -19,7 +21,15 @@ public class RainforestLevel extends DodgeLevel
 	public Entity getRandomEntity()
 	{
 		// TODO Auto-generated method stub
-		return new Bird();
+		if(Math.random() < 0.3){
+			return new Tree();
+		}
+		else if(Math.random() > 0.7){
+			return new Bird();
+		}
+		else{
+			return new Snake();
+		}
 	}
 
 	@Override

@@ -19,12 +19,8 @@ public class Bird extends Entity
 	public Bird()
 	{
 		super();
-		if(Math.random() < 0.5){
-			images.add(Toolkit.getDefaultToolkit().getImage("./images/rainforest/birdRed.png"));
-		}
-		else{
-			images.add(Toolkit.getDefaultToolkit().getImage("./images/rainforest/birdGreen.png"));
-		}
+		images.add(Toolkit.getDefaultToolkit().getImage("./images/rainforest/parrot/parrot0.png"));
+		images.add(Toolkit.getDefaultToolkit().getImage("./images/rainforest/parrot/parrot1.png"));
 	}
 
 	@Override

@@ -12,23 +12,17 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import model.User;
-import model.entities.HostileEntity;
+import model.entities.Entity;
 
-public class Snake extends HostileEntity
+public class Snake extends Entity
 {
 	private ArrayList<Image> images = new ArrayList<Image>();
-	public Snake(List<User> users)
+	public Snake()
 	{
-		super(users);
+		super();
 		images.add(Toolkit.getDefaultToolkit().getImage("./images/rainforest/snake.png"));
 	}
 
-	@Override
-	public int getReward()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public Point2D getRotationPoint()
