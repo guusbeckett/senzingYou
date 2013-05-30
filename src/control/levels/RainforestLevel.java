@@ -2,6 +2,9 @@ package control.levels;
 
 import java.awt.Toolkit;
 
+import control.Climate;
+import control.Hardware;
+
 import model.Game;
 import model.entities.Entity;
 import model.entities.HostileEntity;
@@ -16,6 +19,7 @@ public class RainforestLevel extends DodgeLevel
 	public RainforestLevel(Game game)
 	{
 		super(game);
+		Hardware.getInstance().setClimate(Climate.MOIST);
 		game.setBackground(Toolkit.getDefaultToolkit().getImage(
 				"./images/rainforest/background.png"));
 		game.getEntities().add(new Tree());

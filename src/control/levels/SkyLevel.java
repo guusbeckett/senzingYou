@@ -16,7 +16,7 @@ public class SkyLevel extends PunchLevel
 	public SkyLevel(Game game)
 	{
 		super(game);
-		Hardware.getInstance().setClimate(Climate.WARM);
+		Hardware.getInstance().setClimate(Climate.COLD);
 		game.setBackground(Toolkit.getDefaultToolkit().getImage(
 				"./images/sky/background.jpg"));
 		game.setGround(Toolkit.getDefaultToolkit().getImage(

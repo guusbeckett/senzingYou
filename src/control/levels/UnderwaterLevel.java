@@ -24,6 +24,7 @@ public class UnderwaterLevel extends PunchLevel
 	{
 		super(game);
 		Hardware.getInstance().setClimate(Climate.COLD);
+		
 		game.setBackground(Toolkit.getDefaultToolkit().getImage(
 				"./images/underwater/background.png"));
 		game.setGround(Toolkit.getDefaultToolkit().getImage(

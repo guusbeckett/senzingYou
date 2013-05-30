@@ -2,6 +2,9 @@ package control.levels;
 
 import java.awt.Toolkit;
 
+import control.Climate;
+import control.Hardware;
+
 import model.Game;
 import model.entities.Entity;
 import model.entities.HostileEntity;
@@ -14,7 +17,7 @@ public class CaveLevel extends DodgeLevel
 	public CaveLevel(Game game)
 	{
 		super(game);
-
+		Hardware.getInstance().setClimate(Climate.MOIST);
 		game.setBackground(Toolkit.getDefaultToolkit().getImage("./images/cave/background.png"));
 		game.setGround(Toolkit.getDefaultToolkit().getImage("./images/cave/ground.jpg"));
 	}
