@@ -18,11 +18,18 @@ public class Game
 	private Image ground;
 	private boolean levelMenu;
 	private Level level;
-	
-	
+	private List<Drive> drives;
+
 	public Game()
 	{
 		this.entities = Collections.synchronizedList(new ArrayList<Entity>());
+		this.drives = new ArrayList<Drive>();
+		
+		for (char a = 'A'; a <= 'I'; a++)
+		{
+			drives.add(new Drive(a));
+		}
+		
 		background = null;
 		camera = new Camera();
 	}
@@ -100,5 +107,20 @@ public class Game
 	public void setLevel(Level level)
 	{
 		this.level = level;
+	}
+	
+	public List<Drive> getJustConnectedDrives()
+	{
+		List<Drive> justConnected = new ArrayList<Drive>();
+		
+		for (Drive drive : drives)
+		{
+			if (drive.wasJustConnected())
+			{
+				justConnected.add(drive);
+			}
+		}
+		
+		return justConnected;
 	}
 }
