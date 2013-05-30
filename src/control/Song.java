@@ -17,7 +17,6 @@ public class Song
 	
 	private File track;
 	private float lastCall = 0;
-	private int position = 0;
 	private float elapsedTime;
 	private float maxThreshold;
 	private float minThreshold;
@@ -98,7 +97,6 @@ public class Song
 						if (startTime == 0)
 							startTime = System.nanoTime();
 						elapsedTime = (System.nanoTime() - startTime) / 1000000000.0f;
-						position = (int) (elapsedTime * (44100 / HOP_SIZE));
 						Thread.sleep(20);
 					}
 					
@@ -152,10 +150,15 @@ public class Song
 		}
 		return 0;
 	}
-
-	public int getTime()
+	
+	public double getLength()
 	{
-		return position;
+		return thresholds.get(0).size() * 512 / 44100;
+	}
+
+	public double getTime()
+	{
+		return elapsedTime;
 	}
 
 	public float getMaxThreshold()
