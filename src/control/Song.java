@@ -1,5 +1,6 @@
 package control;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class Song
 {
 	private Thread th;
 	
-	private String track;
+	private File track;
 	private float lastCall = 0;
 	private int position = 0;
 	private float elapsedTime;
@@ -26,7 +27,7 @@ public class Song
 	private static final int HISTORY_SIZE = 50;
 	private static final float[] bands = { 80, 4000, 4000, 10000, 10000, 16000 };
 
-	public Song(final String track) throws FileNotFoundException, Exception
+	public Song(final File track) throws FileNotFoundException, Exception
 	{
 		this.track = track;
 		MP3Decoder decoder = new MP3Decoder(new FileInputStream(track));

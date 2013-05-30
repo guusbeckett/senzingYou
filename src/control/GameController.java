@@ -4,11 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.Timer;
 
 import model.Drive;
 import model.Game;
+import control.levels.CaveLevel;
 import control.levels.Level;
 
 public class GameController implements ActionListener
@@ -32,8 +34,19 @@ public class GameController implements ActionListener
 				for (Drive drive : justConnected)
 				{
 					List<File> songs = drive.getSongs();
+					File file = songs.get((new Random()).nextInt(songs.size()));
+					System.out.println(file);
 					
-					System.out.println(songs);
+					try
+					{
+						game.setSong(new Song(file));
+						game.getSong().play();				
+						game.setLevel(new CaveLevel(game));
+					} catch (Exception ex)
+					{
+						ex.printStackTrace();
+					}
+					
 				}
 			}
 		})).start();
