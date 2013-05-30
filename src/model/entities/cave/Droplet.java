@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +22,12 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import model.Camera;
 import model.entities.Entity;
 import sun.applet.Main;
+import control.Senzing;
 
 public class Droplet extends Entity
 {
+	private AudioInputStream stream;
+	
 	public Droplet()
 	{
 		super();
@@ -78,17 +82,19 @@ public class Droplet extends Entity
 		{
 			try
 			{
-				AudioInputStream in = getSound();
-				AudioFormat format = in.getFormat();
+				URL url = Senzing.class.getResource("./audio/cave/droplet.wav");
+				System.out.println(url.getFile());
+				stream = AudioSystem.getAudioInputStream(url);
+				AudioFormat format = stream.getFormat();
 				DataLine.Info info = new DataLine.Info(Clip.class, format);
-				Clip clip = (Clip) AudioSystem.getLine(info);
-				clip.open(in);
+				Clip clip = (Clip) AudioSystem.getClip();
+				clip.open(stream);
 				FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 				volumeControl.setValue((float) (time/(1000/30)));
 				clip.start();
-				while(clip.isActive())
-				{}
-				clip.close();
+//				while(clip.isActive())
+//				{}
+//				clip.close();
 			} catch (UnsupportedAudioFileException e)
 			{
 				// TODO Auto-generated catch block
