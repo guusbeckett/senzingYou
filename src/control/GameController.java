@@ -50,6 +50,7 @@ public class GameController implements ActionListener
 					
 					else
 					{
+						System.out.println("tesT");
 						double lengthOfStage = game.getSong().getLength() / 5;
 						int currentStage = (int)Math.floor(game.getSong().getTime() / lengthOfStage);
 						
@@ -91,9 +92,9 @@ public class GameController implements ActionListener
 					// Put all the songs into a list
 					List<File> audioFiles = new ArrayList<File>();
 					
-					for (Drive drive : justConnected)
+					for (Drive d : justConnected)
 					{
-						audioFiles.addAll(drive.getAudioFiles());
+						audioFiles.addAll(d.getAudioFiles());
 					}
 				
 					// Pick one
@@ -103,6 +104,7 @@ public class GameController implements ActionListener
 						
 						try
 						{
+							drive = justConnected.get(0);
 							game.setSong(new Song(file));
 							game.getSong().play();
 							activeStage = -1;
