@@ -3,11 +3,7 @@ package model.levels.desert;
 import java.awt.Dimension;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
-import java.io.IOException;
 import java.util.Random;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import model.Camera;
 import model.entities.Entity;
@@ -62,15 +58,7 @@ public class Vulture extends Entity
 	}
 
 	@Override
-	public AudioInputStream getSound() throws UnsupportedAudioFileException,
-			IOException
-	{
-		return null;
-	}
-
-	@Override
-	public AudioInputStream getHitSound() throws UnsupportedAudioFileException,
-			IOException
+	public String getHitSoundName()
 	{
 		return null;
 	}

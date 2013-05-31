@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 
-import javax.sound.sampled.AudioInputStream;
-
 import model.Camera;
 import model.entities.Entity;
 
@@ -46,18 +44,10 @@ public class Plant extends Entity
 		return new String[] { "underwater/seaweed.png" };
 	}
 	
-	public AudioInputStream getSound()
+	@Override
+	public String getHitSoundName()
 	{
-//		File file = new File("./audio/underwater/");
-//		return file; 
 		return null;
-	}
-	
-	public AudioInputStream getHitSound()
-	{
-//		File file = new File("./audio/underwater/");
-//		return file;
-		return null; 
 	}
 
 }

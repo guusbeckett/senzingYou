@@ -3,16 +3,7 @@ package model.levels.cave;
 import java.awt.Dimension;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import model.Camera;
 import model.User;
@@ -20,7 +11,6 @@ import model.entities.HostileEntity;
 
 public class Rock extends HostileEntity
 {
-	private boolean playedSound = false;
 	private int size;
 
 	public Rock(List<User> users)
@@ -61,54 +51,10 @@ public class Rock extends HostileEntity
 	{
 		return -50;
 	}
-
+	
 	@Override
-	public AudioInputStream getSound() throws UnsupportedAudioFileException,
-			IOException
+	public String getHitSoundName()
 	{
-		File file = new File("./audio/cave/rock.wav");
-		return AudioSystem.getAudioInputStream(file);
-	}
-
-	@Override
-	public AudioInputStream getHitSound() throws UnsupportedAudioFileException,
-			IOException
-	{
-		File file = new File("./audio/cave/rock.wav");
-		return AudioSystem.getAudioInputStream(file);
-	}
-
-	public void playSound(double time)
-	{
-		if (position.getY() >= Camera.VIEW_HEIGHT)
-		{
-			if (!playedSound)
-			{
-				try
-				{
-					AudioInputStream stream = getSound();
-					Clip clip = (Clip) AudioSystem.getClip();
-					clip.open(stream);
-					FloatControl volumeControl = (FloatControl) clip
-							.getControl(FloatControl.Type.MASTER_GAIN);
-					volumeControl.setValue((float) (time / (1000 / 30)));
-					clip.loop(0);
-					clip.start();
-					playedSound = true;
-				} catch (UnsupportedAudioFileException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (LineUnavailableException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
+		return "cave/rock.wav";
 	}
 }

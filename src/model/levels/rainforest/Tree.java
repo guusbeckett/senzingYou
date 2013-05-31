@@ -3,10 +3,6 @@ package model.levels.rainforest;
 import java.awt.Dimension;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
-import java.io.IOException;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import model.entities.Entity;
 
@@ -46,15 +42,8 @@ public class Tree extends Entity
 	}
 	
 	@Override
-	public AudioInputStream getSound() throws UnsupportedAudioFileException, IOException
+	public String getHitSoundName()
 	{
 		return null;
 	}
-	
-	@Override
-	public AudioInputStream getHitSound() throws UnsupportedAudioFileException, IOException
-	{
-		return null;
-	}
-	
 }
