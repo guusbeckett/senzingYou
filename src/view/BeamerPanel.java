@@ -81,7 +81,7 @@ public class BeamerPanel extends JPanel implements ActionListener
 			copyUsers.addAll(game.getCamera().getUsers());
 			Collections.sort(copyUsers);
 			int x = 300;
-			int scoreWidth = (game.getCamera().VIEW_WIDTH - x) / copyUsers.size();
+			int scoreWidth = (Camera.VIEW_WIDTH - x) / copyUsers.size();
 			//Now do nothing with X it just print on the head position
 			for(User u: copyUsers)
 			{

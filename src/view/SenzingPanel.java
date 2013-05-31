@@ -14,6 +14,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -74,10 +75,20 @@ public class SenzingPanel extends JPanel implements ActionListener
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 
-		double scaleFactor = (double)getHeight() / (double)Camera.VIEW_HEIGHT;
-		g2.translate((getWidth() - (Camera.VIEW_WIDTH * scaleFactor)) / 2, 0);
-		g2.scale(scaleFactor, scaleFactor);
+		double _w = getWidth();
+		double _h = getHeight();
+		double _x = Camera.VIEW_WIDTH;
+		double _y = Camera.VIEW_HEIGHT;
+		double _s = _h / _y;
+		double _b = (_w / _s - _x) / 2;
+		
+		g2.scale(_s, _s);
+		g2.translate(_b, 0);
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
+		g2.setColor(Color.BLACK);
+		g2.fill(new Rectangle2D.Double(-_b, 0, _b, _y));
+		g2.fill(new Rectangle2D.Double(_x, 0, _b, _y));
 		
 		Level level = game.getLevel();
 		
@@ -136,7 +147,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 			copyUsers.addAll(game.getCamera().getUsers());
 			Collections.sort(copyUsers);
 			int x = 300;
-			int scoreWidth = (game.getCamera().VIEW_WIDTH - x) / copyUsers.size();
+			int scoreWidth = (Camera.VIEW_WIDTH - x) / copyUsers.size();
 	
 			for(User u: copyUsers)
 			{
