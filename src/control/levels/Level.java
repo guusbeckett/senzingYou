@@ -45,22 +45,23 @@ public abstract class Level
 	}
 
 	public abstract Entity getRandomEntity();
-
+	public abstract int getEntitySpawnRate();
 	public abstract HostileEntity getRandomHostileEntity();
-
+	public abstract int getHostileEntitySpawnRate();
+	
 	public void spawn(double time, float current)
 	{
 
 		if (current != 0)
 		{
-			if (lastSpawnedHostile > (100 / (current * current * current)))
+			if (lastSpawnedHostile > (getHostileEntitySpawnRate() / current))
 			{
 				getGame().getEntities().add(getRandomHostileEntity());
 				lastSpawnedHostile = 0;
 			} else
 				lastSpawnedHostile += time;
 
-			if (lastSpawned > 100 / current)
+			if (lastSpawned > 100 / (getEntitySpawnRate() / current))
 			{
 				getGame().getEntities().add(getRandomEntity());
 				lastSpawned = 0;

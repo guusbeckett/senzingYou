@@ -2,18 +2,14 @@ package control.levels;
 
 import java.awt.Toolkit;
 
-<<<<<<< HEAD
-import control.Climate;
-import control.Hardware;
-=======
-import view.ground.CaveGround;
->>>>>>> 646ddbac82a3cc267a6ec4332815a0f452587cf4
-
 import model.Game;
 import model.entities.Entity;
 import model.entities.HostileEntity;
 import model.entities.cave.Droplet;
 import model.entities.cave.Rock;
+import view.ground.CaveGround;
+import control.Climate;
+import control.Hardware;
 
 public class CaveLevel extends DodgeLevel
 {
