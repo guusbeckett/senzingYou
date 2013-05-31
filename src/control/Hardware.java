@@ -10,7 +10,7 @@ import java.io.OutputStream;
 
 public class Hardware
 {
-	private static final String PORT = "COM3";
+	private static final String PORT = "COM4";
 	
 	private static Hardware hardware = null;
 	private Climate climate;
@@ -129,6 +129,6 @@ public class Hardware
 
 	public void sprayScent(Scent scent)
 	{
-		writeToArduino(0x10 | (scent.ordinal() + 3));
+		writeToArduino(0x10 | (scent.ordinal() + 2));
 	}
 }
