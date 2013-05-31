@@ -59,14 +59,14 @@ public abstract class Level
 
 		if (current != 0)
 		{
-			if (lastSpawnedHostile > (getHostileEntitySpawnRate() / current))
+			if (lastSpawnedHostile > ((float)getHostileEntitySpawnRate() / current))
 			{
 				getGame().getEntities().add(getRandomHostileEntity());
 				lastSpawnedHostile = 0;
 			} else
 				lastSpawnedHostile += time;
 
-			if (lastSpawned > 100 / (getEntitySpawnRate() / current))
+			if (lastSpawned > ((float)getEntitySpawnRate() / current))
 			{
 				getGame().getEntities().add(getRandomEntity());
 				lastSpawned = 0;
