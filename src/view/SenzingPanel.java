@@ -135,7 +135,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 			ArrayList<User> copyUsers = new ArrayList<User>();
 			copyUsers.addAll(game.getCamera().getUsers());
 			Collections.sort(copyUsers);
-			int x = 30;
+			int x = 300;
 			int scoreWidth = (game.getCamera().VIEW_WIDTH - x) / copyUsers.size();
 	
 			for(User u: copyUsers)
