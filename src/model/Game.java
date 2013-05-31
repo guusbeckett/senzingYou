@@ -10,8 +10,8 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 
 import model.entities.Entity;
+import model.levels.Level;
 import control.Song;
-import control.levels.Level;
 
 public class Game
 {

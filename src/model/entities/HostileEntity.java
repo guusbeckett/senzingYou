@@ -6,6 +6,7 @@ import java.util.List;
 
 import model.User;
 
+
 public abstract class HostileEntity extends Entity
 {
 	protected boolean alive = true;

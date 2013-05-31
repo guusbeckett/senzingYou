@@ -8,14 +8,15 @@ import java.util.Random;
 
 import javax.swing.Timer;
 
+
 import model.Drive;
 import model.Game;
-import control.levels.CaveLevel;
-import control.levels.DesertLevel;
-import control.levels.Level;
-import control.levels.RainforestLevel;
-import control.levels.SkyLevel;
-import control.levels.UnderwaterLevel;
+import model.levels.Level;
+import model.levels.cave.CaveLevel;
+import model.levels.desert.DesertLevel;
+import model.levels.rainforest.RainforestLevel;
+import model.levels.sky.SkyLevel;
+import model.levels.underwater.UnderwaterLevel;
 
 public class GameController implements ActionListener
 {

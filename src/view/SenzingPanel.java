@@ -26,8 +26,8 @@ import model.Game;
 import model.User;
 import model.entities.Entity;
 import model.entities.HostileEntity;
+import model.levels.Level;
 import control.Song;
-import control.levels.Level;
 
 public class SenzingPanel extends JPanel implements ActionListener
 {

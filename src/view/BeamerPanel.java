@@ -9,9 +9,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+
 import model.Camera;
 import model.Game;
-import control.levels.Level;
+import model.levels.Level;
 
 public class BeamerPanel extends JPanel implements ActionListener
 {
