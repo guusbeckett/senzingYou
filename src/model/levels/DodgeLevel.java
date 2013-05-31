@@ -30,6 +30,7 @@ public abstract class DodgeLevel extends Level
 			{
 				HostileEntity hostile = (HostileEntity) entity;
 				boolean killing = false;
+				if(hostile.isAlive()){
 					for (User user : getGame().getCamera().getUsers())
 					{
 						if(hostile.isAlive() && (user.getUserPixels().getData().readPixel((int)entity.getBounds().getX(), (int)entity.getBounds().getY()) == user.getId() ||
@@ -41,6 +42,7 @@ public abstract class DodgeLevel extends Level
 							killing = true;
 						}
 					}
+				}
 					
 					if(hostile.isAlive() && killing){
 						hostile.kill();

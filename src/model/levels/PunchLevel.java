@@ -31,13 +31,15 @@ public abstract class PunchLevel extends Level
 				HostileEntity hostile = (HostileEntity) entity;
 					boolean kill = false;
 					
-					for (User user : getGame().getCamera().getUsers())
-					{
-						if (hostile.getBounds().contains(user.getLeftHand())
-						|| hostile.getBounds().contains(user.getRightHand()))
+					if(hostile.isAlive()){
+						for (User user : getGame().getCamera().getUsers())
 						{
-							user.setScore(user.getScore() + hostile.getReward());
-							kill = true;
+							if (hostile.getBounds().contains(user.getLeftHand())
+							|| hostile.getBounds().contains(user.getRightHand()))
+							{
+								user.setScore(user.getScore() + hostile.getReward());
+								kill = true;
+							}
 						}
 					}
 					
