@@ -50,8 +50,7 @@ public abstract class Entity
 	}
 	
 	public void update(double time)
-	{	
-		// TODO animate
+	{
 		List<Image> images = getImages();
 		timer+=time;
 		if(timer >= 10){
