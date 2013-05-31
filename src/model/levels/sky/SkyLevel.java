@@ -1,10 +1,10 @@
 package model.levels.sky;
 
 import java.awt.Image;
-import java.awt.Toolkit;
 
 import model.Game;
 import model.GroundRenderer;
+import model.MediaProvider;
 import model.entities.Entity;
 import model.entities.HostileEntity;
 import model.levels.PunchLevel;
@@ -55,7 +55,7 @@ public class SkyLevel extends PunchLevel
 	@Override
 	public Image getBackground()
 	{
-		return Toolkit.getDefaultToolkit().getImage("./images/sky/background.jpg");
+		return MediaProvider.getInstance().getImage("sky/background.jpg");
 	}
 
 	@Override

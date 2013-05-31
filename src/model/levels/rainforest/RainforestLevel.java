@@ -1,17 +1,16 @@
 package model.levels.rainforest;
 
 import java.awt.Image;
-import java.awt.Toolkit;
-
-import control.Climate;
-import control.Hardware;
-import control.Scent;
 
 import model.Game;
 import model.GroundRenderer;
+import model.MediaProvider;
 import model.entities.Entity;
 import model.entities.HostileEntity;
 import model.levels.DodgeLevel;
+import control.Climate;
+import control.Hardware;
+import control.Scent;
 
 public class RainforestLevel extends DodgeLevel
 {
@@ -57,7 +56,7 @@ public class RainforestLevel extends DodgeLevel
 	@Override
 	public Image getBackground()
 	{
-		return Toolkit.getDefaultToolkit().getImage("./images/rainforest/background.png");
+		return MediaProvider.getInstance().getImage("rainforest/background.png");
 	}
 
 	@Override

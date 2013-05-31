@@ -1,11 +1,11 @@
 package model.levels.desert;
 
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.util.Random;
 
 import model.Game;
 import model.GroundRenderer;
+import model.MediaProvider;
 import model.entities.Entity;
 import model.entities.HostileEntity;
 import model.levels.PunchLevel;
@@ -64,7 +64,7 @@ public class DesertLevel extends PunchLevel
 	@Override
 	public Image getBackground()
 	{
-		return Toolkit.getDefaultToolkit().getImage("./images/desert/background.jpg");
+		return MediaProvider.getInstance().getImage("desert/background.jpg");
 	}
 
 	@Override

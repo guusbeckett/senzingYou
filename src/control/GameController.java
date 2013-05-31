@@ -50,7 +50,6 @@ public class GameController implements ActionListener
 					
 					else
 					{
-						System.out.println("tesT");
 						double lengthOfStage = game.getSong().getLength() / 5;
 						int currentStage = (int)Math.floor(game.getSong().getTime() / lengthOfStage);
 						

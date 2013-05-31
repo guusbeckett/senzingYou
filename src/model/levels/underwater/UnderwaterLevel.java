@@ -1,7 +1,6 @@
 package model.levels.underwater;
 
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
@@ -12,6 +11,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import model.Game;
 import model.GroundRenderer;
+import model.MediaProvider;
 import model.entities.Entity;
 import model.entities.HostileEntity;
 import model.levels.PunchLevel;
@@ -80,7 +80,7 @@ public class UnderwaterLevel extends PunchLevel
 	@Override
 	public Image getBackground()
 	{
-		return Toolkit.getDefaultToolkit().getImage("./images/underwater/background.png");
+		return MediaProvider.getInstance().getImage("underwater/background.png");
 	}
 
 	@Override
