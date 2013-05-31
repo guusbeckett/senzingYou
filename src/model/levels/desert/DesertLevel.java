@@ -11,6 +11,7 @@ import model.entities.HostileEntity;
 import model.levels.PunchLevel;
 import control.Climate;
 import control.Hardware;
+import control.Scent;
 
 public class DesertLevel extends PunchLevel
 {
@@ -20,6 +21,7 @@ public class DesertLevel extends PunchLevel
 	{
 		super(game);
 		Hardware.getInstance().setClimate(Climate.WARM);
+		//Hardware.getInstance().sprayScent(Scent.UNKNOWN);
 	}
 	
 	public void update(double time)

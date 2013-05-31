@@ -10,6 +10,7 @@ import model.entities.HostileEntity;
 import model.levels.DodgeLevel;
 import control.Climate;
 import control.Hardware;
+import control.Scent;
 
 public class RainforestLevel extends DodgeLevel
 {
@@ -19,6 +20,7 @@ public class RainforestLevel extends DodgeLevel
 	{
 		super(game);
 		Hardware.getInstance().setClimate(Climate.MOIST);
+		Hardware.getInstance().sprayScent(Scent.FLOWER);
 		game.getEntities().add(new Tree());
 	}
 
