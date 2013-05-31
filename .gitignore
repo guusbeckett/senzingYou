@@ -15,3 +15,8 @@
 *.blg
 *.dvi
 /bin
+!jl1.0.jar
+!mp3spi1.9.5.jar
+!org.OpenNI.jar
+!RXTXcomm.jar
+!tritonus_share.jar
