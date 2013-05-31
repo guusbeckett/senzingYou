@@ -8,7 +8,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Shape;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.FontRenderContext;
@@ -23,6 +22,7 @@ import javax.swing.Timer;
 
 import model.Camera;
 import model.Game;
+import model.MediaProvider;
 import model.User;
 import model.entities.Entity;
 import model.entities.HostileEntity;
@@ -41,8 +41,8 @@ public class SenzingPanel extends JPanel implements ActionListener
 		this.game = game;
 		setBackground(Color.BLACK);
 		new Timer(1000/30, this).start();
-		rewardImage = Toolkit.getDefaultToolkit().getImage("./images/reward.png");
-		losingImage = Toolkit.getDefaultToolkit().getImage("./images/losingpoint.png");
+		rewardImage = MediaProvider.getInstance().getImage("reward.png");
+		losingImage = MediaProvider.getInstance().getImage("losingpoint.png");
 	}
 	
 	

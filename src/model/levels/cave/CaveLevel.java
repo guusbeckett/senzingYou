@@ -1,10 +1,10 @@
 package model.levels.cave;
 
 import java.awt.Image;
-import java.awt.Toolkit;
 
 import model.Game;
 import model.GroundRenderer;
+import model.MediaProvider;
 import model.entities.Entity;
 import model.entities.HostileEntity;
 import model.levels.DodgeLevel;
@@ -59,7 +59,7 @@ public class CaveLevel extends DodgeLevel
 	@Override
 	public Image getBackground()
 	{
-		return Toolkit.getDefaultToolkit().getImage("./images/cave/background.png");
+		return MediaProvider.getInstance().getImage("cave/background.png");
 	}
 
 	@Override
