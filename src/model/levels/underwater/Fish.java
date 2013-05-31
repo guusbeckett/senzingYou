@@ -1,13 +1,9 @@
 package model.levels.underwater;
 
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -18,7 +14,7 @@ import model.entities.Entity;
 public class Fish extends Entity
 {
 	private double baseY;
-	private List<Image> images;
+	private String[] imageNames;
 	
 	public Fish()
 	{
@@ -27,13 +23,11 @@ public class Fish extends Entity
 		baseY = Math.random() * (Camera.VIEW_HEIGHT - getDimensions().getHeight() * 4) + getDimensions().getHeight();
 		position.setLocation(0, baseY);
 		velocity = new Point2D.Double(Math.random() * 0.2 + 0.01, 0.0);
-		
-		images = new ArrayList<Image>();
-		
+
 		if (Math.random() <= 0.5)
-			images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/blueFish.png"));
+			imageNames = new String[] { "underwater/blueFish.png" };
 		else
-			images.add(Toolkit.getDefaultToolkit().getImage("./images/underwater/orangeFish.png"));
+			imageNames = new String[] { "underwater/orangeFish.png" };
 	}
 
 	@Override
@@ -55,10 +49,11 @@ public class Fish extends Entity
 		return new Dimension(60, 40);
 	}
 
+
 	@Override
-	public List<Image> getImages()
+	public String[] getImageNames()
 	{
-		return images;
+		return imageNames;
 	}
 	
 	@Override

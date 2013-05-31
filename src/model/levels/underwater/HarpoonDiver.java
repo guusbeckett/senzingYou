@@ -1,12 +1,9 @@
 package model.levels.underwater;
 
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -83,16 +80,11 @@ public class HarpoonDiver extends HostileEntity
 	{
 		return new Dimension(60, 60);
 	}
-
+	
 	@Override
-	public List<Image> getImages()
+	public String[] getImageNames()
 	{
-		ArrayList<Image> images = new ArrayList<Image>();
-
-		images.add(Toolkit.getDefaultToolkit().getImage(
-				"./images/underwater/harpoonDiver.png"));
-
-		return images;
+		return new String[] { "underwater/harpoonDiver.png" };
 	}
 
 	@Override

@@ -1,11 +1,9 @@
 package model.levels.rainforest;
 
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.io.IOException;
-import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -32,11 +30,11 @@ public class Tree extends Entity
 		return new Dimension(60, 40);
 	}
 
+
 	@Override
-	public List<Image> getImages()
+	public String[] getImageNames()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new String[] {  };
 	}
 
 	@Override

@@ -1,13 +1,9 @@
 package model.levels.desert;
 
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import javax.sound.sampled.AudioInputStream;
@@ -19,7 +15,6 @@ import model.entities.Entity;
 public class Vulture extends Entity
 {
 	private double baseY;
-	private List<Image> images;
 
 	public Vulture()
 	{
@@ -37,10 +32,6 @@ public class Vulture extends Entity
 			position.setLocation(Camera.VIEW_WIDTH, baseY);
 			velocity = new Point2D.Double(Math.random() * -0.2 + 0.01, 0.0);
 		}
-
-		images = new ArrayList<Image>();
-		images.add(Toolkit.getDefaultToolkit().getImage(
-				"./images/desert/vulture.png"));
 	}
 
 	@Override
@@ -56,9 +47,9 @@ public class Vulture extends Entity
 	}
 
 	@Override
-	public List<Image> getImages()
+	public String[] getImageNames()
 	{
-		return images;
+		return new String[] { "desert/vulture.png" };
 	}
 
 	@Override
