@@ -66,7 +66,7 @@ public class DesertLevel extends PunchLevel
 	@Override
 	public Image getBackground()
 	{
-		return Toolkit.getDefaultToolkit().getImage("./images/cave/background.png");
+		return Toolkit.getDefaultToolkit().getImage("./images/desert/background.png");
 	}
 
 	@Override
