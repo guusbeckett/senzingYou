@@ -1,12 +1,9 @@
 package model.levels.sky;
 
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
@@ -18,8 +15,7 @@ import model.entities.HostileEntity;
 
 public class Bird extends HostileEntity
 {
-	private double baseY;
-	private List<Image> images;
+	private double baseY; 
 
 	public Bird(List<User> users)
 	{
@@ -30,11 +26,6 @@ public class Bird extends HostileEntity
 				+ getDimensions().getHeight();
 		position.setLocation(0, baseY);
 		velocity = new Point2D.Double(Math.random() * 0.2 + 0.01, 0.0);
-
-		images = new ArrayList<Image>();
-
-		images.add(Toolkit.getDefaultToolkit()
-				.getImage("./images/sky/bird.png"));
 	}
 
 	@Override
@@ -56,9 +47,9 @@ public class Bird extends HostileEntity
 	}
 
 	@Override
-	public List<Image> getImages()
+	public String[] getImageNames()
 	{
-		return images;
+		return new String[] { "sky/bird.png" };
 	}
 
 	@Override

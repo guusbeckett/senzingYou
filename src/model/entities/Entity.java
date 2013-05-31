@@ -5,10 +5,11 @@ import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
-import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import model.MediaProvider;
 
 public abstract class Entity
 {
@@ -36,12 +37,12 @@ public abstract class Entity
 
 	public Image getImage()
 	{
-		List<Image> images = getImages();
+		String[] images = getImageNames();
 		
-		if (images == null)
+		if (images.length <= 0)
 			return null;
 		
-		return images.get(index);
+		return MediaProvider.getInstance().getImage(images[index]);
 	}
 	
 	public Rectangle2D getBounds()
@@ -51,12 +52,12 @@ public abstract class Entity
 	
 	public void update(double time)
 	{
-		List<Image> images = getImages();
+		String[] images = getImageNames();
 		timer+=time;
 		if(timer >= 10){
 			timer = 0;
-			if(images != null){
-				if (index >= (images.size() -1))
+			if(images.length > 0){
+				if (index >= (images.length-1))
 					index = 0;
 				else
 					index++;
@@ -66,7 +67,7 @@ public abstract class Entity
 	
 	public abstract Point2D getRotationPoint();
 	public abstract Dimension2D getDimensions();
-	public abstract List<Image> getImages();
+	public abstract String[] getImageNames();
 	public abstract AudioInputStream getSound() throws UnsupportedAudioFileException, IOException;
 	public abstract AudioInputStream getHitSound() throws UnsupportedAudioFileException, IOException;
 }

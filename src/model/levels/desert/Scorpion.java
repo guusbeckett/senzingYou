@@ -1,12 +1,9 @@
 package model.levels.desert;
 
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -19,7 +16,6 @@ import model.entities.HostileEntity;
 
 public class Scorpion extends HostileEntity
 {
-	private List<Image> images;
 	private double baseY;
 
 	public Scorpion(List<User> users)
@@ -38,10 +34,6 @@ public class Scorpion extends HostileEntity
 			position.setLocation(Camera.VIEW_WIDTH, baseY);
 			velocity = new Point2D.Double(Math.random() * -0.2 + 0.01, 0.0);
 		}
-
-		images = new ArrayList<Image>();
-		images.add(Toolkit.getDefaultToolkit().getImage(
-				"./images/desert/scorpion.png"));
 	}
 
 	@Override
@@ -61,11 +53,11 @@ public class Scorpion extends HostileEntity
 	{
 		return new Dimension(90, 90);
 	}
-
+	
 	@Override
-	public List<Image> getImages()
+	public String[] getImageNames()
 	{
-		return images;
+		return new String[] { "desert/scorpion.png" };
 	}
 
 	@Override

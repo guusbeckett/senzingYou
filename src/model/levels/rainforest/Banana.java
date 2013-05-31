@@ -1,12 +1,9 @@
 package model.levels.rainforest;
 
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
@@ -48,13 +45,11 @@ public class Banana extends HostileEntity
 
 	
 	@Override
-	public List<Image> getImages()
+	public String[] getImageNames()
 	{
-		// TODO Auto-generated method stub
-		ArrayList<Image> images = new ArrayList<Image>();
-		images.add(Toolkit.getDefaultToolkit().getImage("./images/rainforest/banana.png"));
-		return images;
+		return new String[] { "rainforest/banana.png" };
 	}
+
 
 	@Override
 	public void update(double time)
