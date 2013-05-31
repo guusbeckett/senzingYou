@@ -86,10 +86,6 @@ public class SenzingPanel extends JPanel implements ActionListener
 		g2.translate(_b, 0);
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		g2.setColor(Color.BLACK);
-		g2.fill(new Rectangle2D.Double(-_b, 0, _b, _y));
-		g2.fill(new Rectangle2D.Double(_x, 0, _b, _y));
-		
 		Level level = game.getLevel();
 		
 		if (level != null)
@@ -167,6 +163,10 @@ public class SenzingPanel extends JPanel implements ActionListener
 			
 			drawText(g2, String.format("%02d:%02d / %02d:%02d", time / 60, time % 60, length / 60, length % 60), Color.ORANGE, 25, new Point2D.Double(8, 25));
 		}
+		
+		g2.setColor(Color.BLACK);
+		g2.fill(new Rectangle2D.Double(-_b, 0, _b, _y));
+		g2.fill(new Rectangle2D.Double(_x, 0, _b, _y));	
 	}
 
 	@Override
