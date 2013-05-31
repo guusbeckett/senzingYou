@@ -13,7 +13,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import model.Camera;
-import model.User;
 import model.entities.Entity;
 
 public class Snake extends Entity

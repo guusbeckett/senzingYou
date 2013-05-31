@@ -1,7 +1,6 @@
 package model.entities;
 
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 import java.util.List;
 
 import model.User;
@@ -19,7 +18,7 @@ public abstract class HostileEntity extends Entity
 		this.users = users;
 		deadLocation = new Point2D.Double(0, 0);
 	}
-	
+
 	public boolean isAlive()
 	{
 		return alive;
