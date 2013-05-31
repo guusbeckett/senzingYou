@@ -1,5 +1,6 @@
 package control.levels;
 
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
@@ -15,20 +16,20 @@ import model.entities.HostileEntity;
 import model.entities.underwater.Fish;
 import model.entities.underwater.HarpoonDiver;
 import model.entities.underwater.Plant;
+import view.ground.GroundRenderer;
 import view.ground.UnderwaterGround;
 import control.Climate;
 import control.Hardware;
 
 public class UnderwaterLevel extends PunchLevel
 {
+	private GroundRenderer groundRenderer = new UnderwaterGround();
+	
 	public UnderwaterLevel(Game game)
 	{
 		super(game);
 		Hardware.getInstance().setClimate(Climate.COLD);
 		
-		game.setBackground(Toolkit.getDefaultToolkit().getImage(
-				"./images/underwater/background.png"));
-		game.setGroundRenderer(new UnderwaterGround());
 		try
 		{
 			game.setBackgroundSound(getSound());
@@ -75,5 +76,17 @@ public class UnderwaterLevel extends PunchLevel
 	public int getHostileEntitySpawnRate()
 	{
 		return 300;
+	}
+
+	@Override
+	public Image getBackground()
+	{
+		return Toolkit.getDefaultToolkit().getImage("./images/underwater/background.png");
+	}
+
+	@Override
+	public GroundRenderer getGroundRenderer()
+	{
+		return groundRenderer;
 	}
 }

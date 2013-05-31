@@ -1,5 +1,6 @@
 package control.levels;
 
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.Random;
 
@@ -11,19 +12,18 @@ import model.entities.desert.Scorpion;
 import model.entities.desert.Snake;
 import model.entities.desert.Vulture;
 import view.ground.DesertGround;
+import view.ground.GroundRenderer;
 import control.Climate;
 import control.Hardware;
 
 public class DesertLevel extends PunchLevel
 {
-
+	private GroundRenderer groundRenderer = new DesertGround();
+	
 	public DesertLevel(Game game)
 	{
 		super(game);
 		Hardware.getInstance().setClimate(Climate.WARM);
-		game.setBackground(Toolkit.getDefaultToolkit().getImage(
-				"./images/desert/background.jpg"));
-		game.setGroundRenderer(new DesertGround());
 	}
 	
 	public void update(double time)
@@ -61,5 +61,17 @@ public class DesertLevel extends PunchLevel
 	public int getHostileEntitySpawnRate()
 	{
 		return 300;
+	}
+
+	@Override
+	public Image getBackground()
+	{
+		return Toolkit.getDefaultToolkit().getImage("./images/cave/background.png");
+	}
+
+	@Override
+	public GroundRenderer getGroundRenderer()
+	{
+		return groundRenderer;
 	}
 }

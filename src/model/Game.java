@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +10,6 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 
 import model.entities.Entity;
-import view.ground.GroundRenderer;
 import control.Song;
 import control.levels.Level;
 
@@ -19,9 +17,7 @@ public class Game
 {
 	private List<Entity> entities;
 	private Camera camera;
-	private Image background;
 	private Song song;
-	private GroundRenderer groundRenderer;
 	private Level level;
 	private List<Drive> drives;
 	private Clip clip;
@@ -36,7 +32,6 @@ public class Game
 			drives.add(new Drive(a));
 		}
 		
-		background = null;
 		camera = new Camera();
 		
 		try
@@ -71,26 +66,6 @@ public class Game
 	public Camera getCamera()
 	{
 		return camera;
-	}
-
-	public Image getBackground()
-	{
-		return background;
-	}
-
-	public void setBackground(Image background)
-	{
-		this.background = background;
-	}
-
-	public GroundRenderer getGroundRenderer()
-	{
-		return groundRenderer;
-	}
-
-	public void setGroundRenderer(GroundRenderer groundRenderer)
-	{
-		this.groundRenderer = groundRenderer;
 	}
 
 	public Song getSong()

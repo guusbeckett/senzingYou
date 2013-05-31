@@ -1,5 +1,6 @@
 package control.levels;
 
+import java.awt.Image;
 import java.awt.Toolkit;
 
 import model.Game;
@@ -8,18 +9,18 @@ import model.entities.HostileEntity;
 import model.entities.cave.Droplet;
 import model.entities.cave.Rock;
 import view.ground.CaveGround;
+import view.ground.GroundRenderer;
 import control.Climate;
 import control.Hardware;
 
 public class CaveLevel extends DodgeLevel
 {
-
+	private GroundRenderer groundRenderer = new CaveGround();
+	
 	public CaveLevel(Game game)
 	{
 		super(game);
 		Hardware.getInstance().setClimate(Climate.MOIST);
-		game.setBackground(Toolkit.getDefaultToolkit().getImage("./images/cave/background.png"));
-		game.setGroundRenderer(new CaveGround());
 	}
 
 	public void update(double time)
@@ -55,5 +56,17 @@ public class CaveLevel extends DodgeLevel
 	public int getHostileEntitySpawnRate()
 	{
 		return 300;
+	}
+
+	@Override
+	public Image getBackground()
+	{
+		return Toolkit.getDefaultToolkit().getImage("./images/cave/background.png");
+	}
+
+	@Override
+	public GroundRenderer getGroundRenderer()
+	{
+		return groundRenderer;
 	}
 }

@@ -11,6 +11,7 @@ import javax.swing.Timer;
 
 import model.Camera;
 import model.Game;
+import control.levels.Level;
 
 public class BeamerPanel extends JPanel implements ActionListener
 {
@@ -34,8 +35,12 @@ public class BeamerPanel extends JPanel implements ActionListener
 		g2.translate((getWidth() - (Camera.VIEW_WIDTH * scaleFactor)) / 2, 0);
 		g2.scale(scaleFactor, scaleFactor);
 
-		if (game.getGroundRenderer() != null)
-			game.getGroundRenderer().draw(g2);
+		Level level = game.getLevel();
+		
+		if (level != null)
+		{
+			level.getGroundRenderer().draw(g2);
+		}
 	}
 
 	@Override

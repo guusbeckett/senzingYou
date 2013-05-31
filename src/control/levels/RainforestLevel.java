@@ -1,5 +1,6 @@
 package control.levels;
 
+import java.awt.Image;
 import java.awt.Toolkit;
 
 import control.Climate;
@@ -12,20 +13,18 @@ import model.entities.rainforest.Banana;
 import model.entities.rainforest.Bird;
 import model.entities.rainforest.Snake;
 import model.entities.rainforest.Tree;
+import view.ground.GroundRenderer;
 import view.ground.RainforestGround;
 
 public class RainforestLevel extends DodgeLevel
 {
-
+	private GroundRenderer groundRenderer = new RainforestGround();
+	
 	public RainforestLevel(Game game)
 	{
 		super(game);
 		Hardware.getInstance().setClimate(Climate.MOIST);
-		game.setBackground(Toolkit.getDefaultToolkit().getImage(
-				"./images/rainforest/background.png"));
-		game.setGroundRenderer(new RainforestGround());
 		game.getEntities().add(new Tree());
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -55,6 +54,18 @@ public class RainforestLevel extends DodgeLevel
 	public int getHostileEntitySpawnRate()
 	{
 		return 300;
+	}
+
+	@Override
+	public Image getBackground()
+	{
+		return Toolkit.getDefaultToolkit().getImage("./images/rainforest/background.png");
+	}
+
+	@Override
+	public GroundRenderer getGroundRenderer()
+	{
+		return groundRenderer;
 	}
 }
 

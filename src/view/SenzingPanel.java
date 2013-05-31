@@ -27,6 +27,7 @@ import model.User;
 import model.entities.Entity;
 import model.entities.HostileEntity;
 import control.Song;
+import control.levels.Level;
 
 public class SenzingPanel extends JPanel implements ActionListener
 {
@@ -78,7 +79,11 @@ public class SenzingPanel extends JPanel implements ActionListener
 		g2.scale(scaleFactor, scaleFactor);
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		g2.drawImage(game.getBackground(), 0, 0, null);
+		Level level = game.getLevel();
+		
+		if (level != null)
+			g2.drawImage(level.getBackground(), 0, 0, null);
+		
 		g2.drawImage(game.getCamera().getImage(), null, 0, 0);
 
 		for (Entity entity : game.getEntities())

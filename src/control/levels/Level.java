@@ -1,8 +1,11 @@
 package control.levels;
 
+import java.awt.Image;
+
 import model.Game;
 import model.entities.Entity;
 import model.entities.HostileEntity;
+import view.ground.GroundRenderer;
 
 public abstract class Level
 {
@@ -24,6 +27,13 @@ public abstract class Level
 		}
 	}
 
+	public abstract Entity getRandomEntity();
+	public abstract int getEntitySpawnRate();
+	public abstract HostileEntity getRandomHostileEntity();
+	public abstract int getHostileEntitySpawnRate();
+	public abstract Image getBackground();
+	public abstract GroundRenderer getGroundRenderer();
+	
 	public void update(double time)
 	{
 		if (getGame().getSong() != null)
@@ -44,11 +54,6 @@ public abstract class Level
 		return game;
 	}
 
-	public abstract Entity getRandomEntity();
-	public abstract int getEntitySpawnRate();
-	public abstract HostileEntity getRandomHostileEntity();
-	public abstract int getHostileEntitySpawnRate();
-	
 	public void spawn(double time, float current)
 	{
 
