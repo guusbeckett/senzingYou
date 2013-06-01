@@ -135,9 +135,9 @@ public class GameController implements ActionListener
 		{
 			Entity entity = it.next();
 			
-			if ((entity.getBounds().getMaxX() < 100 || entity.getBounds().getMaxY() < 100)
-					|| (entity.getBounds().getMinX() > Camera.VIEW_WIDTH+100 || entity
-							.getBounds().getMinY() > Camera.VIEW_HEIGHT+100))
+			if ((entity.getBounds().getMaxX() < -100 || entity.getBounds().getMaxY() < -100)
+					|| (entity.getBounds().getMinX() > (Camera.VIEW_WIDTH+100) || entity
+							.getBounds().getMinY() > (Camera.VIEW_HEIGHT+100)))
 			{
 				it.remove();
 			}
