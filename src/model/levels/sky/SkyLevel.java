@@ -43,7 +43,7 @@ public class SkyLevel extends PunchLevel
 	@Override
 	public int getEntitySpawnRate()
 	{
-		return 100;
+		return 10;
 	}
 
 	@Override
