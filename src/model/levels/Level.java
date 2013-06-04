@@ -31,7 +31,7 @@ public abstract class Level
 
 	
 	public boolean isDescriptionImageVisible(){
-		if(counterDescription <= 2000)
+		if(counterDescription <= 1500)
 			return true;
 		return false;
 	}
