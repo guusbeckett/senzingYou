@@ -287,66 +287,63 @@ public class Camera
 		return users;
 	}
 
-	public void updateContext()
+	public BufferedImage[] getImageBackgroundAndForeground()
 	{
+		BufferedImage[] result = new BufferedImage[2];
+		
+		result[0] = new BufferedImage(VIEW_WIDTH, VIEW_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		result[1] = new BufferedImage(VIEW_WIDTH, VIEW_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		
 		try
 		{
 			context.waitAnyUpdateAll();
 		} catch (StatusException e)
 		{
-			return;
+			return result;
 		}
-	}
-
-	public BufferedImage getImage()
-	{
-		updateContext();
-		return getImageCut();
-	}
-
-	private BufferedImage getImageCut()
-	{
-		ShortBuffer userBuffer = null;
-		BufferedImage img = new BufferedImage(VIEW_WIDTH, VIEW_HEIGHT,
-				BufferedImage.TYPE_INT_ARGB);
+		
 		BufferedImage imgCam = getImageRGB();
-		for (User user : getUsers())
+		
+		if (getUsers().size() > 0)
 		{
-			userBuffer = getUsers().get(0).getUserPixels().getData()
-					.createShortBuffer();
-		}
-
-		int x = 0;
-		int y = 0;
-
-		if (userBuffer != null)
-		{
+			ShortBuffer userBuffer = getUsers().get(0).getUserPixels().getData().createShortBuffer();
+			
+			int x = 0;
+			int y = 0;
+	
 			while (userBuffer.remaining() > 0)
 			{
 				short userID = userBuffer.get();
+				
 				if (userID == 0)
-				{ // if not a user then it is a background
-					Color color = new Color(imgCam.getRGB(x, y));
-					Color colorEdit = new Color(color.getRed(),
-							color.getGreen(), color.getBlue(), 100);
-					img.setRGB(x, y, colorEdit.getRGB());
-				} else
 				{
-					img.setRGB(x, y, imgCam.getRGB(x, y));
+					Color color = new Color(imgCam.getRGB(x, y));
+					
+					result[0].setRGB(x, y, new Color(color.getRed(), color.getGreen(), color.getBlue(), 100).getRGB());
+					result[1].setRGB(x, y, Color.TRANSLUCENT);
 				}
-
-				// Handle the rest of the images
+				else
+				{
+					result[1].setRGB(x, y, imgCam.getRGB(x, y));
+				}
+	
 				x++;
-				if (x >= img.getWidth())
+				
+				if (x >= imgCam.getWidth())
 				{
 					x = 0;
 					y++;
 				}
 			}
-
+		}
+		
+		else
+		{
+			// just set the entire image as background
+			result[0] = imgCam;
 		}
 
-		return img;
+		return result;
 	}
 
 	private BufferedImage getImageRGB()

@@ -15,6 +15,7 @@ import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -70,36 +71,8 @@ public class SenzingPanel extends JPanel implements ActionListener
 		g2.draw(outline);
 	}
 	
-	public void paintComponent(Graphics g)
+	private void drawEntities(Graphics2D g2, int step)
 	{
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D)g;
-
-		double _w = getWidth();
-		double _h = getHeight();
-		double _x = Camera.VIEW_WIDTH;
-		double _y = Camera.VIEW_HEIGHT;
-		double _s = _h / _y;
-		double _b = (_w / _s - _x) / 2;
-		
-		g2.scale(_s, _s);
-		g2.translate(_b, 0);
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		
-		Level level = game.getLevel();
-		
-		if (level != null)
-			g2.drawImage(level.getBackground(), 0, 0, null);
-		
-		g2.drawImage(game.getCamera().getImage(), null, 0, 0);
-
-		if(level != null){
-			if(level.isDescriptionImageVisible()){
-				g2.drawImage(level.getDescriptionImage(), 0, 0, null);
-			}
-		}
-		
-		
 		for (Entity entity : game.getEntities())
 		{
 			AffineTransform ax = new AffineTransform();			
@@ -108,15 +81,15 @@ public class SenzingPanel extends JPanel implements ActionListener
 			
 			if (entity.getImage() != null)
 			{
-				if(!(entity instanceof HostileEntity) ||
-						((HostileEntity) entity).isAlive())
+				if((step == 0 && !(entity instanceof HostileEntity)) ||
+						(step == 1 && (entity instanceof HostileEntity) && ((HostileEntity) entity).isAlive()))
 				{
 					ax.translate(entity.getPosition().getX(), entity.getPosition().getY());
 					ax.scale(entity.getDimensions().getWidth() / entity.getImage().getWidth(null) * ((entity.isMirrored()) ? -1 : 1), entity.getDimensions().getHeight() / entity.getImage().getHeight(null));
 					g2.drawImage(entity.getImage(), ax, null);
 				}
 				
-				else
+				else if (step == 1 && entity instanceof HostileEntity)
 				{
 					HostileEntity hostile = (HostileEntity) entity;
 					
@@ -134,8 +107,57 @@ public class SenzingPanel extends JPanel implements ActionListener
 				}
 			}
 		}
+	}
+	
+	
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D)g;
+
+		double _w = getWidth();
+		double _h = getHeight();
+		double _x = Camera.VIEW_WIDTH;
+		double _y = Camera.VIEW_HEIGHT;
+		double _s = _h / _y;
+		double _b = (_w / _s - _x) / 2;
 		
-		if(!game.getCamera().getUsers().isEmpty()){
+		g2.scale(_s, _s);
+		g2.translate(_b, 0);
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
+		BufferedImage[] images = game.getCamera().getImageBackgroundAndForeground();
+		
+		// Draw background
+		Level level = game.getLevel();
+		
+		if (level != null)
+			g2.drawImage(level.getBackground(), 0, 0, null);
+		
+		// Draw camera background image
+		g2.drawImage(images[0], null, 0, 0);
+		
+		// Draw the background entities
+		drawEntities(g2, 0);
+		
+		// Draw camera foreground image
+		g2.drawImage(images[1], null, 0, 0);
+		
+		// Draw the foreground entities
+		drawEntities(g2, 1);
+
+		// Draw description of level
+		if(level != null)
+		{
+			if(level.isDescriptionImageVisible())
+			{
+				g2.drawImage(level.getDescriptionImage(), 0, 0, null);
+			}
+		}
+		
+		// Draw all the scores
+		if(!game.getCamera().getUsers().isEmpty())
+		{
 			Color[] colors = new Color[]{Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY};
 			ArrayList<User> copyUsers = new ArrayList<User>();
 			copyUsers.addAll(game.getCamera().getUsers());
@@ -152,13 +174,13 @@ public class SenzingPanel extends JPanel implements ActionListener
 			}
 		}
 		
+		// Draw the countdown
 		Song song = game.getSong();
 		
 		if (song != null)
 		{
 			int time = (int)song.getTime();
 			int length = (int)song.getLength();
-			
 			drawText(g2, String.format("%02d:%02d / %02d:%02d", time / 60, time % 60, length / 60, length % 60), Color.ORANGE, 25, new Point2D.Double(8, 25));
 		}
 		
