@@ -93,6 +93,13 @@ public class SenzingPanel extends JPanel implements ActionListener
 		
 		g2.drawImage(game.getCamera().getImage(), null, 0, 0);
 
+		if(level != null){
+			if(level.isDescriptionImageVisible()){
+				g2.drawImage(level.getDescriptionImage(), 0, 0, null);
+			}
+		}
+		
+		
 		for (Entity entity : game.getEntities())
 		{
 			AffineTransform ax = new AffineTransform();			

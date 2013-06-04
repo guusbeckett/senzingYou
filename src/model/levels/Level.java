@@ -14,6 +14,8 @@ public abstract class Level
 	private int lastSpawnedHostile = 0;
 	private int lastSpawned = 0;
 	private Game game;
+	private Image descriptionImage;
+	private int counterDescription;
 
 	public Level(Game game)
 	{
@@ -27,6 +29,13 @@ public abstract class Level
 		}
 	}
 
+	
+	public boolean isDescriptionImageVisible(){
+		if(counterDescription <= 100)
+			return true;
+		return false;
+	}
+	
 	public abstract Entity getRandomEntity();
 	public abstract int getEntitySpawnRate();
 	public abstract HostileEntity getRandomHostileEntity();
@@ -36,6 +45,7 @@ public abstract class Level
 	
 	public void update(double time)
 	{
+		counterDescription+=time;
 		if (getGame().getSong() != null)
 		{
 			float current = (getGame().getSong().getThreshold() - minThreshold)
@@ -73,5 +83,17 @@ public abstract class Level
 			} else
 				lastSpawned += time;
 		}
+	}
+
+
+	public Image getDescriptionImage()
+	{
+		return descriptionImage;
+	}
+
+
+	protected void setDescriptionImage(Image descriptionImage)
+	{
+		this.descriptionImage = descriptionImage;
 	}
 }
