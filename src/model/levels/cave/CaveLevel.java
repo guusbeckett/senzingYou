@@ -21,11 +21,14 @@ public class CaveLevel extends DodgeLevel
 		super(game);
 		Hardware.getInstance().setClimate(Climate.MOIST);
 		Hardware.getInstance().sprayScent(Scent.OCEAN);
+		setDescriptionImage(MediaProvider.getInstance().getImage("dodgeRock.png"));
+		
 	}
 
 	public void update(double time)
 	{
 		super.update(time);
+
 //		if((int)(Math.random() * time) == 1){
 //			getGame().getEntities().add(new Droplet());
 //		}

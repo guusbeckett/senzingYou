@@ -20,6 +20,7 @@ public class DesertLevel extends PunchLevel
 	{
 		super(game);
 		Hardware.getInstance().setClimate(Climate.WARM);
+		setDescriptionImage(MediaProvider.getInstance().getImage("punchLevel.png"));
 		//Hardware.getInstance().sprayScent(Scent.UNKNOWN);
 	}
 	
