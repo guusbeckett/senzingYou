@@ -72,13 +72,4 @@ public class Snake extends HostileEntity
 	{
 		return null;
 	}
-	
-	@Override
-	public boolean isMirrored()
-	{
-		if (velocity.getX() > 0)
-			return true;
-		else
-			return false;
-	}
 }

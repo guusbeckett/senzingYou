@@ -61,7 +61,11 @@ public abstract class Entity
 		}
 	}
 	
-	public abstract boolean isMirrored();
+	public boolean isMirrored()
+	{
+		return (velocity.getX() > 0);
+	}
+	
 	public abstract Point2D getRotationPoint();
 	public abstract Dimension2D getDimensions();
 	public abstract String[] getImageNames();

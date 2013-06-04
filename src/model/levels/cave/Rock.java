@@ -57,10 +57,4 @@ public class Rock extends HostileEntity
 	{
 		return "cave/rock.wav";
 	}
-	
-	@Override
-	public boolean isMirrored()
-	{
-		return false;
-	}
 }
