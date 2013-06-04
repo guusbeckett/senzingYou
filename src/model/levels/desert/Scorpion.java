@@ -68,19 +68,9 @@ public class Scorpion extends HostileEntity
 
 	}
 
-
 	@Override
 	public String getHitSoundName()
 	{
 		return null;
-	}
-
-	@Override
-	public boolean isMirrored()
-	{
-		if (velocity.getX() > 0)
-			return true;
-		else
-			return false;
 	}
 }

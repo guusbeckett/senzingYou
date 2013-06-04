@@ -57,10 +57,4 @@ public class Fish extends Entity
 	{
 		return null;
 	}
-
-	@Override
-	public boolean isMirrored()
-	{
-		return false;
-	}
 }

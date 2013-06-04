@@ -60,10 +60,4 @@ public class Cloud extends Entity
 	{
 		return null;
 	}
-
-	@Override
-	public boolean isMirrored()
-	{
-		return false;
-	}
 }

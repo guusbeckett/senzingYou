@@ -99,16 +99,13 @@ public class SenzingPanel extends JPanel implements ActionListener
 			
 			ax.rotate(entity.getRotation(), entity.getRotationPoint().getX() + entity.getPosition().getX(), entity.getRotationPoint().getY() + entity.getPosition().getY());
 			
-			if (entity.isMirrored())
-				ax.scale(-1, 1);
-			
 			if (entity.getImage() != null)
 			{
-				if(!(entity instanceof HostileEntity) || ((HostileEntity) entity).isAlive())
+				if(!(entity instanceof HostileEntity) ||
+						((HostileEntity) entity).isAlive())
 				{
-					// Non-hostile entities
 					ax.translate(entity.getPosition().getX(), entity.getPosition().getY());
-					ax.scale(entity.getDimensions().getWidth() / entity.getImage().getWidth(null), entity.getDimensions().getHeight() / entity.getImage().getHeight(null));
+					ax.scale(entity.getDimensions().getWidth() / entity.getImage().getWidth(null) * ((entity.isMirrored()) ? -1 : 1), entity.getDimensions().getHeight() / entity.getImage().getHeight(null));
 					g2.drawImage(entity.getImage(), ax, null);
 				}
 				
