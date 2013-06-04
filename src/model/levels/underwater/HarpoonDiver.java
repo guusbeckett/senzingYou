@@ -88,4 +88,10 @@ public class HarpoonDiver extends HostileEntity
 	{
 		return null;
 	}
+	
+	@Override
+	public boolean isMirrored()
+	{
+		return false;
+	}
 }

@@ -49,5 +49,11 @@ public class Plant extends Entity
 	{
 		return null;
 	}
+	
+	@Override
+	public boolean isMirrored()
+	{
+		return false;
+	}
 
 }

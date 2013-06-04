@@ -75,4 +75,9 @@ public class Scorpion extends HostileEntity
 		return null;
 	}
 
+	@Override
+	public boolean isMirrored()
+	{
+		return false;
+	}
 }

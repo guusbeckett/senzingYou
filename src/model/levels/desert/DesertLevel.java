@@ -11,7 +11,6 @@ import model.entities.HostileEntity;
 import model.levels.PunchLevel;
 import control.Climate;
 import control.Hardware;
-import control.Scent;
 
 public class DesertLevel extends PunchLevel
 {
@@ -52,7 +51,7 @@ public class DesertLevel extends PunchLevel
 	@Override
 	public int getEntitySpawnRate()
 	{
-		return 10;
+		return 1000;
 	}
 
 	@Override

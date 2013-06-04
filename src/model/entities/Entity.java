@@ -61,6 +61,7 @@ public abstract class Entity
 		}
 	}
 	
+	public abstract boolean isMirrored();
 	public abstract Point2D getRotationPoint();
 	public abstract Dimension2D getDimensions();
 	public abstract String[] getImageNames();

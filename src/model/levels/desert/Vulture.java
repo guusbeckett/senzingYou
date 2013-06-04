@@ -62,4 +62,10 @@ public class Vulture extends Entity
 	{
 		return null;
 	}
+	
+	@Override
+	public boolean isMirrored()
+	{
+		return false;
+	}
 }
