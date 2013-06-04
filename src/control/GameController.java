@@ -45,87 +45,96 @@ public class GameController implements ActionListener
 		})).start();
 
 		(new Timer(1000 / UPDATES_PER_SECOND, this)).start();
-		(new Timer(200, new ActionListener()
+		(new Thread(new Runnable()
 		{
 			@Override
-			public void actionPerformed(ActionEvent e)
+			public void run()
 			{
-				if (game.getSong() != null)
+				while (true)
 				{
-					if (!drive.isConnected())
+					if (game.getSong() != null)
 					{
-						game.getSong().stop();
-						game.setSong(null);
-						game.setLevel(null);
-						game.getEntities().clear();
+						if (!drive.isConnected())
+						{
+							game.getSong().stop();
+							game.setSong(null);
+							game.setLevel(null);
+							game.getEntities().clear();
+						}
+	
+						else
+						{
+							double lengthOfStage = game.getSong().getLength() / 5;
+							int currentStage = (int) Math.floor(game.getSong()
+									.getTime() / lengthOfStage);
+	
+							if (currentStage != activeStage)
+							{
+								switch (currentStage)
+								{
+								case 0:
+									game.setLevel(new DesertLevel(game));
+									break;
+	
+								case 1:
+									game.setLevel(new RainforestLevel(game));
+									break;
+	
+								case 2:
+									game.setLevel(new CaveLevel(game));
+									break;
+	
+								case 3:
+									game.setLevel(new UnderwaterLevel(game));
+									break;
+	
+								case 4:
+									game.setLevel(new SkyLevel(game));
+									break;
+								}
+	
+								activeStage = currentStage;
+	
+							}
+						}
 					}
-
+	
 					else
 					{
-						double lengthOfStage = game.getSong().getLength() / 5;
-						int currentStage = (int) Math.floor(game.getSong()
-								.getTime() / lengthOfStage);
-
-						if (currentStage != activeStage)
+						List<Drive> justConnected = game.getJustConnectedDrives();
+	
+						// Put all the songs into a list
+						List<File> audioFiles = new ArrayList<File>();
+	
+						for (Drive d : justConnected)
 						{
-							switch (currentStage)
+							audioFiles.addAll(d.getAudioFiles());
+						}
+	
+						// Pick one
+						if (audioFiles.size() > 0)
+						{
+							File file = audioFiles.get((new Random())
+									.nextInt(audioFiles.size()));
+	
+							try
 							{
-							case 0:
-								game.setLevel(new DesertLevel(game));
-								break;
-
-							case 1:
-								game.setLevel(new RainforestLevel(game));
-								break;
-
-							case 2:
-								game.setLevel(new CaveLevel(game));
-								break;
-
-							case 3:
-								game.setLevel(new UnderwaterLevel(game));
-								break;
-
-							case 4:
-								game.setLevel(new SkyLevel(game));
-								break;
+								drive = justConnected.get(0);
+								game.setSong(new Song(file));
+								game.getSong().play();
+								activeStage = -1;
+							} catch (Exception ex)
+							{
+								ex.printStackTrace();
 							}
-
-							activeStage = currentStage;
-
 						}
 					}
-				}
-
-				else
-				{
-					List<Drive> justConnected = game.getJustConnectedDrives();
-
-					// Put all the songs into a list
-					List<File> audioFiles = new ArrayList<File>();
-
-					for (Drive d : justConnected)
+					
+					try
 					{
-						audioFiles.addAll(d.getAudioFiles());
-					}
-
-					// Pick one
-					if (audioFiles.size() > 0)
-					{
-						File file = audioFiles.get((new Random())
-								.nextInt(audioFiles.size()));
-
-						try
-						{
-							drive = justConnected.get(0);
-							game.setSong(new Song(file));
-							game.getSong().play();
-							activeStage = -1;
-						} catch (Exception ex)
-						{
-							ex.printStackTrace();
-						}
-					}
+						Thread.sleep(200);
+					} catch (InterruptedException e)
+					{ }
 				}
 			}
 		})).start();

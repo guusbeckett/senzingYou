@@ -52,7 +52,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		AffineTransform transform = new AffineTransform();
 		transform.translate(p2.getX(), p2.getY());
 		drawText(g2, text, color, size, transform);
-	}
+	};
 	
 	private void drawText(Graphics2D g2, String text, Color color, int size, AffineTransform transform)
 	{
@@ -155,6 +155,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 			drawText(g2, String.format("%02d:%02d / %02d:%02d", time / 60, time % 60, length / 60, length % 60), Color.ORANGE, 25, new Point2D.Double(8, 25));
 		}
 		
+		// Draw sideboxes
 		g2.setColor(Color.BLACK);
 		g2.fill(new Rectangle2D.Double(-_b, 0, _b, _y));
 		g2.fill(new Rectangle2D.Double(_x, 0, _b, _y));	

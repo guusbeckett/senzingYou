@@ -349,63 +349,6 @@ public class Camera
 		return img;
 	}
 
-	public BufferedImage getDepthImage()
-	{
-		ShortBuffer userBuffer = null;
-		BufferedImage img = new BufferedImage(VIEW_WIDTH, VIEW_HEIGHT,
-				BufferedImage.TYPE_INT_ARGB);
-		for (User user : getUsers())
-		{
-			userBuffer = user.getUserPixels().getData().createShortBuffer();
-		}
-
-		int x = 0;
-		int y = 0;
-
-		boolean outline = false;
-
-		if (userBuffer != null)
-		{
-			while (userBuffer.remaining() > 0)
-			{
-				short userID = userBuffer.get();
-				if (userID == 0)
-				{ // if not a user then it is a background
-					if (outline)
-					{
-						img.setRGB(x, y, Color.BLACK.getRGB());
-					} else
-					{
-						img.setRGB(x, y, Color.TRANSLUCENT);
-					}
-					outline = false;
-				} else
-				{
-					if (!outline)
-					{
-						img.setRGB(x, y, Color.BLACK.getRGB());
-					} else
-					{
-						img.setRGB(x, y, Color.WHITE.getRGB());
-					}
-					outline = true;
-
-				}
-
-				// Handle the rest of the images
-				x++;
-				if (x >= img.getWidth())
-				{
-					x = 0;
-					y++;
-				}
-			}
-
-		}
-
-		return img;
-	}
-
 	private BufferedImage getImageRGB()
 	{
 		int[] imageRGBArray = new int[VIEW_WIDTH * VIEW_HEIGHT];
