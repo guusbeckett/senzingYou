@@ -3,8 +3,9 @@ package control;
 import java.awt.GraphicsEnvironment;
 
 import model.Game;
-import view.BeamerFrame;
-import view.SenzingFrame;
+import view.BeamerPanel;
+import view.ContainerFrame;
+import view.SenzingPanel;
 
 public class Senzing
 {
@@ -14,7 +15,10 @@ public class Senzing
 		new GameController(game);
 		
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		ge.getScreenDevices()[0].setFullScreenWindow(new BeamerFrame(game));
-		ge.getDefaultScreenDevice().setFullScreenWindow(new SenzingFrame(game));
+		
+		if (ge.getScreenDevices().length > 1)
+			ge.getScreenDevices()[0].setFullScreenWindow(new ContainerFrame(new BeamerPanel(game)));
+		
+		ge.getDefaultScreenDevice().setFullScreenWindow(new ContainerFrame(new SenzingPanel(game)));
 	}
 }
