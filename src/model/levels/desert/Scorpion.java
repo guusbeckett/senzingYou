@@ -78,6 +78,9 @@ public class Scorpion extends HostileEntity
 	@Override
 	public boolean isMirrored()
 	{
-		return false;
+		if (velocity.getX() > 0)
+			return true;
+		else
+			return false;
 	}
 }

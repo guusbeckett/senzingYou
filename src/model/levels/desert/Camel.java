@@ -53,7 +53,7 @@ public class Camel extends Entity
 	public void update(double time)
 	{
 		super.update(time);
-		position.setLocation(position.getX() + velocity.getX() * time / 10, 300); 
+		position.setLocation(position.getX() + velocity.getX() * time / 10, 300);
 	}
 
 	@Override
@@ -61,10 +61,13 @@ public class Camel extends Entity
 	{
 		return null;
 	}
-	
+
 	@Override
 	public boolean isMirrored()
 	{
-		return false;
+		if (velocity.getX() > 0)
+			return true;
+		else
+			return false;
 	}
 }

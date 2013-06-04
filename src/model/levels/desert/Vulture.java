@@ -66,6 +66,9 @@ public class Vulture extends Entity
 	@Override
 	public boolean isMirrored()
 	{
-		return false;
+		if (velocity.getX() > 0)
+			return true;
+		else
+			return false;
 	}
 }
