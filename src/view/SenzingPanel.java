@@ -24,11 +24,11 @@ import javax.swing.Timer;
 import model.Camera;
 import model.Game;
 import model.MediaProvider;
+import model.Song;
 import model.User;
 import model.entities.Entity;
 import model.entities.HostileEntity;
 import model.levels.Level;
-import control.Song;
 
 public class SenzingPanel extends JPanel implements ActionListener
 {

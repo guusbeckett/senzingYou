@@ -13,6 +13,7 @@ import javax.swing.Timer;
 import model.Camera;
 import model.Drive;
 import model.Game;
+import model.Song;
 import model.entities.Entity;
 import model.levels.Level;
 import model.levels.cave.CaveLevel;

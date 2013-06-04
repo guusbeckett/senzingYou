@@ -11,7 +11,6 @@ import javax.sound.sampled.LineUnavailableException;
 
 import model.entities.Entity;
 import model.levels.Level;
-import control.Song;
 
 public class Game
 {
