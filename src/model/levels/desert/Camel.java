@@ -40,14 +40,23 @@ public class Camel extends Entity
 	@Override
 	public String[] getImageNames()
 	{
-		return new String[] { "desert/camel.png" };
+		return new String[] { "desert/camel/camel1.png",
+				"desert/camel/camel2.png", "desert/camel/camel3.png",
+				"desert/camel/camel4.png", "desert/camel/camel5.png",
+				"desert/camel/camel6.png" };
 	}
 
 	@Override
 	public void update(double time)
 	{
 		super.update(time);
-		position.setLocation(position.getX() + velocity.getX() * time / 10, 300); //TODO test if "/30" is good enough
+		position.setLocation(position.getX() + velocity.getX() * time / 10, 300); // TODO
+																					// test
+																					// if
+																					// "/30"
+																					// is
+																					// good
+																					// enough
 	}
 
 	@Override
