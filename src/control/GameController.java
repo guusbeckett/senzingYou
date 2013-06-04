@@ -32,7 +32,16 @@ public class GameController implements ActionListener
 	{
 		this.game = g;
 
-		Hardware.getInstance(); // init hardware before loading music
+		// Initialize the hardware in a seperate thread because it takes a while...
+		(new Thread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				Hardware.getInstance();
+			}
+			
+		})).start();
 
 		(new Timer(1000 / UPDATES_PER_SECOND, this)).start();
 		(new Timer(200, new ActionListener()
