@@ -16,9 +16,7 @@ import model.Game;
 import model.Song;
 import model.entities.Entity;
 import model.levels.Level;
-import model.levels.cave.CaveLevel;
 import model.levels.desert.DesertLevel;
-import model.levels.rainforest.RainforestLevel;
 import model.levels.sky.SkyLevel;
 import model.levels.underwater.UnderwaterLevel;
 
