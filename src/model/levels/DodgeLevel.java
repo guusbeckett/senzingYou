@@ -25,7 +25,7 @@ public abstract class DodgeLevel extends Level
 		
 		List<User> users = getGame().getCamera().getUsers();
 		
-		if (users.size() > 0)
+		if (!users.isEmpty())
 		{
 			SceneMetaData metadata = users.get(0).getUserPixels();
 			SceneMap map = metadata.getData();
