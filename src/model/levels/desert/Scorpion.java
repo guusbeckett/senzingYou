@@ -24,11 +24,11 @@ public class Scorpion extends HostileEntity
 		if (r.nextBoolean())
 		{
 			position.setLocation(-getDimensions().getWidth(), baseY);
-			velocity = new Point2D.Double(Math.random() * 0.4 + 0.01, 0.0);
+			velocity = new Point2D.Double(Math.random() * 0.7 + 0.01, 0.0);
 		} else
 		{
 			position.setLocation(Camera.VIEW_WIDTH, baseY);
-			velocity = new Point2D.Double(Math.random() * -0.4 + 0.01, 0.0);
+			velocity = new Point2D.Double(Math.random() * -0.7 + 0.01, 0.0);
 		}
 	}
 
