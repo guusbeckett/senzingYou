@@ -63,7 +63,7 @@ public abstract class Entity
 	
 	public boolean isMirrored()
 	{
-		return (velocity.getX() > 0);
+		return (velocity.getX() < 0);
 	}
 	
 	public abstract Point2D getRotationPoint();
