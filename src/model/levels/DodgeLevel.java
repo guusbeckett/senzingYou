@@ -27,8 +27,7 @@ public abstract class DodgeLevel extends Level
 		
 		if (!users.isEmpty())
 		{
-			SceneMetaData metadata = users.get(0).getUserPixels();
-			SceneMap map = metadata.getData();
+			SceneMap map = users.get(0).getUserPixels();
 			
 			List<Entity> entities = getGame().getEntities();
 			Iterator<Entity> it = entities.iterator();

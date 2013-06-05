@@ -3,7 +3,7 @@ package model;
 import java.awt.geom.Point2D;
 
 import org.OpenNI.Point3D;
-import org.OpenNI.SceneMetaData;
+import org.OpenNI.SceneMap;
 import org.OpenNI.UserGenerator;
 
 public class User implements Comparable<User>
@@ -31,12 +31,13 @@ public class User implements Comparable<User>
 		return id;
 	}
 	
-	public SceneMetaData getUserPixels()
+	public SceneMap getUserPixels()
 	{
-		return userGenerator.getUserPixels(id);
+		return userGenerator.getUserPixels(id).getData();
 	}
 	
-	public Point2D getMidpoint(){
+	public Point2D getMidpoint()
+	{
 		return midpoint;
 	}
 	

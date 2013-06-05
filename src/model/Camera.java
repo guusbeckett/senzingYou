@@ -286,7 +286,7 @@ public class Camera
 		}
 		return users;
 	}
-
+	
 	public BufferedImage[] getImageBackgroundAndForeground()
 	{
 		BufferedImage[] result = new BufferedImage[2];
@@ -297,7 +297,8 @@ public class Camera
 		try
 		{
 			context.waitAnyUpdateAll();
-		} catch (StatusException e)
+		}
+		catch (StatusException e)
 		{
 			return result;
 		}
@@ -306,7 +307,7 @@ public class Camera
 		
 		if (getUsers().size() > 0)
 		{
-			ShortBuffer userBuffer = getUsers().get(0).getUserPixels().getData().createShortBuffer();
+			ShortBuffer userBuffer = getUsers().get(0).getUserPixels().createShortBuffer();
 			
 			int x = 0;
 			int y = 0;
