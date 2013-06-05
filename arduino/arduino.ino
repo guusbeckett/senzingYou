@@ -8,10 +8,7 @@ void setup()
   for (int i = 2; i <= 5; i++)
   {
     pinMode(i, OUTPUT);
-    digitalWrite(i, LOW);
   }
-  
-  sprayScent(2);
 }
 
 void sprayScent(int pin)
