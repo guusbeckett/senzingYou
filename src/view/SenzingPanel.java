@@ -91,14 +91,14 @@ public class SenzingPanel extends JPanel implements ActionListener
 				{
 					ax.translate(entity.getPosition().getX(), entity
 							.getPosition().getY());
+					if (entity.isMirrored())
+						ax.translate(entity.getDimensions().getWidth(), 0);
 					ax.scale(
 							entity.getDimensions().getWidth()
 									/ entity.getImage().getWidth(null)
 									* ((entity.isMirrored()) ? -1 : 1), entity
 									.getDimensions().getHeight()
 									/ entity.getImage().getHeight(null));
-					if (entity.isMirrored())
-						ax.translate(entity.getDimensions().getWidth(), 0);
 					g2.drawImage(entity.getImage(), ax, null);
 				}
 
