@@ -1,11 +1,13 @@
 package model.levels;
 
+import java.awt.geom.Rectangle2D;
 import java.util.Iterator;
 import java.util.List;
 
 import org.OpenNI.SceneMap;
 import org.OpenNI.SceneMetaData;
 
+import model.Camera;
 import model.Game;
 import model.User;
 import model.entities.Entity;
@@ -39,28 +41,37 @@ public abstract class DodgeLevel extends Level
 				{
 					HostileEntity hostile = (HostileEntity) entity;
 					boolean killing = false;
+					
 					if(hostile.isAlive())
 					{
-						for (User user : getGame().getCamera().getUsers())
+						if (!(hostile.getBounds().getMinX() < 0 ||
+								hostile.getBounds().getMaxX() >= Camera.VIEW_WIDTH ||
+								hostile.getBounds().getMinY() < 0 ||
+								hostile.getBounds().getMaxY() >= Camera.VIEW_HEIGHT))
 						{
-							if(hostile.isAlive() && (map.readPixel((int)entity.getBounds().getX(), (int)entity.getBounds().getY()) == user.getId() ||
-									map.readPixel((int)entity.getBounds().getMaxX(), (int)entity.getBounds().getY()) == user.getId() ||
-									map.readPixel((int)entity.getBounds().getX(), (int)entity.getBounds().getMaxY()) == user.getId() ||
-									map.readPixel((int)entity.getBounds().getMaxX(), (int)entity.getBounds().getMaxY()) == user.getId()))
+							for (User user : getGame().getCamera().getUsers())
 							{
-								user.setScore(user.getScore()+hostile.getReward());
-								killing = true;
+								if(hostile.isAlive() && (map.readPixel((int)entity.getBounds().getX(), (int)entity.getBounds().getY()) == user.getId() ||
+										map.readPixel((int)entity.getBounds().getMaxX(), (int)entity.getBounds().getY()) == user.getId() ||
+										map.readPixel((int)entity.getBounds().getX(), (int)entity.getBounds().getMaxY()) == user.getId() ||
+										map.readPixel((int)entity.getBounds().getMaxX(), (int)entity.getBounds().getMaxY()) == user.getId()))
+								{
+									user.setScore(user.getScore()+hostile.getReward());
+									killing = true;
+								}
 							}
 						}
 					}
 						
-						if(hostile.isAlive() && killing){
-							hostile.kill();
-						}
-						
-						if(hostile.getDeadTime() >= 450){
-							it.remove();
-						}
+					if(hostile.isAlive() && killing)
+					{
+						hostile.kill();
+					}
+					
+					if(hostile.getDeadTime() >= 450)
+					{
+						it.remove();
+					}
 				}
 			}
 		}
