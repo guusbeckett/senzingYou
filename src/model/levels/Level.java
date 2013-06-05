@@ -21,7 +21,6 @@ public abstract class Level
 	{
 		super();
 		this.game = game;
-		game.getEntities().clear();
 		if (getGame().getSong() != null)
 		{
 			minThreshold = getGame().getSong().getMinThreshold();
