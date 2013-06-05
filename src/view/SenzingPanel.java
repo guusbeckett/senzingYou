@@ -95,7 +95,9 @@ public class SenzingPanel extends JPanel implements ActionListener
 
 		if(level != null){
 			if(level.isDescriptionImageVisible()){
-				g2.drawImage(level.getDescriptionImage(), 0, 0, null);
+				AffineTransform tr = new AffineTransform();
+				tr.scale(.7, .7);
+				g2.drawImage(level.getDescriptionImage(), tr, null);
 			}
 		}
 		
