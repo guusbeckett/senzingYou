@@ -3,6 +3,9 @@ package model.levels;
 import java.util.Iterator;
 import java.util.List;
 
+import org.OpenNI.SceneMap;
+import org.OpenNI.SceneMetaData;
+
 import model.Game;
 import model.User;
 import model.entities.Entity;
@@ -20,37 +23,46 @@ public abstract class DodgeLevel extends Level
 	{
 		super.update(time);
 		
-		List<Entity> entities = getGame().getEntities();
-		Iterator<Entity> it = entities.iterator();
-		while (it.hasNext())
+		List<User> users = getGame().getCamera().getUsers();
+		
+		if (users.size() > 0)
 		{
-			Entity entity = it.next();
-
-			if (entity instanceof HostileEntity)
+			SceneMetaData metadata = users.get(0).getUserPixels();
+			SceneMap map = metadata.getData();
+			
+			List<Entity> entities = getGame().getEntities();
+			Iterator<Entity> it = entities.iterator();
+			while (it.hasNext())
 			{
-				HostileEntity hostile = (HostileEntity) entity;
-				boolean killing = false;
-				if(hostile.isAlive()){
-					for (User user : getGame().getCamera().getUsers())
+				Entity entity = it.next();
+	
+				if (entity instanceof HostileEntity)
+				{
+					HostileEntity hostile = (HostileEntity) entity;
+					boolean killing = false;
+					if(hostile.isAlive())
 					{
-						if(hostile.isAlive() && (user.getUserPixels().getData().readPixel((int)entity.getBounds().getX(), (int)entity.getBounds().getY()) == user.getId() ||
-								user.getUserPixels().getData().readPixel((int)entity.getBounds().getMaxX(), (int)entity.getBounds().getY()) == user.getId() ||
-								user.getUserPixels().getData().readPixel((int)entity.getBounds().getX(), (int)entity.getBounds().getMaxY()) == user.getId() ||
-								user.getUserPixels().getData().readPixel((int)entity.getBounds().getMaxX(), (int)entity.getBounds().getMaxY()) == user.getId()))
+						for (User user : getGame().getCamera().getUsers())
 						{
-							user.setScore(user.getScore()+hostile.getReward());
-							killing = true;
+							if(hostile.isAlive() && (map.readPixel((int)entity.getBounds().getX(), (int)entity.getBounds().getY()) == user.getId() ||
+									map.readPixel((int)entity.getBounds().getMaxX(), (int)entity.getBounds().getY()) == user.getId() ||
+									map.readPixel((int)entity.getBounds().getX(), (int)entity.getBounds().getMaxY()) == user.getId() ||
+									map.readPixel((int)entity.getBounds().getMaxX(), (int)entity.getBounds().getMaxY()) == user.getId()))
+							{
+								user.setScore(user.getScore()+hostile.getReward());
+								killing = true;
+							}
 						}
 					}
+						
+						if(hostile.isAlive() && killing){
+							hostile.kill();
+						}
+						
+						if(hostile.getDeadTime() >= 450){
+							it.remove();
+						}
 				}
-					
-					if(hostile.isAlive() && killing){
-						hostile.kill();
-					}
-					
-					if(hostile.getDeadTime() >= 450){
-						it.remove();
-					}
 			}
 		}
 	}

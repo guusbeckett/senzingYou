@@ -64,7 +64,7 @@ public class GameController implements ActionListener
 	
 						else
 						{
-							double lengthOfStage = game.getSong().getLength() / 5;
+							double lengthOfStage = game.getSong().getLength() / 3;
 							int currentStage = (int) Math.floor(game.getSong()
 									.getTime() / lengthOfStage);
 	
@@ -76,19 +76,19 @@ public class GameController implements ActionListener
 									game.setLevel(new DesertLevel(game));
 									break;
 	
+//								case 1:
+//									game.setLevel(new RainforestLevel(game));
+//									break;
+//	
+//								case 2:
+//									game.setLevel(new CaveLevel(game));
+//									break;
+	
 								case 1:
-									game.setLevel(new RainforestLevel(game));
-									break;
-	
-								case 2:
-									game.setLevel(new CaveLevel(game));
-									break;
-	
-								case 3:
 									game.setLevel(new UnderwaterLevel(game));
 									break;
 	
-								case 4:
+								case 2:
 									game.setLevel(new SkyLevel(game));
 									break;
 								}
