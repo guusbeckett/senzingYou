@@ -39,7 +39,7 @@ public class UnderwaterLevel extends PunchLevel
 		}
 		Random r = new Random();
 		for (int i = 0; i < r.nextInt(10) + 10; i++)
-			game.getEntities().add(new Plant());
+			getGame().getEntities().add(new Plant());
 	}
 
 	public void update(double time)
