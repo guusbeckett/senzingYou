@@ -14,7 +14,6 @@ public abstract class Level
 	private int lastSpawnedHostile = 0;
 	private int lastSpawned = 0;
 	private Game game;
-	private Image descriptionImage;
 	private int counterDescription;
 
 	public Level(Game game)
@@ -28,41 +27,49 @@ public abstract class Level
 		}
 	}
 
-	
-	public boolean isDescriptionImageVisible(){
-		if(counterDescription <= 1500) 
+	public boolean isDescriptionImageVisible()
+	{
+		if (counterDescription <= 1500)
 			return true;
 		return false;
 	}
-	
-	public float getDescriptionImageOpacity(){
-		
-		if((float) counterDescription <= 250) 
-            return ((float) counterDescription/250);
-        
-        if((float) counterDescription > 250 && (float) counterDescription < 1250)
-            return 1f;
-        
-        if((float) counterDescription >=1250)
-            return 1-(((float) counterDescription-1250)/250);
-        
-            else return 0f;
+
+	public float getDescriptionImageOpacity()
+	{
+
+		if ((float) counterDescription <= 250)
+			return ((float) counterDescription / 250);
+
+		if ((float) counterDescription > 250 && (float) counterDescription < 1250)
+			return 1f;
+
+		if ((float) counterDescription >= 1250)
+			return 1 - (((float) counterDescription - 1250) / 250);
+
+		else
+			return 0f;
 	}
 	
 	public abstract Entity getRandomEntity();
+
 	public abstract int getEntitySpawnRate();
+
 	public abstract HostileEntity getRandomHostileEntity();
+
 	public abstract int getHostileEntitySpawnRate();
+
 	public abstract Image getBackground();
+
 	public abstract GroundRenderer getGroundRenderer();
-	
+
+	public abstract Image getDescriptionImage();
+
 	public void update(double time)
 	{
-		counterDescription+=time;
+		counterDescription += time;
 		if (getGame().getSong() != null)
 		{
-			float current = (getGame().getSong().getThreshold() - minThreshold)
-					/ proportion;
+			float current = (getGame().getSong().getThreshold() - minThreshold) / proportion;
 			spawn(time, current);
 
 			for (Entity entity : game.getEntities())
@@ -83,31 +90,19 @@ public abstract class Level
 
 		if (current != 0)
 		{
-			if (lastSpawnedHostile > ((float)getHostileEntitySpawnRate() / current))
+			if (lastSpawnedHostile > ((float) getHostileEntitySpawnRate() / current))
 			{
 				getGame().getEntities().add(getRandomHostileEntity());
 				lastSpawnedHostile = 0;
 			} else
 				lastSpawnedHostile += time;
 
-			if (lastSpawned > ((float)getEntitySpawnRate() / current))
+			if (lastSpawned > ((float) getEntitySpawnRate() / current))
 			{
 				getGame().getEntities().add(getRandomEntity());
 				lastSpawned = 0;
 			} else
 				lastSpawned += time;
 		}
-	}
-
-
-	public Image getDescriptionImage()
-	{
-		return descriptionImage;
-	}
-
-
-	protected void setDescriptionImage(Image descriptionImage)
-	{
-		this.descriptionImage = descriptionImage;
 	}
 }

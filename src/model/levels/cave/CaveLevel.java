@@ -21,8 +21,6 @@ public class CaveLevel extends DodgeLevel
 		super(game);
 		Hardware.getInstance().setClimate(Climate.MOIST);
 		Hardware.getInstance().sprayScent(Scent.OCEAN);
-		setDescriptionImage(MediaProvider.getInstance().getImage("dodgeRock.png"));
-		
 	}
 
 	public void update(double time)
@@ -71,5 +69,11 @@ public class CaveLevel extends DodgeLevel
 	public GroundRenderer getGroundRenderer()
 	{
 		return groundRenderer;
+	}
+	
+	@Override
+	public Image getDescriptionImage()
+	{
+		return MediaProvider.getInstance().getImage("dodgeRock.png");
 	}
 }

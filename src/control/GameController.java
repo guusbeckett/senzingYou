@@ -46,7 +46,9 @@ public class GameController implements ActionListener
 			@Override
 			public void run()
 			{
+				game.setLoading(true);
 				Hardware.getInstance();
+				game.setLoading(false);
 			}
 
 		})).start();
@@ -72,30 +74,38 @@ public class GameController implements ActionListener
 					else
 					{
 						List<Drive> justConnected = game.getJustConnectedDrives();
-
-						// Put all the songs into a list
-						List<File> audioFiles = new ArrayList<File>();
-
-						for (Drive d : justConnected)
+	
+						if (justConnected.size() > 0)
 						{
-							audioFiles.addAll(d.getAudioFiles());
-						}
-
-						// Pick one
-						if (audioFiles.size() > 0)
-						{
-							File file = audioFiles.get((new Random()).nextInt(audioFiles.size()));
-
-							try
+							game.setLoading(true);
+							
+							// Put all the songs into a list
+							List<File> audioFiles = new ArrayList<File>();
+		
+							for (Drive d : justConnected)
 							{
-								drive = justConnected.get(0);
-								game.setSong(new Song(file));
-								game.getSong().play();
-								activeStage = -1;
-							} catch (Exception ex)
-							{
-								ex.printStackTrace();
+								audioFiles.addAll(d.getAudioFiles());
 							}
+		
+							// Pick one
+							if (audioFiles.size() > 0)
+							{
+								File file = audioFiles.get((new Random())
+										.nextInt(audioFiles.size()));
+		
+								try
+								{
+									drive = justConnected.get(0);
+									game.setSong(new Song(file));
+									game.getSong().play();
+									activeStage = -1;
+								} catch (Exception ex)
+								{
+									ex.printStackTrace();
+								}
+							}
+							
+							game.setLoading(false);
 						}
 					}
 

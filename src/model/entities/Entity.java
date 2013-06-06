@@ -4,6 +4,12 @@ import java.awt.Image;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 
 import model.MediaProvider;
 
@@ -66,6 +72,26 @@ public abstract class Entity
 	public boolean isMirrored()
 	{
 		return (velocity.getX() < 0);
+	}
+	
+	public void playHitSound()
+	{
+		String name = getHitSoundName();
+		
+		if (name != null)
+		{
+			AudioInputStream audio = MediaProvider.getInstance().getSound(name);
+			
+			try
+			{
+				Clip clip = AudioSystem.getClip();
+				clip.open(audio);
+				clip.start();
+			} catch (LineUnavailableException e)
+			{ }
+			catch (IOException e)
+			{ }
+		}
 	}
 
 	public abstract Point2D getRotationPoint();

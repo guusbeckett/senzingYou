@@ -21,6 +21,7 @@ public class Game
 	private Level level;
 	private List<Drive> drives;
 	private Clip clip;
+	private boolean loading;
 	private Image screenCapture;
 
 	public Game()
@@ -104,25 +105,16 @@ public class Game
 		return justConnected;
 	}
 
-	public void setBackgroundSound(AudioInputStream backgroundSound)
+	public boolean isLoading()
 	{
-		if (clip.isOpen())
-			clip.close();
-		
-		if (backgroundSound != null)
-		{
-			try
-			{
-				clip.open(backgroundSound);
-				clip.loop(Clip.LOOP_CONTINUOUSLY);
-				clip.start();
-			} catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-		}
+		return loading;
 	}
 
+	public void setLoading(boolean loading)
+	{
+		this.loading = loading;
+	}
+	
 	public Image getScreenCapture()
 	{
 		return screenCapture;
