@@ -136,6 +136,8 @@ public class GameController implements ActionListener
 						Robot robot = new Robot();
 						BufferedImage screenShot = robot.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
 						ImageIO.write(screenShot, "PNG", new File(drive.getPath()+"screenShot_"+System.currentTimeMillis()+".png"));
+						game.setScreenCapture(screenShot); //We use this for the Highscore.
+						
 					}
 					catch(Exception exc)
 					{

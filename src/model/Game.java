@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Game
 	private Level level;
 	private List<Drive> drives;
 	private Clip clip;
+	private Image screenCapture;
 
 	public Game()
 	{
@@ -119,5 +121,15 @@ public class Game
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public Image getScreenCapture()
+	{
+		return screenCapture;
+	}
+
+	public void setScreenCapture(Image screenCapture)
+	{
+		this.screenCapture = screenCapture;
 	}
 }
