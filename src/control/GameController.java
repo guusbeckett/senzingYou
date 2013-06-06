@@ -1,13 +1,20 @@
 package control;
 
+import java.awt.AWTException;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 import model.Camera;
@@ -32,8 +39,9 @@ public class GameController implements ActionListener
 	public GameController(Game g)
 	{
 		this.game = g;
+		
 
-		// Initialize the hardware in a seperate thread because it takes a
+		// Initialize the hardware in a seperate thread because it takes a while...
 		// while...
 		(new Thread(new Runnable()
 		{
@@ -123,6 +131,17 @@ public class GameController implements ActionListener
 					break;
 
 				case 1:
+					try
+					{
+						Robot robot = new Robot();
+						BufferedImage screenShot = robot.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+						ImageIO.write(screenShot, "PNG", new File(drive.getPath()+"screenShot_"+System.currentTimeMillis()+".png"));
+					}
+					catch(Exception exc)
+					{
+						
+					}
+					
 					game.setLevel(new RainforestLevel(game));
 					break;
 
