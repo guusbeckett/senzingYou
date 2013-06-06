@@ -7,6 +7,7 @@ import gnu.io.SerialPort;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 
 public class Hardware
 {
@@ -99,32 +100,50 @@ public class Hardware
 			return new char[] { 'A' };
 			
 		case MOIST:
-			return new char[] { 'B' };
+			return new char[] { 'A', 'C' };
+		
+		case UNDERWATER:
+			return new char[] { 'B', 'C' };
 			
 		default: // NORMAL
 			return new char[0];
 		}
 	}
 	
-	private void setClimateState(Climate climate, boolean state)
+	private boolean belongsToClimate(Climate climate, char device)
 	{
+		if (climate == null)
+			return false;
+		
 		char[] devices = getDevicesForClimate(climate);
 		
-		for (char c : devices)
+		for (char a : devices)
 		{
-			setDeviceState(c, state);
+			if (a == device)
+				return true;
 		}
+		
+		return false;
 	}
 	
 	public void setClimate(Climate climate)
 	{
-		if (this.climate != null)
+		for (char c = 'A'; c <= 'C'; c++)
 		{
-			setClimateState(this.climate, false);
+			if (belongsToClimate(climate, c))
+			{
+				if (!belongsToClimate(this.climate, c))
+					setDeviceState(c, true);
+			}
+			
+			else
+			{
+				if (belongsToClimate(this.climate, c))
+					setDeviceState(c, false);
+			}
 		}
-		
+
 		this.climate = climate;
-		setClimateState(this.climate, true);
 	}
 
 	public void sprayScent(Scent scent)

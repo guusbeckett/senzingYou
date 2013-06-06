@@ -26,7 +26,7 @@ public class UnderwaterLevel extends PunchLevel
 	public UnderwaterLevel(Game game)
 	{
 		super(game);
-		Hardware.getInstance().setClimate(Climate.COLD);
+		Hardware.getInstance().setClimate(Climate.UNDERWATER);
 		Hardware.getInstance().sprayScent(Scent.OCEAN);
 		
 		Random r = new Random();
