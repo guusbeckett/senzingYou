@@ -10,7 +10,7 @@ import java.io.OutputStream;
 
 public class Hardware
 {
-	private static final String PORT = "COM4";
+	private static final String PORT = "COM3";
 	
 	private static Hardware hardware = null;
 	private Climate climate;
@@ -83,7 +83,7 @@ public class Hardware
 		super.finalize();
 	}
 	
-	private void setDeviceState(char c, boolean state)
+	public void setDeviceState(char c, boolean state)
 	{
 		writeToArduino((state ? 0x30 : 0x20) | (c - 'A'));
 	}
@@ -96,10 +96,10 @@ public class Hardware
 			return new char[] { 'C' };
 
 		case WARM:
-			return new char[] { 'B' };
+			return new char[] { 'A' };
 			
 		case MOIST:
-			return new char[] { 'A' };
+			return new char[] { 'B' };
 			
 		default: // NORMAL
 			return new char[0];
