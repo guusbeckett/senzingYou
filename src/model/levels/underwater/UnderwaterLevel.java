@@ -28,7 +28,6 @@ public class UnderwaterLevel extends PunchLevel
 		super(game);
 		Hardware.getInstance().setClimate(Climate.COLD);
 		Hardware.getInstance().sprayScent(Scent.OCEAN);
-		setDescriptionImage(MediaProvider.getInstance().getImage("punch.png"));
 		
 		try
 		{
@@ -88,5 +87,11 @@ public class UnderwaterLevel extends PunchLevel
 	public GroundRenderer getGroundRenderer()
 	{
 		return groundRenderer;
+	}
+	
+	@Override
+	public Image getDescriptionImage()
+	{
+		return MediaProvider.getInstance().getImage("punch.png");
 	}
 }

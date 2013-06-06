@@ -14,7 +14,6 @@ public abstract class Level
 	private int lastSpawnedHostile = 0;
 	private int lastSpawned = 0;
 	private Game game;
-	private Image descriptionImage;
 	private int counterDescription;
 
 	public Level(Game game)
@@ -55,6 +54,7 @@ public abstract class Level
 	public abstract int getHostileEntitySpawnRate();
 	public abstract Image getBackground();
 	public abstract GroundRenderer getGroundRenderer();
+	public abstract Image getDescriptionImage();
 	
 	public void update(double time)
 	{
@@ -96,17 +96,5 @@ public abstract class Level
 			} else
 				lastSpawned += time;
 		}
-	}
-
-
-	public Image getDescriptionImage()
-	{
-		return descriptionImage;
-	}
-
-
-	protected void setDescriptionImage(Image descriptionImage)
-	{
-		this.descriptionImage = descriptionImage;
 	}
 }

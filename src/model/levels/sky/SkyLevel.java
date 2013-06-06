@@ -21,7 +21,6 @@ public class SkyLevel extends PunchLevel
 		super(game);
 		Hardware.getInstance().setClimate(Climate.COLD);
 		Hardware.getInstance().sprayScent(Scent.OCEAN);
-		setDescriptionImage(MediaProvider.getInstance().getImage("punch.png"));
 	}
 
 	public void update(double time)
@@ -63,5 +62,11 @@ public class SkyLevel extends PunchLevel
 	public GroundRenderer getGroundRenderer()
 	{
 		return groundRenderer;
+	}
+	
+	@Override
+	public Image getDescriptionImage()
+	{
+		return MediaProvider.getInstance().getImage("punch.png");
 	}
 }
