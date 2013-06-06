@@ -135,7 +135,7 @@ public class GameController implements ActionListener
 				switch (currentStage)
 				{
 				case 0:
-					game.setLevel(new CaveLevel(game));
+					game.setLevel(new DesertLevel(game));
 					break;
 
 				case 1:
