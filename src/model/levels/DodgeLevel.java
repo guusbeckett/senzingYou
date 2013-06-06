@@ -1,17 +1,15 @@
 package model.levels;
 
-import java.awt.geom.Rectangle2D;
 import java.util.Iterator;
 import java.util.List;
-
-import org.OpenNI.SceneMap;
-import org.OpenNI.SceneMetaData;
 
 import model.Camera;
 import model.Game;
 import model.User;
 import model.entities.Entity;
 import model.entities.HostileEntity;
+
+import org.OpenNI.SceneMap;
 
 public abstract class DodgeLevel extends Level
 {

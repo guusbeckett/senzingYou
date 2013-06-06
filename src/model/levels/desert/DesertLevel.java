@@ -11,7 +11,6 @@ import model.entities.HostileEntity;
 import model.levels.PunchLevel;
 import control.Climate;
 import control.Hardware;
-import control.Scent;
 
 public class DesertLevel extends PunchLevel
 {
