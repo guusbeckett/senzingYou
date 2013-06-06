@@ -127,6 +127,8 @@ public class SenzingPanel extends JPanel implements ActionListener
 	{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+        
+
 
 		double _w = getWidth();
 		double _h = getHeight();
@@ -134,7 +136,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		double _y = Camera.VIEW_HEIGHT;
 		double _s = _h / _y;
 		double _b = (_w / _s - _x) / 2;
-
+		
 		g2.scale(_s, _s);
 		g2.translate(_b, 0);
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -208,6 +210,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		g2.setColor(Color.BLACK);
 		g2.fill(new Rectangle2D.Double(-_b, 0, _b, _y));
 		g2.fill(new Rectangle2D.Double(_x, 0, _b, _y));
+		
 	}
 
 	@Override
