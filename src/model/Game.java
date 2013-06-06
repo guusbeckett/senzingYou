@@ -20,6 +20,7 @@ public class Game
 	private Level level;
 	private List<Drive> drives;
 	private Clip clip;
+	private boolean loading;
 
 	public Game()
 	{
@@ -119,5 +120,15 @@ public class Game
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public boolean isLoading()
+	{
+		return loading;
+	}
+
+	public void setLoading(boolean loading)
+	{
+		this.loading = loading;
 	}
 }

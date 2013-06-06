@@ -36,6 +36,8 @@ public class SenzingPanel extends JPanel implements ActionListener
 	private static final long serialVersionUID = 1L;
 	private Game game;
 	private Image rewardImage, losingImage;
+	private int loaderIndex;
+	private boolean loaderReversed = false;
 
 	public SenzingPanel(Game game)
 	{
@@ -81,7 +83,41 @@ public class SenzingPanel extends JPanel implements ActionListener
 		ax.translate(Camera.VIEW_WIDTH / 2 - 320/2, Camera.VIEW_HEIGHT / 2 - 240/2);
 		ax.scale(320 / width, 240 / height);
 		
-		g2.drawImage(image, ax, null);
+		g2.drawImage(image, ax, this);
+	}
+	
+	private void drawLoader(Graphics2D g2)
+	{
+		double loaderWidth = 250;
+		double loaderHeight = 20;
+
+		Rectangle2D loader = new Rectangle2D.Double(Camera.VIEW_WIDTH / 2 - loaderWidth / 2, Camera.VIEW_HEIGHT / 2 - loaderHeight / 2, loaderWidth, loaderHeight);
+		
+		g2.setColor(Color.LIGHT_GRAY);
+		g2.fill(loader);
+		
+		g2.setColor(Color.DARK_GRAY);
+		g2.draw(loader);
+		g2.fill(new Rectangle2D.Double(loader.getX() + loaderIndex, loader.getY(), 50, loader.getHeight()));
+		
+		if (loaderReversed)
+		{
+			loaderIndex -= 10;
+		}
+		else
+		{
+			loaderIndex += 10;
+		}
+		
+		if ((loaderIndex + 50) >= loaderWidth)
+		{
+			loaderReversed = true;
+		}
+		
+		else if (loaderIndex <= 0)
+		{
+			loaderReversed = false;
+		}
 	}
 
 	private void drawEntities(Graphics2D g2, int step)
@@ -144,11 +180,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		// Draw background
 		Level level = game.getLevel();
 
-		if (level == null)
-		{
-			drawImageInCenter(g2, MediaProvider.getInstance().getImage("usbConnect.png"));
-		}
-		else
+		if (level != null)
 		{
 			g2.drawImage(level.getBackground(), 0, 0, null);
 		}
@@ -169,6 +201,13 @@ public class SenzingPanel extends JPanel implements ActionListener
 			{
 				drawImageInCenter(g2, level.getDescriptionImage());
 			}
+		}
+		else
+		{
+			if (!game.isLoading())
+				drawImageInCenter(g2, MediaProvider.getInstance().getImage("usbConnect.png"));
+			else
+				drawLoader(g2);
 		}
 
 		// Draw the foreground entities
