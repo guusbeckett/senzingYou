@@ -13,4 +13,11 @@ public class DesertGround implements GroundRenderer
 	{
 		g2.drawImage(MediaProvider.getInstance().getImage("desert/ground.jpg"), null, null);
 	}
+
+	@Override
+	public void update(double time)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

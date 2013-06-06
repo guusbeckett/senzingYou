@@ -13,4 +13,11 @@ public class CaveGround implements GroundRenderer
 	{
 		g2.drawImage(MediaProvider.getInstance().getImage("cave/ground.jpg"), null, null);
 	}
+
+	@Override
+	public void update(double time)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
