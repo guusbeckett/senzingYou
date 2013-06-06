@@ -69,6 +69,7 @@ public abstract class Level
 			{
 				entity.update(time * current * 3.0);
 			}
+			getGroundRenderer().update(time);
 		}
 	}
 

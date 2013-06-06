@@ -13,4 +13,11 @@ public class UnderwaterGround implements GroundRenderer
 	{
 		g2.drawImage(MediaProvider.getInstance().getImage("underwater/ground.jpg"), null, null);
 	}
+
+	@Override
+	public void update(double time)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
