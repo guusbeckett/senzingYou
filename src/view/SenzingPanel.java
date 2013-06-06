@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -71,7 +72,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		g2.draw(outline);
 	}
 	
-	private void drawImageInCenter(Graphics2D g2, Image image)
+	private void drawImageInCenter(Graphics2D g2, Image image, float alpha)
 	{
 		double width = image.getWidth(null);
 		double height = image.getHeight(null);
@@ -80,7 +81,8 @@ public class SenzingPanel extends JPanel implements ActionListener
 		
 		ax.translate(Camera.VIEW_WIDTH / 2 - 320/2, Camera.VIEW_HEIGHT / 2 - 240/2);
 		ax.scale(320 / width, 240 / height);
-		
+		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+		g2.setComposite(ac);
 		g2.drawImage(image, ax, null);
 	}
 
@@ -146,7 +148,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 
 		if (level == null)
 		{
-			drawImageInCenter(g2, MediaProvider.getInstance().getImage("usbConnect.png"));
+			drawImageInCenter(g2, MediaProvider.getInstance().getImage("usbConnect.png"), 0f);
 		}
 		else
 		{
@@ -163,13 +165,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		g2.drawImage(images[1], null, 0, 0);
 		
 		// Draw description of level
-		if (level != null)
-		{
-			if (level.isDescriptionImageVisible())
-			{
-				drawImageInCenter(g2, level.getDescriptionImage());
-			}
-		}
+		
 
 		// Draw the foreground entities
 		drawEntities(g2, 1);
@@ -208,6 +204,14 @@ public class SenzingPanel extends JPanel implements ActionListener
 		g2.setColor(Color.BLACK);
 		g2.fill(new Rectangle2D.Double(-_b, 0, _b + 40, _y));
 		g2.fill(new Rectangle2D.Double(_x - 20, 0, _b + 20, _y));
+		
+		if (level != null)
+		{
+			if (level.isDescriptionImageVisible())
+			{
+				drawImageInCenter(g2, level.getDescriptionImage(), level.getDescriptionImageOpacity());
+			}
+		}
 	}
 
 	@Override
