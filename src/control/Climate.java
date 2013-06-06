@@ -6,4 +6,5 @@ public enum Climate
 	NORMAL,
 	WARM,
 	MOIST,
+	UNDERWATER,
 }

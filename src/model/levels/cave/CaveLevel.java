@@ -19,7 +19,7 @@ public class CaveLevel extends DodgeLevel
 	public CaveLevel(Game game)
 	{
 		super(game);
-		Hardware.getInstance().setClimate(Climate.MOIST);
+		Hardware.getInstance().setClimate(Climate.COLD);
 		Hardware.getInstance().sprayScent(Scent.OCEAN);
 	}
 

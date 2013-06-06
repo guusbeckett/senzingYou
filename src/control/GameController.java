@@ -166,10 +166,14 @@ public class GameController implements ActionListener
 				case 4:
 					game.setLevel(new SkyLevel(game));
 					break;
+				
+				default:
+					game.setSong(null);
+					game.setLevel(null);
+					break;
 				}
 
 				activeStage = currentStage;
-
 			}
 		}
 
