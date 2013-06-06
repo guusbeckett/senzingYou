@@ -52,7 +52,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		AffineTransform transform = new AffineTransform();
 		transform.translate(p2.getX(), p2.getY());
 		drawText(g2, text, color, size, transform);
-	};
+	}
 
 	private void drawText(Graphics2D g2, String text, Color color, int size, AffineTransform transform)
 	{
@@ -69,6 +69,19 @@ public class SenzingPanel extends JPanel implements ActionListener
 		g2.setColor(Color.BLACK);
 		g2.setStroke(new BasicStroke(2));
 		g2.draw(outline);
+	}
+	
+	private void drawImageInCenter(Graphics2D g2, Image image)
+	{
+		double width = image.getWidth(null);
+		double height = image.getHeight(null);
+
+		AffineTransform ax = new AffineTransform();
+		
+		ax.translate(Camera.VIEW_WIDTH / 2 - 320/2, Camera.VIEW_HEIGHT / 2 - 240/2);
+		ax.scale(320 / width, 240 / height);
+		
+		g2.drawImage(image, ax, null);
 	}
 
 	private void drawEntities(Graphics2D g2, int step)
@@ -131,8 +144,14 @@ public class SenzingPanel extends JPanel implements ActionListener
 		// Draw background
 		Level level = game.getLevel();
 
-		if (level != null)
+		if (level == null)
+		{
+			drawImageInCenter(g2, MediaProvider.getInstance().getImage("usbConnect.png"));
+		}
+		else
+		{
 			g2.drawImage(level.getBackground(), 0, 0, null);
+		}
 
 		// Draw camera background image
 		g2.drawImage(images[0], null, 0, 0);
@@ -142,20 +161,18 @@ public class SenzingPanel extends JPanel implements ActionListener
 
 		// Draw camera foreground image
 		g2.drawImage(images[1], null, 0, 0);
-
-		// Draw the foreground entities
-		drawEntities(g2, 1);
-
+		
 		// Draw description of level
 		if (level != null)
 		{
 			if (level.isDescriptionImageVisible())
 			{
-				AffineTransform tr = new AffineTransform();
-				tr.scale(.7, .7);
-				g2.drawImage(level.getDescriptionImage(), tr, null);
+				drawImageInCenter(g2, level.getDescriptionImage());
 			}
 		}
+
+		// Draw the foreground entities
+		drawEntities(g2, 1);
 
 		// Draw all the scores
 		if (!game.getCamera().getUsers().isEmpty())
