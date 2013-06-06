@@ -15,7 +15,7 @@ public class Snake extends Entity
 	{
 		super();
 		baseY = Math.random() * (Camera.VIEW_HEIGHT - getDimensions().getHeight() * 4) + getDimensions().getHeight();
-		position.setLocation(0, baseY);
+		position.setLocation(-getDimensions().getWidth(), baseY);
 		velocity = new Point2D.Double(Math.random() * 0.2 + 0.01, Camera.VIEW_WIDTH);
 	}
 
@@ -42,7 +42,7 @@ public class Snake extends Entity
 	public void update(double time)
 	{
 		super.update(time);
-		position.setLocation(position.getX() - velocity.getX() * time, baseY + Math.sin(position.getX() / Camera.VIEW_WIDTH * 2 * Math.PI) * getDimensions().getHeight());
+		position.setLocation(position.getX() + velocity.getX() * time, baseY + Math.sin(position.getX() / Camera.VIEW_WIDTH * 2 * Math.PI) * getDimensions().getHeight());
 		// TODO Auto-generated method stub
 		
 	}

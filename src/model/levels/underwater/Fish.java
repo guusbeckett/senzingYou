@@ -17,7 +17,7 @@ public class Fish extends Entity
 		super();
 		
 		baseY = Math.random() * (Camera.VIEW_HEIGHT - getDimensions().getHeight() * 4) + getDimensions().getHeight();
-		position.setLocation(0, baseY);
+		position.setLocation(-getDimensions().getWidth(), baseY);
 		velocity = new Point2D.Double(Math.random() * 0.2 + 0.01, 0.0);
 
 		if (Math.random() <= 0.5)
