@@ -47,16 +47,14 @@ public class SenzingPanel extends JPanel implements ActionListener
 		losingImage = MediaProvider.getInstance().getImage("losingpoint.png");
 	}
 
-	private void drawText(Graphics2D g2, String text, Color color, int size,
-			Point2D p2)
+	private void drawText(Graphics2D g2, String text, Color color, int size, Point2D p2)
 	{
 		AffineTransform transform = new AffineTransform();
 		transform.translate(p2.getX(), p2.getY());
 		drawText(g2, text, color, size, transform);
 	};
 
-	private void drawText(Graphics2D g2, String text, Color color, int size,
-			AffineTransform transform)
+	private void drawText(Graphics2D g2, String text, Color color, int size, AffineTransform transform)
 	{
 		Font font = new Font("Arial", Font.BOLD, size);
 		FontRenderContext frc = g2.getFontRenderContext();
@@ -79,26 +77,16 @@ public class SenzingPanel extends JPanel implements ActionListener
 		{
 			AffineTransform ax = new AffineTransform();
 
-			ax.rotate(entity.getRotation(), entity.getRotationPoint().getX()
-					+ entity.getPosition().getX(), entity.getRotationPoint()
-					.getY() + entity.getPosition().getY());
+			ax.rotate(entity.getRotation(), entity.getRotationPoint().getX() + entity.getPosition().getX(), entity.getRotationPoint().getY() + entity.getPosition().getY());
 
 			if (entity.getImage() != null)
 			{
-				if ((step == 0 && !(entity instanceof HostileEntity))
-						|| (step == 1 && (entity instanceof HostileEntity) && ((HostileEntity) entity)
-								.isAlive()))
+				if ((step == 0 && !(entity instanceof HostileEntity)) || (step == 1 && (entity instanceof HostileEntity) && ((HostileEntity) entity).isAlive()))
 				{
-					ax.translate(entity.getPosition().getX(), entity
-							.getPosition().getY());
+					ax.translate(entity.getPosition().getX(), entity.getPosition().getY());
 					if (entity.isMirrored())
 						ax.translate(entity.getDimensions().getWidth(), 0);
-					ax.scale(
-							entity.getDimensions().getWidth()
-									/ entity.getImage().getWidth(null)
-									* ((entity.isMirrored()) ? -1 : 1), entity
-									.getDimensions().getHeight()
-									/ entity.getImage().getHeight(null));
+					ax.scale(entity.getDimensions().getWidth() / entity.getImage().getWidth(null) * ((entity.isMirrored()) ? -1 : 1), entity.getDimensions().getHeight() / entity.getImage().getHeight(null));
 					g2.drawImage(entity.getImage(), ax, null);
 				}
 
@@ -108,21 +96,14 @@ public class SenzingPanel extends JPanel implements ActionListener
 
 					if (!hostile.isAlive())
 					{
-						Image image = (hostile.getReward() <= 0) ? losingImage
-								: rewardImage;
+						Image image = (hostile.getReward() <= 0) ? losingImage : rewardImage;
 
-						ax.translate(hostile.getDeadLocation().getX(), hostile
-								.getDeadLocation().getY());
-						ax.scale(
-								entity.getDimensions().getWidth()
-										/ image.getWidth(null),
-								entity.getDimensions().getHeight()
-										/ image.getHeight(null));
+						ax.translate(hostile.getDeadLocation().getX(), hostile.getDeadLocation().getY());
+						ax.scale(entity.getDimensions().getWidth() / image.getWidth(null), entity.getDimensions().getHeight() / image.getHeight(null));
 						g2.drawImage(image, ax, null);
 
 						ax.translate(0, (image.getWidth(null) / 1.5));
-						drawText(g2, "" + hostile.getReward(), Color.BLUE, 250,
-								ax);
+						drawText(g2, "" + hostile.getReward(), Color.BLUE, 250, ax);
 					}
 				}
 			}
@@ -143,11 +124,9 @@ public class SenzingPanel extends JPanel implements ActionListener
 
 		g2.scale(_s, _s);
 		g2.translate(_b, 0);
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-		BufferedImage[] images = game.getCamera()
-				.getImageBackgroundAndForeground();
+		BufferedImage[] images = game.getCamera().getImageBackgroundAndForeground();
 
 		// Draw background
 		Level level = game.getLevel();
@@ -181,8 +160,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		// Draw all the scores
 		if (!game.getCamera().getUsers().isEmpty())
 		{
-			Color[] colors = new Color[] { Color.RED, Color.BLUE, Color.GREEN,
-					Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY };
+			Color[] colors = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY };
 			ArrayList<User> copyUsers = new ArrayList<User>();
 			copyUsers.addAll(game.getCamera().getUsers());
 			Collections.sort(copyUsers);
@@ -193,8 +171,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 			{
 				if (u.isVisible())
 				{
-					drawText(g2, "" + u.getScore(), colors[(u.getId() - 1)
-							% colors.length], 25, new Point2D.Double(x, 25));
+					drawText(g2, "" + u.getScore(), colors[(u.getId() - 1) % colors.length], 25, new Point2D.Double(x, 25));
 				}
 				x += scoreWidth;
 			}
@@ -207,9 +184,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		{
 			int time = (int) song.getTime();
 			int length = (int) song.getLength();
-			drawText(g2, String.format("%02d:%02d / %02d:%02d", time / 60,
-					time % 60, length / 60, length % 60), Color.ORANGE, 25,
-					new Point2D.Double(8, 25));
+			drawText(g2, String.format("%02d:%02d / %02d:%02d", time / 60, time % 60, length / 60, length % 60), Color.ORANGE, 25, new Point2D.Double(8, 25));
 		}
 
 		// Draw sideboxes

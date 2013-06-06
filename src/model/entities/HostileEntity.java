@@ -5,14 +5,13 @@ import java.util.List;
 
 import model.User;
 
-
 public abstract class HostileEntity extends Entity
 {
 	protected boolean alive = true;
 	protected List<User> users;
 	private int deadTime;
 	private Point2D deadLocation;
-	
+
 	public HostileEntity(List<User> users)
 	{
 		this.users = users;
@@ -26,20 +25,24 @@ public abstract class HostileEntity extends Entity
 
 	public void kill()
 	{
-		if(alive){
+		if (alive)
+		{
 			deadLocation.setLocation(position);
 		}
 		alive = false;
 	}
-	
-	public int getDeadTime(){
+
+	public int getDeadTime()
+	{
 		return deadTime;
 	}
-	
-	public void update(double time){
+
+	public void update(double time)
+	{
 		super.update(time);
-		if(!isAlive()){
-			deadTime+=time;
+		if (!isAlive())
+		{
+			deadTime += time;
 		}
 	}
 

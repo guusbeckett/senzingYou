@@ -45,6 +45,7 @@ public class HarpoonDiver extends HostileEntity
 
 	public void update(double time)
 	{
+		super.update(time);
 		if (!users.isEmpty())
 		{
 			Point2D userP = users.get(0).getMidpoint();
@@ -74,7 +75,7 @@ public class HarpoonDiver extends HostileEntity
 	@Override
 	public Dimension2D getDimensions()
 	{
-		return new Dimension(60, 60);
+		return new Dimension(80, 80);
 	}
 	
 	@Override

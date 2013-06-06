@@ -19,7 +19,7 @@ public abstract class PunchLevel extends Level
 	public void update(double time)
 	{
 		super.update(time);
-		
+
 		List<Entity> entities = getGame().getEntities();
 		Iterator<Entity> it = entities.iterator();
 		while (it.hasNext())
@@ -29,27 +29,29 @@ public abstract class PunchLevel extends Level
 			if (entity instanceof HostileEntity)
 			{
 				HostileEntity hostile = (HostileEntity) entity;
-					boolean kill = false;
-					
-					if(hostile.isAlive()){
-						for (User user : getGame().getCamera().getUsers())
+				boolean kill = false;
+
+				if (hostile.isAlive())
+				{
+					for (User user : getGame().getCamera().getUsers())
+					{
+						if (hostile.getBounds().contains(user.getLeftHand()) || hostile.getBounds().contains(user.getRightHand()))
 						{
-							if (hostile.getBounds().contains(user.getLeftHand())
-							|| hostile.getBounds().contains(user.getRightHand()))
-							{
-								user.setScore(user.getScore() + hostile.getReward());
-								kill = true;
-							}
+							user.setScore(user.getScore() + hostile.getReward());
+							kill = true;
 						}
 					}
-					
-					if(hostile.isAlive() && kill){
-						hostile.kill();
-					}
-					
-					if(hostile.getDeadTime() >= 450){
-						it.remove();
-					}
+				}
+
+				if (hostile.isAlive() && kill)
+				{
+					hostile.kill();
+				}
+
+				if (hostile.getDeadTime() >= 450)
+				{
+					it.remove();
+				}
 			}
 		}
 	}
