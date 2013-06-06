@@ -39,7 +39,10 @@ public class GameController implements ActionListener
 	public GameController(Game g)
 	{
 		this.game = g;
+		
+
 		// Initialize the hardware in a seperate thread because it takes a while...
+		// while...
 		(new Thread(new Runnable()
 		{
 			@Override
@@ -47,7 +50,7 @@ public class GameController implements ActionListener
 			{
 				Hardware.getInstance();
 			}
-			
+
 		})).start();
 
 		(new Timer(1000 / UPDATES_PER_SECOND, this)).start();
@@ -65,76 +68,26 @@ public class GameController implements ActionListener
 							game.getSong().stop();
 							game.setSong(null);
 							game.setLevel(null);
-							game.getEntities().clear();
-						}
-	
-						else
-						{
-							double lengthOfStage = game.getSong().getLength() / 5;
-							int currentStage = (int) Math.floor(game.getSong()
-									.getTime() / lengthOfStage);
-							
-							
-							if (currentStage != activeStage)
-							{
-								switch (currentStage)
-								{
-								case 0:
-									game.setLevel(new DesertLevel(game));
-									break;
-	
-								case 1:
-									try
-									{
-										System.out.println("Making screenshot!");
-										Robot robot = new Robot();
-										BufferedImage screenShot = robot.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-										ImageIO.write(screenShot, "PNG", new File("./images/screenshots/screenShot_"+System.currentTimeMillis()+".png"));
-									} catch (Exception e)
-									{
-										System.out.println("Fail Screenshot");
-									}
-									 
-									game.setLevel(new RainforestLevel(game));
-									break;
-	
-								case 2:
-									game.setLevel(new CaveLevel(game));
-									break;
-	
-								case 3:
-									game.setLevel(new UnderwaterLevel(game));
-									break;
-	
-								case 4:
-									game.setLevel(new SkyLevel(game));
-									break;
-								}
-	
-								activeStage = currentStage;
-	
-							}
 						}
 					}
-	
+
 					else
 					{
 						List<Drive> justConnected = game.getJustConnectedDrives();
-	
+
 						// Put all the songs into a list
 						List<File> audioFiles = new ArrayList<File>();
-	
+
 						for (Drive d : justConnected)
 						{
 							audioFiles.addAll(d.getAudioFiles());
 						}
-	
+
 						// Pick one
 						if (audioFiles.size() > 0)
 						{
-							File file = audioFiles.get((new Random())
-									.nextInt(audioFiles.size()));
-	
+							File file = audioFiles.get((new Random()).nextInt(audioFiles.size()));
+
 							try
 							{
 								drive = justConnected.get(0);
@@ -147,12 +100,13 @@ public class GameController implements ActionListener
 							}
 						}
 					}
-					
+
 					try
 					{
 						Thread.sleep(200);
 					} catch (InterruptedException e)
-					{ }
+					{
+					}
 				}
 			}
 		})).start();
@@ -161,23 +115,69 @@ public class GameController implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		if (game.getSong() != null)
+		{
+			double lengthOfStage = game.getSong().getLength() / 5;
+			int currentStage = (int) Math.floor(game.getSong().getTime() / lengthOfStage);
+
+			if (currentStage != activeStage)
+			{
+				game.getEntities().clear();
+
+				switch (currentStage)
+				{
+				case 0:
+					game.setLevel(new UnderwaterLevel(game));
+					break;
+
+				case 1:
+					try
+					{
+						Robot robot = new Robot();
+						BufferedImage screenShot = robot.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+						ImageIO.write(screenShot, "PNG", new File("./images/screenshots/screenShot_"+System.currentTimeMillis()+".png"));
+					}
+					catch(Exception exc)
+					{
+						
+					}
+					
+					game.setLevel(new RainforestLevel(game));
+					break;
+
+				case 2:
+					game.setLevel(new CaveLevel(game));
+					break;
+
+				case 3:
+					game.setLevel(new DesertLevel(game));
+					break;
+
+				case 4:
+					game.setLevel(new SkyLevel(game));
+					break;
+				}
+
+				activeStage = currentStage;
+
+			}
+		}
+
 		Level level = game.getLevel();
 
 		if (level != null)
 		{
 			level.update(1000 / UPDATES_PER_SECOND);
-
-			if (level.isDescriptionImageVisible())
-				game.getEntities().clear();
+		} else
+		{
+			game.getEntities().clear();
 		}
 
 		for (Iterator<Entity> it = game.getEntities().iterator(); it.hasNext();)
 		{
 			Entity entity = it.next();
-			
-			if ((entity.getBounds().getMaxX() < -100 || entity.getBounds().getMaxY() < -100)
-					|| (entity.getBounds().getMinX() > (Camera.VIEW_WIDTH+100) || entity
-							.getBounds().getMinY() > (Camera.VIEW_HEIGHT+100)))
+
+			if ((entity.getBounds().getMaxX() < -100 || entity.getBounds().getMaxY() < -100) || (entity.getBounds().getMinX() > (Camera.VIEW_WIDTH + 100) || entity.getBounds().getMinY() > (Camera.VIEW_HEIGHT + 100)))
 			{
 				it.remove();
 			}
