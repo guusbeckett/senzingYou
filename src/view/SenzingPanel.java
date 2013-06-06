@@ -177,22 +177,20 @@ public class SenzingPanel extends JPanel implements ActionListener
 		drawEntities(g2, 1);
 
 		// Draw all the scores
-		if (!game.getCamera().getUsers().isEmpty())
-		{
-			Color[] colors = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY };
+		if(!game.getCamera().getUsers().isEmpty()){
+			Color[] colors = new Color[]{Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY};
 			ArrayList<User> copyUsers = new ArrayList<User>();
 			copyUsers.addAll(game.getCamera().getUsers());
 			Collections.sort(copyUsers);
 			int x = 300;
 			int scoreWidth = (Camera.VIEW_WIDTH - x) / copyUsers.size();
-
-			for (User u : copyUsers)
+			//Now do nothing with X it just print on the head position
+			for(User u: copyUsers)
 			{
-				if (u.isVisible())
-				{
-					drawText(g2, "" + u.getScore(), colors[(u.getId() - 1) % colors.length], 25, new Point2D.Double(x, 25));
+				if (u.isVisible()){
+					drawText(g2, ""+u.getScore(), colors[(u.getId() - 1)%colors.length], 45, new Point2D.Double(u.getHead().getX(), 50));
 				}
-				x += scoreWidth;
+				x+=scoreWidth;
 			}
 		}
 
