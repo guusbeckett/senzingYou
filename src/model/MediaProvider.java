@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +30,7 @@ public class MediaProvider
                 images.put(name, ImageIO.read(model.MediaProvider.class.getResource("/" + name)));
             } catch (IOException e)
             {
-                return null;
+                return new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
             }
         }
 

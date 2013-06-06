@@ -97,7 +97,7 @@ public class Song
 						if (startTime == 0)
 							startTime = System.nanoTime();
 						elapsedTime = (System.nanoTime() - startTime) / 1000000000.0f;
-//						Thread.sleep(20);
+						Thread.sleep(5);
 					}
 					
 //					Thread.sleep( 10000 );
@@ -122,7 +122,7 @@ public class Song
 				}
 			}
 		});
-		th.setPriority(Thread.MAX_PRIORITY);
+//		th.setPriority(Thread.MAX_PRIORITY);
 		th.start();
 	}
 	

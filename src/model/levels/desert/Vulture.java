@@ -26,7 +26,7 @@ public class Vulture extends Entity
 		} else
 		{
 			position.setLocation(Camera.VIEW_WIDTH, baseY);
-			velocity = new Point2D.Double(Math.random() * -0.2 + 0.01, 0.0);
+			velocity = new Point2D.Double(Math.random() * -0.2 - 0.01, 0.0);
 		}
 	}
 
