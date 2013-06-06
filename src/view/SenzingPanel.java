@@ -53,7 +53,8 @@ public class SenzingPanel extends JPanel implements ActionListener
 	private void drawText(Graphics2D g2, String text, Color color, int size, Point2D p2)
 	{
 		AffineTransform transform = new AffineTransform();
-		transform.translate(p2.getX(), p2.getY());
+		double xOff = text.length() * size / 2;
+		transform.translate(p2.getX() - xOff, p2.getY());
 		drawText(g2, text, color, size, transform);
 	}
 
