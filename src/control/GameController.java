@@ -1,13 +1,18 @@
 package control;
 
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 import model.Camera;
@@ -32,8 +37,10 @@ public class GameController implements ActionListener
 	public GameController(Game g)
 	{
 		this.game = g;
+		
 
 		// Initialize the hardware in a seperate thread because it takes a while...
+		// while...
 		(new Thread(new Runnable()
 		{
 			@Override
@@ -43,7 +50,7 @@ public class GameController implements ActionListener
 				Hardware.getInstance();
 				game.setLoading(false);
 			}
-			
+
 		})).start();
 
 		(new Timer(1000 / UPDATES_PER_SECOND, this)).start();
@@ -62,44 +69,8 @@ public class GameController implements ActionListener
 							game.setSong(null);
 							game.setLevel(null);
 						}
-	
-						else
-						{
-							double lengthOfStage = game.getSong().getLength() / 5;
-							int currentStage = (int) Math.floor(game.getSong()
-									.getTime() / lengthOfStage);
-	
-							if (currentStage != activeStage)
-							{
-								switch (currentStage)
-								{
-								case 0:
-									game.setLevel(new DesertLevel(game));
-									break;
-	
-								case 1:
-									game.setLevel(new RainforestLevel(game));
-									break;
-	
-								case 2:
-									game.setLevel(new CaveLevel(game));
-									break;
-	
-								case 3:
-									game.setLevel(new UnderwaterLevel(game));
-									break;
-	
-								case 4:
-									game.setLevel(new SkyLevel(game));
-									break;
-								}
-	
-								activeStage = currentStage;
-	
-							}
-						}
 					}
-	
+
 					else
 					{
 						List<Drive> justConnected = game.getJustConnectedDrives();
@@ -137,12 +108,13 @@ public class GameController implements ActionListener
 							game.setLoading(false);
 						}
 					}
-					
+
 					try
 					{
 						Thread.sleep(200);
 					} catch (InterruptedException e)
-					{ }
+					{
+					}
 				}
 			}
 		})).start();
@@ -151,23 +123,71 @@ public class GameController implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		if (game.getSong() != null)
+		{
+			double lengthOfStage = game.getSong().getLength() / 5;
+			int currentStage = (int) Math.floor(game.getSong().getTime() / lengthOfStage);
+
+			if (currentStage != activeStage)
+			{
+				game.getEntities().clear();
+
+				switch (currentStage)
+				{
+				case 0:
+					game.setLevel(new DesertLevel(game));
+					break;
+
+				case 1:
+					try
+					{
+						Robot robot = new Robot();
+						BufferedImage screenShot = robot.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+						ImageIO.write(screenShot, "PNG", new File(drive.getPath()+"screenShot_"+System.currentTimeMillis()+".png"));
+						game.setScreenCapture(screenShot); //We use this for the Highscore.
+						
+					}
+					catch(Exception exc)
+					{
+						
+					}
+					
+					game.setLevel(new RainforestLevel(game));
+					break;
+
+				case 2:
+					game.setLevel(new CaveLevel(game));
+					break;
+
+				case 3:
+					game.setLevel(new UnderwaterLevel(game));
+					break;
+
+				case 4:
+					game.setLevel(new SkyLevel(game));
+					break;
+				}
+
+				activeStage = currentStage;
+
+			}
+		}
+
 		Level level = game.getLevel();
 
 		if (level != null)
 		{
 			level.update(1000 / UPDATES_PER_SECOND);
-
-			if (level.isDescriptionImageVisible())
-				game.getEntities().clear();
+		} else
+		{
+			game.getEntities().clear();
 		}
 
 		for (Iterator<Entity> it = game.getEntities().iterator(); it.hasNext();)
 		{
 			Entity entity = it.next();
-			
-			if ((entity.getBounds().getMaxX() < -100 || entity.getBounds().getMaxY() < -100)
-					|| (entity.getBounds().getMinX() > (Camera.VIEW_WIDTH+100) || entity
-							.getBounds().getMinY() > (Camera.VIEW_HEIGHT+100)))
+
+			if ((entity.getBounds().getMaxX() < -100 || entity.getBounds().getMaxY() < -100) || (entity.getBounds().getMinX() > (Camera.VIEW_WIDTH + 100) || entity.getBounds().getMinY() > (Camera.VIEW_HEIGHT + 100)))
 			{
 				it.remove();
 			}

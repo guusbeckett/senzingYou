@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -73,7 +74,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		g2.draw(outline);
 	}
 	
-	private void drawImageInCenter(Graphics2D g2, Image image)
+	private void drawImageInCenter(Graphics2D g2, Image image, float alpha)
 	{
 		double width = image.getWidth(null);
 		double height = image.getHeight(null);
@@ -83,7 +84,9 @@ public class SenzingPanel extends JPanel implements ActionListener
 		ax.translate(Camera.VIEW_WIDTH / 2 - 320/2, Camera.VIEW_HEIGHT / 2 - 240/2);
 		ax.scale(320 / width, 240 / height);
 		
-		g2.drawImage(image, ax, this);
+		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+		g2.setComposite(ac);
+		g2.drawImage(image, ax, null);
 	}
 	
 	private void drawLoader(Graphics2D g2)
@@ -163,6 +166,8 @@ public class SenzingPanel extends JPanel implements ActionListener
 	{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+        
+
 
 		double _w = getWidth();
 		double _h = getHeight();
@@ -170,7 +175,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		double _y = Camera.VIEW_HEIGHT;
 		double _s = _h / _y;
 		double _b = (_w / _s - _x) / 2;
-
+		
 		g2.scale(_s, _s);
 		g2.translate(_b, 0);
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -195,17 +200,10 @@ public class SenzingPanel extends JPanel implements ActionListener
 		g2.drawImage(images[1], null, 0, 0);
 		
 		// Draw description of level
-		if (level != null)
-		{
-			if (level.isDescriptionImageVisible())
-			{
-				drawImageInCenter(g2, level.getDescriptionImage());
-			}
-		}
-		else
+		if (level == null)
 		{
 			if (!game.isLoading())
-				drawImageInCenter(g2, MediaProvider.getInstance().getImage("usbConnect.png"));
+				drawImageInCenter(g2, MediaProvider.getInstance().getImage("usbConnect.png"), 1f);
 			else
 				drawLoader(g2);
 		}
@@ -214,22 +212,20 @@ public class SenzingPanel extends JPanel implements ActionListener
 		drawEntities(g2, 1);
 
 		// Draw all the scores
-		if (!game.getCamera().getUsers().isEmpty())
-		{
-			Color[] colors = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY };
+		if(!game.getCamera().getUsers().isEmpty()){
+			Color[] colors = new Color[]{Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY};
 			ArrayList<User> copyUsers = new ArrayList<User>();
 			copyUsers.addAll(game.getCamera().getUsers());
 			Collections.sort(copyUsers);
 			int x = 300;
 			int scoreWidth = (Camera.VIEW_WIDTH - x) / copyUsers.size();
-
-			for (User u : copyUsers)
+			//Now do nothing with X it just print on the head position
+			for(User u: copyUsers)
 			{
-				if (u.isVisible())
-				{
-					drawText(g2, "" + u.getScore(), colors[(u.getId() - 1) % colors.length], 25, new Point2D.Double(x, 25));
+				if (u.isVisible()){
+					drawText(g2, ""+u.getScore(), colors[(u.getId() - 1)%colors.length], 45, new Point2D.Double(u.getHead().getX(), 50));
 				}
-				x += scoreWidth;
+				x+=scoreWidth;
 			}
 		}
 
@@ -240,13 +236,22 @@ public class SenzingPanel extends JPanel implements ActionListener
 		{
 			int time = (int) song.getTime();
 			int length = (int) song.getLength();
-			drawText(g2, String.format("%02d:%02d / %02d:%02d", time / 60, time % 60, length / 60, length % 60), Color.ORANGE, 25, new Point2D.Double(8, 25));
+			drawText(g2, String.format("%02d:%02d / %02d:%02d", time / 60, time % 60, length / 60, length % 60), Color.ORANGE, 25, new Point2D.Double(48, 25));
 		}
 
 		// Draw sideboxes
 		g2.setColor(Color.BLACK);
-		g2.fill(new Rectangle2D.Double(-_b, 0, _b, _y));
-		g2.fill(new Rectangle2D.Double(_x, 0, _b, _y));
+		g2.fill(new Rectangle2D.Double(-_b, 0, _b + 40, _y));
+		g2.fill(new Rectangle2D.Double(_x - 20, 0, _b + 20, _y));
+		
+		if (level != null)
+		{
+			if (level.isDescriptionImageVisible())
+			{
+				drawImageInCenter(g2, level.getDescriptionImage(), level.getDescriptionImageOpacity());
+			}
+		}
+
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +22,7 @@ public class Game
 	private List<Drive> drives;
 	private Clip clip;
 	private boolean loading;
+	private Image screenCapture;
 
 	public Game()
 	{
@@ -130,5 +132,15 @@ public class Game
 	public void setLoading(boolean loading)
 	{
 		this.loading = loading;
+	}
+	
+	public Image getScreenCapture()
+	{
+		return screenCapture;
+	}
+
+	public void setScreenCapture(Image screenCapture)
+	{
+		this.screenCapture = screenCapture;
 	}
 }
