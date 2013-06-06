@@ -30,9 +30,23 @@ public abstract class Level
 
 	
 	public boolean isDescriptionImageVisible(){
-		if(counterDescription <= 1500)
+		if(counterDescription <= 1500) 
 			return true;
 		return false;
+	}
+	
+	public float getDescriptionImageOpacity(){
+		
+		if((float) counterDescription <= 250) 
+            return ((float) counterDescription/250);
+        
+        if((float) counterDescription > 250 && (float) counterDescription < 1250)
+            return 1f;
+        
+        if((float) counterDescription >=1250)
+            return 1-(((float) counterDescription-1250)/250);
+        
+            else return 0f;
 	}
 	
 	public abstract Entity getRandomEntity();
