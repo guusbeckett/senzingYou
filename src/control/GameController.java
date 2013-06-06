@@ -59,7 +59,6 @@ public class GameController implements ActionListener
 							game.getSong().stop();
 							game.setSong(null);
 							game.setLevel(null);
-							game.getEntities().clear();
 						}
 	
 						else
