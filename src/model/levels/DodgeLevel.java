@@ -64,6 +64,7 @@ public abstract class DodgeLevel extends Level
 					if(hostile.isAlive() && killing)
 					{
 						hostile.kill();
+						hostile.playHitSound();
 					}
 					
 					if(hostile.getDeadTime() >= 450)

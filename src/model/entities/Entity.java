@@ -10,6 +10,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import model.MediaProvider;
 
@@ -80,16 +81,14 @@ public abstract class Entity
 		
 		if (name != null)
 		{
-			AudioInputStream audio = MediaProvider.getInstance().getSound(name);
-			
 			try
 			{
+				AudioInputStream audio = AudioSystem.getAudioInputStream(model.MediaProvider.class.getResource("/" + name));
 				Clip clip = AudioSystem.getClip();
 				clip.open(audio);
 				clip.start();
-			} catch (LineUnavailableException e)
-			{ }
-			catch (IOException e)
+			}
+			catch (Exception e)
 			{ }
 		}
 	}
