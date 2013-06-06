@@ -105,25 +105,6 @@ public class Game
 		return justConnected;
 	}
 
-	public void setBackgroundSound(AudioInputStream backgroundSound)
-	{
-		if (clip.isOpen())
-			clip.close();
-		
-		if (backgroundSound != null)
-		{
-			try
-			{
-				clip.open(backgroundSound);
-				clip.loop(Clip.LOOP_CONTINUOUSLY);
-				clip.start();
-			} catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-		}
-	}
-	
 	public boolean isLoading()
 	{
 		return loading;

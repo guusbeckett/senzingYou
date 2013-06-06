@@ -29,13 +29,6 @@ public class UnderwaterLevel extends PunchLevel
 		Hardware.getInstance().setClimate(Climate.COLD);
 		Hardware.getInstance().sprayScent(Scent.OCEAN);
 		
-		try
-		{
-			game.setBackgroundSound(getSound());
-		} catch (IOException | UnsupportedAudioFileException e)
-		{
-			e.printStackTrace();
-		}
 		Random r = new Random();
 		for (int i = 0; i < r.nextInt(10) + 10; i++)
 			getGame().getEntities().add(new Plant());
@@ -56,13 +49,6 @@ public class UnderwaterLevel extends PunchLevel
 	public HostileEntity getRandomHostileEntity()
 	{
 		return new HarpoonDiver(getGame().getCamera().getUsers());
-	}
-
-	public AudioInputStream getSound() throws UnsupportedAudioFileException,
-			IOException
-	{
-		File file = new File("./audio/underwater/background sfx.wav");
-		return AudioSystem.getAudioInputStream(file);
 	}
 
 	@Override
