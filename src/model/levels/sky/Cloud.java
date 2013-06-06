@@ -15,13 +15,11 @@ public class Cloud extends Entity
 	public Cloud()
 	{
 		super();
-		baseY = Math.random()
-				* (Camera.VIEW_HEIGHT - getDimensions().getHeight() * 4)
-				+ getDimensions().getHeight() - 10;
+		baseY = Math.random() * (Camera.VIEW_HEIGHT - getDimensions().getHeight() * 10) + getDimensions().getHeight() - 30;
 		Random r = new Random();
 		if (r.nextBoolean())
 		{
-			position.setLocation(0, baseY);
+			position.setLocation(-getDimensions().getWidth(), baseY);
 			velocity = new Point2D.Double(Math.random() * 0.2 + 0.01, 0.0);
 		} else
 		{

@@ -50,9 +50,9 @@ public class HarpoonDiver extends HostileEntity
 			Point2D userP = users.get(0).getMidpoint();
 			if (userP != null)
 			{
-				jumpY += time / 30 + gravity.getY() * time / 30;
+				jumpY += time / 60 + gravity.getY() * time / 60;
 				position = new Point2D.Double(position.getX() + jumpX * time
-						/ 30, position.getY() + jumpY);
+						/ 60, position.getY() + jumpY);
 				if (position.getY() >= Camera.VIEW_HEIGHT - 80)
 					initJump();
 			}

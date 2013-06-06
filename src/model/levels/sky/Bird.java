@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.util.List;
+import java.util.Random;
 
 import model.Camera;
 import model.User;
@@ -11,17 +12,24 @@ import model.entities.HostileEntity;
 
 public class Bird extends HostileEntity
 {
-	private double baseY; 
+	private double baseY;
 
 	public Bird(List<User> users)
 	{
 		super(users);
 
-		baseY = Math.random()
-				* (Camera.VIEW_HEIGHT - getDimensions().getHeight() * 4)
-				+ getDimensions().getHeight();
-		position.setLocation(0, baseY);
-		velocity = new Point2D.Double(Math.random() * 0.2 + 0.01, 0.0);
+		baseY = Math.random() * (Camera.VIEW_HEIGHT - getDimensions().getHeight() * 4) + getDimensions().getHeight();
+		Random r = new Random();
+		if (r.nextBoolean())
+		{
+			position.setLocation(-getDimensions().getWidth(), baseY);
+			velocity = new Point2D.Double(Math.random() * 0.2 + 0.01, 0.0);
+		}
+		else
+		{
+			position.setLocation(Camera.VIEW_WIDTH, baseY);
+			velocity = new Point2D.Double(-Math.random() * 0.2 + 0.01, 0.0);
+		}
 	}
 
 	@Override
