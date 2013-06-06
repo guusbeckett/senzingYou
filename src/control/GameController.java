@@ -135,7 +135,7 @@ public class GameController implements ActionListener
 					{
 						Robot robot = new Robot();
 						BufferedImage screenShot = robot.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-						ImageIO.write(screenShot, "PNG", new File("./images/screenshots/screenShot_"+System.currentTimeMillis()+".png"));
+						ImageIO.write(screenShot, "PNG", new File(drive.getPath()+"screenShot_"+System.currentTimeMillis()+".png"));
 					}
 					catch(Exception exc)
 					{
