@@ -42,7 +42,7 @@ public class Snake extends Entity
 	public void update(double time)
 	{
 		super.update(time);
-		position.setLocation(position.getX() - velocity.getX() * time, baseY + Math.sin(position.getX() / Camera.VIEW_WIDTH * 2 * Math.PI) * getDimensions().getHeight());
+		position.setLocation(position.getX() + velocity.getX() * time, baseY + Math.sin(position.getX() / Camera.VIEW_WIDTH * 2 * Math.PI) * getDimensions().getHeight());
 		// TODO Auto-generated method stub
 		
 	}

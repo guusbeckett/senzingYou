@@ -21,7 +21,7 @@ public class Camel extends Entity
 		} else
 		{
 			position.setLocation(Camera.VIEW_WIDTH, 300);
-			velocity = new Point2D.Double(Math.random() * -0.125 + 0.01, 0.0);
+			velocity = new Point2D.Double(Math.random() * -0.125 - 0.01, 0.0);
 		}
 	}
 
