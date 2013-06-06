@@ -147,10 +147,10 @@ public class GameController implements ActionListener
 
 		if (level != null)
 		{
+			level.update(1000 / UPDATES_PER_SECOND);
+
 			if (level.isDescriptionImageVisible())
 				game.getEntities().clear();
-			else
-				level.update(1000 / UPDATES_PER_SECOND);
 		}
 
 		for (Iterator<Entity> it = game.getEntities().iterator(); it.hasNext();)
