@@ -209,7 +209,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		// Draw sideboxes
 		g2.setColor(Color.BLACK);
 		g2.fill(new Rectangle2D.Double(-_b, 0, _b + 40, _y));
-		g2.fill(new Rectangle2D.Double(_x - 20, 0, _b + 20, _y));
+		g2.fill(new Rectangle2D.Double(_x - 20, 0, _b + 20, _y));		
 	}
 
 	@Override
