@@ -16,7 +16,7 @@ public class Plant extends Entity
 	{
 		super();
 
-		position.setLocation(Math.random() * (Camera.VIEW_WIDTH - 40) + 20, Camera.VIEW_HEIGHT - 100);
+		position.setLocation(Math.random() * (Camera.VIEW_WIDTH - 40) + 20, Camera.VIEW_HEIGHT + 10);
 		waveSpeed = (Math.random() * (1.1 - 1) + 1);
 	}
 
