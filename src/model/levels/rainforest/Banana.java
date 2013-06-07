@@ -59,6 +59,6 @@ public class Banana extends HostileEntity
 	@Override
 	public String getHitSoundName()
 	{
-		return null;
+		return "rainforest/banana.wav";
 	}
 }
