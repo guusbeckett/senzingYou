@@ -137,8 +137,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		Graphics2D g2Real = (Graphics2D) g;
-		
+		Graphics2D g2 = (Graphics2D) g;
 		
 		double _w = getWidth();
 		double _h = getHeight();
@@ -147,23 +146,19 @@ public class SenzingPanel extends JPanel implements ActionListener
 		double _s = _h / _y;
 		double _b = (_w / _s - _x) / 2;
 		
-		BufferedImage screenImage = new BufferedImage((int)_w, (int)_h, BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g2 = screenImage.createGraphics();
+		BufferedImage screenImage = new BufferedImage((int)_x, (int)_y, BufferedImage.TYPE_INT_ARGB);
 		
+		if(game.isMakeScreenshot()){
+			g2 = screenImage.createGraphics();
+		}
 		
-		BufferedImage screenScore = new BufferedImage((int)_w, (int)_h, BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g2Score = screenScore.createGraphics();
+		//Don't do while making screenshot
+		if(!game.isMakeScreenshot()){
+			g2.scale(_s, _s);
+			g2.translate(_b, 0);
+		}
 		
-		//screenImage
-		g2.scale(_s, _s);
-		g2.translate(_b, 0);
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-		//screenScore
-		g2Score.scale(_s, _s);
-		g2Score.translate(_b, 0);
-		g2Score.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		
 		BufferedImage[] images = game.getCamera().getImageBackgroundAndForeground();
 
 		// Draw background
@@ -198,58 +193,55 @@ public class SenzingPanel extends JPanel implements ActionListener
 		// Draw the foreground entities
 		drawEntities(g2, 1);
 
-		// Draw all the scores
-		if (!game.getCamera().getUsers().isEmpty())
-		{
-			Color[] colors = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY };
-
-			// Now do nothing with X it just print on the head position
-			for (User u : game.getCamera().getUsers())
+		//Don't draw while making a screenshot!
+		if(!game.isMakeScreenshot()){
+			
+			// Draw all the scores
+			if (!game.getCamera().getUsers().isEmpty())
 			{
-				if (u.isVisible())
+				Color[] colors = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY };
+	
+				// Now do nothing with X it just print on the head position
+				for (User u : game.getCamera().getUsers())
 				{
-					Text scoreText = new Text(colors[(u.getId() - 1) % colors.length], 45, false);
-					scoreText.draw(g2Score, new Point2D.Double(u.getHead().getX(), 50), u.getScore() + "");
+					if (u.isVisible())
+					{
+						Text scoreText = new Text(colors[(u.getId() - 1) % colors.length], 45, false);
+						scoreText.draw(g2, new Point2D.Double(u.getHead().getX(), 50), u.getScore() + "");
+					}
+				}
+			}
+	
+			// Draw the countdown
+			Song song = game.getSong();
+	
+			if (song != null)
+			{
+				int time = (int) song.getTime();
+				int length = (int) song.getLength();
+				
+				Text countdownText = new Text(Color.ORANGE, 25);
+				countdownText.draw(g2, new Point2D.Double(48, 25), String.format("%02d:%02d / %02d:%02d - %s - %s", time / 60, time % 60, length / 60, length % 60, song.getArtist(), song.getTitle()));
+			}
+	
+			// Draw sideboxes
+			g2.setColor(Color.BLACK);
+			g2.fill(new Rectangle2D.Double(-_b, 0, _b + 40, _y));
+			g2.fill(new Rectangle2D.Double(_x - 20, 0, _b + 20, _y));
+			
+			
+			if (level != null)
+			{
+				if (level.isDescriptionImageVisible())
+				{
+					drawImageInCenter(g2, level.getDescriptionImage(), level.getDescriptionImageOpacity());
 				}
 			}
 		}
-
-		// Draw the countdown
-		Song song = game.getSong();
-
-		if (song != null)
-		{
-			int time = (int) song.getTime();
-			int length = (int) song.getLength();
-			
-			Text countdownText = new Text(Color.ORANGE, 25);
-			countdownText.draw(g2Score, new Point2D.Double(48, 25), String.format("%02d:%02d / %02d:%02d - %s - %s", time / 60, time % 60, length / 60, length % 60, song.getArtist(), song.getTitle()));
-		}
-
-		// Draw sideboxes
-		g2Score.setColor(Color.BLACK);
-		g2Score.fill(new Rectangle2D.Double(-_b, 0, _b + 40, _y));
-		g2Score.fill(new Rectangle2D.Double(_x - 20, 0, _b + 20, _y));
-
-		if (level != null)
-		{
-			if (level.isDescriptionImageVisible())
-			{
-				drawImageInCenter(g2, level.getDescriptionImage(), level.getDescriptionImageOpacity());
-			}
-		}
-		
-		
-		//Write it to the images
-		g2.dispose();
-		g2Score.dispose();
-		
-		//Drawing the real screen
-		g2Real.drawImage(screenImage, 0, 0, null);
-		g2Real.drawImage(screenScore, 0, 0, null);
 		
 		//Making the screenshot
 		if(game.isMakeScreenshot()){
+			g2.dispose();
 			game.makeScreenshot(screenImage);
 			game.setMakeScreenshot(false);
 		}
