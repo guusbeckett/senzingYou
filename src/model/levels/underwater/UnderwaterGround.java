@@ -8,21 +8,31 @@ import model.MediaProvider;
 
 public class UnderwaterGround implements GroundRenderer
 {
+	private boolean goingBack = false;
 	private double time;
 
 	@Override
 	public void draw(Graphics2D g2)
 	{
 		AffineTransform tr = new AffineTransform();
-		tr.translate(-100, -100);
-		tr.scale(3, 3);
-		tr.shear(Math.sin(time / 900) / 2 + 0.5, Math.cos(time / 900) / 2 + 0.5);
+		 tr.translate(-400, -100);
+		// tr.scale(3, 3);
+		tr.shear(Math.sin(time / 900) / 6, Math.cos(time / 900) / 6);
 		g2.drawImage(MediaProvider.getInstance().getImage("underwater/ground.jpg"), tr, null);
 	}
 
 	@Override
 	public void update(double time)
 	{
-		this.time = (this.time + time) % 500;
+		if (goingBack)
+		{
+			this.time -= time;
+		} else
+			this.time += time;
+
+		if (this.time > 160 * Math.PI)
+			goingBack = true;
+		if (this.time < 0)
+			goingBack = false;
 	}
 }

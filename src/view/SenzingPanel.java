@@ -73,50 +73,70 @@ public class SenzingPanel extends JPanel implements ActionListener
 		g2.setStroke(new BasicStroke(2));
 		g2.draw(outline);
 	}
-	
+
+	private void drawTextCentered(Graphics2D g2, String text, Color color, int size, Point2D p2)
+	{
+
+		Font font = new Font("Arial", Font.BOLD, size);
+		FontRenderContext frc = g2.getFontRenderContext();
+		GlyphVector gv = font.createGlyphVector(frc, text);
+		Shape outline = gv.getOutline(0, 0);
+		AffineTransform transform = new AffineTransform();
+		transform.translate(p2.getX() - (outline.getBounds().width / 2), p2.getY());
+
+		if (transform != null)
+		{
+			outline = transform.createTransformedShape(outline);
+		}
+		g2.setColor(color);
+		g2.fill(outline);
+		g2.setColor(Color.BLACK);
+		g2.setStroke(new BasicStroke(2));
+		g2.draw(outline);
+	}
+
 	private void drawImageInCenter(Graphics2D g2, Image image, float alpha)
 	{
 		double width = image.getWidth(null);
 		double height = image.getHeight(null);
 
 		AffineTransform ax = new AffineTransform();
-		
-		ax.translate(Camera.VIEW_WIDTH / 2 - 320/2, Camera.VIEW_HEIGHT / 2 - 240/2);
+
+		ax.translate(Camera.VIEW_WIDTH / 2 - 320 / 2, Camera.VIEW_HEIGHT / 2 - 240 / 2);
 		ax.scale(320 / width, 240 / height);
-		
+
 		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
 		g2.setComposite(ac);
 		g2.drawImage(image, ax, null);
 	}
-	
+
 	private void drawLoader(Graphics2D g2)
 	{
 		double loaderWidth = 250;
 		double loaderHeight = 20;
 
 		Rectangle2D loader = new Rectangle2D.Double(Camera.VIEW_WIDTH / 2 - loaderWidth / 2, Camera.VIEW_HEIGHT / 2 - loaderHeight / 2, loaderWidth, loaderHeight);
-		
+
 		g2.setColor(Color.LIGHT_GRAY);
 		g2.fill(loader);
-		
+
 		g2.setColor(Color.DARK_GRAY);
 		g2.draw(loader);
 		g2.fill(new Rectangle2D.Double(loader.getX() + loaderIndex, loader.getY(), 50, loader.getHeight()));
-		
+
 		if (loaderReversed)
 		{
 			loaderIndex -= 10;
-		}
-		else
+		} else
 		{
 			loaderIndex += 10;
 		}
-		
+
 		if ((loaderIndex + 50) >= loaderWidth)
 		{
 			loaderReversed = true;
 		}
-		
+
 		else if (loaderIndex <= 0)
 		{
 			loaderReversed = false;
@@ -166,8 +186,6 @@ public class SenzingPanel extends JPanel implements ActionListener
 	{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-        
-
 
 		double _w = getWidth();
 		double _h = getHeight();
@@ -175,7 +193,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		double _y = Camera.VIEW_HEIGHT;
 		double _s = _h / _y;
 		double _b = (_w / _s - _x) / 2;
-		
+
 		g2.scale(_s, _s);
 		g2.translate(_b, 0);
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -198,7 +216,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 
 		// Draw camera foreground image
 		g2.drawImage(images[1], null, 0, 0);
-		
+
 		// Draw description of level
 		if (level == null)
 		{
@@ -212,20 +230,22 @@ public class SenzingPanel extends JPanel implements ActionListener
 		drawEntities(g2, 1);
 
 		// Draw all the scores
-		if(!game.getCamera().getUsers().isEmpty()){
-			Color[] colors = new Color[]{Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY};
+		if (!game.getCamera().getUsers().isEmpty())
+		{
+			Color[] colors = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY };
 			ArrayList<User> copyUsers = new ArrayList<User>();
 			copyUsers.addAll(game.getCamera().getUsers());
 			Collections.sort(copyUsers);
 			int x = 300;
 			int scoreWidth = (Camera.VIEW_WIDTH - x) / copyUsers.size();
-			//Now do nothing with X it just print on the head position
-			for(User u: copyUsers)
+			// Now do nothing with X it just print on the head position
+			for (User u : copyUsers)
 			{
-				if (u.isVisible()){
-					drawText(g2, ""+u.getScore(), colors[(u.getId() - 1)%colors.length], 45, new Point2D.Double(u.getHead().getX(), 50));
+				if (u.isVisible())
+				{
+					drawTextCentered(g2, "" + u.getScore(), colors[(u.getId() - 1) % colors.length], 45, new Point2D.Double(u.getHead().getX(), 50));
 				}
-				x+=scoreWidth;
+				x += scoreWidth;
 			}
 		}
 
@@ -243,7 +263,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		g2.setColor(Color.BLACK);
 		g2.fill(new Rectangle2D.Double(-_b, 0, _b + 40, _y));
 		g2.fill(new Rectangle2D.Double(_x - 20, 0, _b + 20, _y));
-		
+
 		if (level != null)
 		{
 			if (level.isDescriptionImageVisible())
