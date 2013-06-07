@@ -49,52 +49,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		rewardImage = MediaProvider.getInstance().getImage("reward.png");
 		losingImage = MediaProvider.getInstance().getImage("losingpoint.png");
 	}
-
-	private void drawText(Graphics2D g2, String text, Color color, int size, Point2D p2)
-	{
-		AffineTransform transform = new AffineTransform();
-		transform.translate(p2.getX(), p2.getY());
-		drawText(g2, text, color, size, transform);
-	}
-
-	private void drawText(Graphics2D g2, String text, Color color, int size, AffineTransform transform)
-	{
-		Font font = new Font("Arial", Font.BOLD, size);
-		FontRenderContext frc = g2.getFontRenderContext();
-		GlyphVector gv = font.createGlyphVector(frc, text);
-		Shape outline = gv.getOutline(0, 0);
-		if (transform != null)
-		{
-			outline = transform.createTransformedShape(outline);
-		}
-		g2.setColor(color);
-		g2.fill(outline);
-		g2.setColor(Color.BLACK);
-		g2.setStroke(new BasicStroke(2));
-		g2.draw(outline);
-	}
-
-	private void drawTextCentered(Graphics2D g2, String text, Color color, int size, Point2D p2)
-	{
-
-		Font font = new Font("Arial", Font.BOLD, size);
-		FontRenderContext frc = g2.getFontRenderContext();
-		GlyphVector gv = font.createGlyphVector(frc, text);
-		Shape outline = gv.getOutline(0, 0);
-		AffineTransform transform = new AffineTransform();
-		transform.translate(p2.getX() - (outline.getBounds().width / 2), p2.getY());
-
-		if (transform != null)
-		{
-			outline = transform.createTransformedShape(outline);
-		}
-		g2.setColor(color);
-		g2.fill(outline);
-		g2.setColor(Color.BLACK);
-		g2.setStroke(new BasicStroke(2));
-		g2.draw(outline);
-	}
-
+	
 	private void drawImageInCenter(Graphics2D g2, Image image, float alpha)
 	{
 		double width = image.getWidth(null);
@@ -145,6 +100,8 @@ public class SenzingPanel extends JPanel implements ActionListener
 
 	private void drawEntities(Graphics2D g2, int step)
 	{
+		Text hitText = new Text(Color.BLUE, 250, true);
+		
 		for (Entity entity : game.getEntities())
 		{
 			AffineTransform ax = new AffineTransform();
@@ -173,9 +130,9 @@ public class SenzingPanel extends JPanel implements ActionListener
 						ax.translate(hostile.getDeadLocation().getX(), hostile.getDeadLocation().getY());
 						ax.scale(entity.getDimensions().getWidth() / image.getWidth(null), entity.getDimensions().getHeight() / image.getHeight(null));
 						g2.drawImage(image, ax, null);
-
+						
 						ax.translate(0, (image.getWidth(null) / 1.5));
-						drawText(g2, "" + hostile.getReward(), Color.BLUE, 250, ax);
+						hitText.draw(g2, ax, hostile.getReward() + "");
 					}
 				}
 			}
@@ -233,19 +190,15 @@ public class SenzingPanel extends JPanel implements ActionListener
 		if (!game.getCamera().getUsers().isEmpty())
 		{
 			Color[] colors = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY };
-			ArrayList<User> copyUsers = new ArrayList<User>();
-			copyUsers.addAll(game.getCamera().getUsers());
-			Collections.sort(copyUsers);
-			int x = 300;
-			int scoreWidth = (Camera.VIEW_WIDTH - x) / copyUsers.size();
+
 			// Now do nothing with X it just print on the head position
-			for (User u : copyUsers)
+			for (User u : game.getCamera().getUsers())
 			{
 				if (u.isVisible())
 				{
-					drawTextCentered(g2, "" + u.getScore(), colors[(u.getId() - 1) % colors.length], 45, new Point2D.Double(u.getHead().getX(), 50));
+					Text scoreText = new Text(colors[(u.getId() - 1) % colors.length], 45, true, true);
+					scoreText.draw(g2, new Point2D.Double(u.getHead().getX(), 50), u.getScore() + "");
 				}
-				x += scoreWidth;
 			}
 		}
 
@@ -256,7 +209,9 @@ public class SenzingPanel extends JPanel implements ActionListener
 		{
 			int time = (int) song.getTime();
 			int length = (int) song.getLength();
-			drawText(g2, String.format("%02d:%02d / %02d:%02d - %s", time / 60, time % 60, length / 60, length % 60, song.getName()), Color.ORANGE, 25, new Point2D.Double(48, 25));
+			
+			Text countdownText = new Text(Color.ORANGE, 25);
+			countdownText.draw(g2, new Point2D.Double(48, 25), String.format("%02d:%02d / %02d:%02d - %s", time / 60, time % 60, length / 60, length % 60, song.getName()));
 		}
 
 		// Draw sideboxes
