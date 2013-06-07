@@ -18,6 +18,7 @@ import javax.swing.Timer;
 import model.Camera;
 import model.Drive;
 import model.Game;
+import model.Score;
 import model.Song;
 import model.User;
 import model.entities.Entity;
@@ -181,6 +182,11 @@ public class GameController implements ActionListener
 					break;
 
 				default:
+					//Adding score!
+					for(User u: game.getCamera().getUsers()){
+						game.getHighscore().add(new Score(game.getSong().getName(), u.getScore(), game.getScreenCapture()));
+					}
+					
 					clear();
 					break;
 				}
