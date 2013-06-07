@@ -1,8 +1,9 @@
 package model;
 
 import java.awt.Image;
+import java.io.Serializable;
 
-public class Score
+public class Score implements Serializable
 {
 	private String songName;
 	private int score;
@@ -22,29 +23,14 @@ public class Score
 		return songName;
 	}
 	
-	public void setSongName(String songName)
-	{
-		this.songName = songName;
-	}
-	
 	public int getScore()
 	{
 		return score;
 	}
 	
-	public void setScore(int score)
-	{
-		this.score = score;
-	}
-	
 	public Image getCapture()
 	{
 		return capture;
-	}
-	
-	public void setCapture(Image capture)
-	{
-		this.capture = capture;
 	}
 	
 }
