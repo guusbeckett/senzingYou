@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 import model.Camera;
@@ -184,7 +185,7 @@ public class GameController implements ActionListener
 				default:
 					//Adding score!
 					for(User u: game.getCamera().getUsers()){
-						game.getHighscore().add(new Score(game.getSong().getName(), u.getScore(), game.getScreenCapture()));
+						game.getHighscore().add(new Score(game.getSong().getName(), u.getScore(), new ImageIcon(game.getScreenCapture())));
 					}
 					
 					clear();
