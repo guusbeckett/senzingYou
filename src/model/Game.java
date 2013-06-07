@@ -24,6 +24,7 @@ public class Game
 	private Image screenCapture;
 	private Highscore highscore;
 	private boolean makeScreenshot;
+	private Drive justDrive;
 	
 
 	public Game()
@@ -96,7 +97,9 @@ public class Game
 				justConnected.add(drive);
 			}
 		}
-		
+		if(!justConnected.isEmpty()){
+			justDrive = justConnected.get(0);
+		}
 		return justConnected;
 	}
 
@@ -135,10 +138,11 @@ public class Game
 	}
 	
 	public void makeScreenshot(BufferedImage image){
-		if(!getJustConnectedDrives().isEmpty()){
+		
+		if(justDrive != null){
 			try
 			{
-				ImageIO.write(image, "PNG", new File(getJustConnectedDrives().get(0).getPath() + "screenShot_" + System.currentTimeMillis() + ".png"));
+				ImageIO.write(image, "PNG", new File(justDrive.getPath() + "screenShot_" + System.currentTimeMillis() + ".png"));
 			} catch (IOException e)
 			{}
 		}
