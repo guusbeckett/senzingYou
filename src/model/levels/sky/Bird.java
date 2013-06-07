@@ -67,6 +67,6 @@ public class Bird extends HostileEntity
 	@Override
 	public String getHitSoundName()
 	{
-		return null;
+		return "sky/twitter.wav";
 	}
 }

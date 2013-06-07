@@ -87,6 +87,6 @@ public class HarpoonDiver extends HostileEntity
 	@Override
 	public String getHitSoundName()
 	{
-		return null;
+		return "underwater/harpoonImpact.wav";
 	}
 }
