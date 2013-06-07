@@ -71,6 +71,6 @@ public class Scorpion extends HostileEntity
 	@Override
 	public String getHitSoundName()
 	{
-		return null;
+		return "desert/scorpion.wav";
 	}
 }

@@ -70,6 +70,6 @@ public class Snake extends HostileEntity
 	@Override
 	public String getHitSoundName()
 	{
-		return null;
+		return "desert/snake.wav";
 	}
 }
