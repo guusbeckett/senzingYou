@@ -137,16 +137,20 @@ public class SenzingPanel extends JPanel implements ActionListener
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
-
+		Graphics2D g2Reall = (Graphics2D) g;
+		
+		
 		double _w = getWidth();
 		double _h = getHeight();
 		double _x = Camera.VIEW_WIDTH;
 		double _y = Camera.VIEW_HEIGHT;
 		double _s = _h / _y;
 		double _b = (_w / _s - _x) / 2;
-
-		g2.scale(_s, _s);
+		
+		BufferedImage screenImage = new BufferedImage((int)_x, (int)_y, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2 = screenImage.createGraphics();
+				
+		
 		g2.translate(_b, 0);
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -223,6 +227,15 @@ public class SenzingPanel extends JPanel implements ActionListener
 			{
 				drawImageInCenter(g2, level.getDescriptionImage(), level.getDescriptionImageOpacity());
 			}
+		}
+		
+		g2.dispose();
+		g2Reall.scale(_s, _s);
+		g2Reall.drawImage(screenImage, 0, 0, null);
+		
+		if(game.isMakeScreenshot()){
+			game.makeScreenshot(screenImage);
+			game.setMakeScreenshot(false);
 		}
 
 	}

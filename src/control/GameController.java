@@ -154,19 +154,7 @@ public class GameController implements ActionListener
 					break;
 
 				case 1:
-					try
-					{
-						Robot robot = new Robot();
-						BufferedImage screenShot = robot.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-						ImageIO.write(screenShot, "PNG", new File(drive.getPath() + "screenShot_" + System.currentTimeMillis() + ".png"));
-						game.setScreenCapture(screenShot); // We use this for
-															// the Highscore.
-
-					} catch (Exception exc)
-					{
-
-					}
-
+					game.setMakeScreenshot(true);
 					game.setLevel(new RainforestLevel(game));
 					break;
 
