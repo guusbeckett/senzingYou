@@ -239,6 +239,25 @@ public class SenzingPanel extends JPanel implements ActionListener
 			}
 		}
 		
+		if(!game.isMakeScreenshot()){
+			if(game.getSong() != null){
+				Text countdownText = new Text(Color.ORANGE, 25);
+				Point2D center = new Point2D.Double(_x / 2, _y / 2);
+				if((int)game.getSong().getTime() == 26){
+					countdownText.draw(g2, center, "Making screenshot!");
+				}
+				else if((int)game.getSong().getTime() == 27){	
+					countdownText.draw(g2, center, "3");
+				}
+				else if((int)game.getSong().getTime() == 28){
+					countdownText.draw(g2, center, "2");
+				}
+				else if((int)game.getSong().getTime() == 29){
+					countdownText.draw(g2, center, "1");
+				}
+			}
+		}
+		
 		//Making the screenshot
 		if(game.isMakeScreenshot()){
 			g2.dispose();

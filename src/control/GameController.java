@@ -137,7 +137,7 @@ public class GameController implements ActionListener
 		{
 			double lengthOfStage = game.getSong().getLength() / 5;
 			int currentStage = (int) Math.floor(game.getSong().getTime() / lengthOfStage);
-
+		
 			if((int)game.getSong().getTime() == 30){
 				game.setMakeScreenshot(true);
 			}
