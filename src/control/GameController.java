@@ -63,7 +63,7 @@ public class GameController implements ActionListener
 			{
 				while (true)
 				{
-					if(!drive.isConnected())
+					if(drive != null && !drive.isConnected())
 					{
 						// Clears the score if the drive gets disconnected.
 						for(User user : game.getCamera().getUsers())
