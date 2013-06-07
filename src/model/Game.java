@@ -1,9 +1,14 @@
 package model;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import model.entities.Entity;
 import model.levels.Level;
@@ -18,6 +23,8 @@ public class Game
 	private boolean loading;
 	private Image screenCapture;
 	private Highscore highscore;
+	private boolean makeScreenshot;
+	
 
 	public Game()
 	{
@@ -115,5 +122,27 @@ public class Game
 	
 	public Highscore getHighscore(){
 		return highscore;
+	}
+
+	public boolean isMakeScreenshot()
+	{
+		return makeScreenshot;
+	}
+
+	public void setMakeScreenshot(boolean makeScreenshot)
+	{
+		this.makeScreenshot = makeScreenshot;
+	}
+	
+	public void makeScreenshot(BufferedImage image){
+		if(!getJustConnectedDrives().isEmpty()){
+			try
+			{
+				ImageIO.write(image, "PNG", new File(getJustConnectedDrives().get(0).getPath() + "screenShot_" + System.currentTimeMillis() + ".png"));
+			} catch (IOException e)
+			{}
+		}
+		this.screenCapture = image;
+		
 	}
 }

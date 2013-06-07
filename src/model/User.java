@@ -3,6 +3,8 @@ package model;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+import javax.swing.ImageIcon;
+
 import org.OpenNI.Point3D;
 import org.OpenNI.SceneMap;
 import org.OpenNI.UserGenerator;
@@ -14,6 +16,8 @@ public class User implements Comparable<User>
 	private Point2D head, neck, leftShoulder, rightShoulder, torso, leftElbow, rightElbow, leftHand, rightHand, leftHip, rightHip, leftKnee, rightKnee, leftFoot, rightFoot, midpoint;
 	private String name;
 	private boolean visible;
+	
+	private ImageIcon capture;
 
 	private Point3D rightHandWorld;
 
@@ -241,6 +245,16 @@ public class User implements Comparable<User>
 		double ownX = getHead().getX();
 		double otherX = u.getHead().getX();
 		return (int) (ownX - otherX);
+	}
+
+	public ImageIcon getCapture()
+	{
+		return capture;
+	}
+
+	public void setCapture(ImageIcon capture)
+	{
+		this.capture = capture;
 	}
 
 }
