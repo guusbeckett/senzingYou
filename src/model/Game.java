@@ -17,11 +17,13 @@ public class Game
 	private List<Drive> drives;
 	private boolean loading;
 	private Image screenCapture;
+	private Highscore highscore;
 
 	public Game()
 	{
 		this.entities = Collections.synchronizedList(new ArrayList<Entity>());
 		this.drives = new ArrayList<Drive>();
+		this.highscore = new Highscore();
 		
 		for (char a = 'A'; a <= 'I'; a++)
 		{
@@ -109,5 +111,9 @@ public class Game
 	public void setScreenCapture(Image screenCapture)
 	{
 		this.screenCapture = screenCapture;
+	}
+	
+	public Highscore getHighscore(){
+		return highscore;
 	}
 }
