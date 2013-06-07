@@ -19,6 +19,7 @@ import model.Camera;
 import model.Drive;
 import model.Game;
 import model.Song;
+import model.User;
 import model.entities.Entity;
 import model.levels.Level;
 import model.levels.cave.CaveLevel;
@@ -61,6 +62,13 @@ public class GameController implements ActionListener
 			{
 				while (true)
 				{
+					if(!drive.isConnected())
+					{
+						// Clears the score if the drive gets disconnected.
+						for(User user : game.getCamera().getUsers())
+							user.setScore(0);
+					}
+					
 					if (game.getSong() != null)
 					{
 						if (!drive.isConnected())
