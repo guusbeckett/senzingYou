@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="tritonus_share.jar"/>
 	<classpathentry kind="lib" path="jl1.0.jar"/>
 	<classpathentry kind="lib" path="mp3spi1.9.5.jar"/>
+	<classpathentry kind="lib" path="jaudiotagger.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
