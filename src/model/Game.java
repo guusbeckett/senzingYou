@@ -5,11 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-
 import model.entities.Entity;
 import model.levels.Level;
 
@@ -20,7 +15,6 @@ public class Game
 	private Song song;
 	private Level level;
 	private List<Drive> drives;
-	private Clip clip;
 	private boolean loading;
 	private Image screenCapture;
 
@@ -35,14 +29,6 @@ public class Game
 		}
 		
 		camera = new Camera();
-		
-		try
-		{
-			clip = (Clip) AudioSystem.getClip();
-		} catch (LineUnavailableException e)
-		{
-			e.printStackTrace();
-		}
 	}
 
 	public void clearRoom()

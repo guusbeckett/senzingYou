@@ -1,13 +1,7 @@
 package model.levels.underwater;
 
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.util.Random;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import model.Game;
 import model.GroundRenderer;
@@ -22,13 +16,13 @@ import control.Scent;
 public class UnderwaterLevel extends PunchLevel
 {
 	private GroundRenderer groundRenderer = new UnderwaterGround();
-	
+
 	public UnderwaterLevel(Game game)
 	{
 		super(game);
 		Hardware.getInstance().setClimate(Climate.UNDERWATER);
 		Hardware.getInstance().sprayScent(Scent.OCEAN);
-		
+
 		Random r = new Random();
 		for (int i = 0; i < r.nextInt(10) + 10; i++)
 			getGame().getEntities().add(new Plant());
@@ -74,7 +68,7 @@ public class UnderwaterLevel extends PunchLevel
 	{
 		return groundRenderer;
 	}
-	
+
 	@Override
 	public Image getDescriptionImage()
 	{

@@ -4,13 +4,10 @@ import java.awt.Image;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.io.IOException;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import model.MediaProvider;
 
@@ -74,11 +71,11 @@ public abstract class Entity
 	{
 		return (velocity.getX() < 0);
 	}
-	
+
 	public void playHitSound()
 	{
 		String name = getHitSoundName();
-		
+
 		if (name != null)
 		{
 			try
@@ -87,9 +84,9 @@ public abstract class Entity
 				Clip clip = AudioSystem.getClip();
 				clip.open(audio);
 				clip.start();
+			} catch (Exception e)
+			{
 			}
-			catch (Exception e)
-			{ }
 		}
 	}
 
