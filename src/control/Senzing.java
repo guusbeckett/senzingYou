@@ -1,8 +1,11 @@
 package control;
 
 import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
 
 import model.Game;
+import model.Highscore;
+import model.Score;
 import view.BeamerPanel;
 import view.ContainerFrame;
 import view.SenzingPanel;
@@ -20,5 +23,8 @@ public class Senzing
 			ge.getScreenDevices()[0].setFullScreenWindow(new ContainerFrame(new BeamerPanel(game)));
 		
 		ge.getDefaultScreenDevice().setFullScreenWindow(new ContainerFrame(new SenzingPanel(game)));
+		for(Score s :game.getHighscore().getScores()){
+			System.out.println("Score: "+s.getScore());
+		}
 	}
 }
