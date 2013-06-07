@@ -66,8 +66,7 @@ public class GameController implements ActionListener
 						if (!drive.isConnected())
 						{
 							game.getSong().stop();
-							game.setSong(null);
-							game.setLevel(null);
+							clear();
 						}
 					}
 
@@ -119,6 +118,13 @@ public class GameController implements ActionListener
 			}
 		})).start();
 	}
+	
+	private void clear()
+	{
+		game.setSong(null);
+		game.setLevel(null);
+		Hardware.getInstance().setClimate(Climate.NORMAL);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
@@ -168,8 +174,7 @@ public class GameController implements ActionListener
 					break;
 				
 				default:
-					game.setSong(null);
-					game.setLevel(null);
+					clear();
 					break;
 				}
 
