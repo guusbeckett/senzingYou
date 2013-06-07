@@ -13,26 +13,31 @@ import model.Score;
 public class HighscoreView
 {
 	private Highscore highscore;
-	private Text songNameText;
+	private Text songTitleText, songArtistText;
 	private Text scoreText;
 	
 	public HighscoreView(Highscore highscore)
 	{
 		this.highscore = highscore;
-		songNameText = new Text(Color.ORANGE, 18, false);
+		songTitleText = new Text(Color.ORANGE, 18, false);
+		songArtistText = new Text(Color.ORANGE, 14, false);
 		scoreText = new Text(Color.ORANGE, 10);
 	}
 	
 	public void drawScore(Graphics2D g2, Score score, Point2D position)
 	{
 		Image capture = score.getCapture().getImage();
-
-		songNameText.draw(g2, position, score.getSongTitle());
-
+		
 		AffineTransform ax = new AffineTransform();
-		ax.translate(position.getX(), position.getY());
+		
 		ax.scale(133 / (double)capture.getWidth(null), 100 / (double)capture.getHeight(null));
+		ax.translate(position.getX(), position.getY());
+
 		g2.drawImage(capture, ax, null);
+		
+		songTitleText.draw(g2, position, score.getSongTitle());
+
+
 	}
 	
 	public void draw(Graphics2D g2)
@@ -42,7 +47,7 @@ public class HighscoreView
 		
 		for (Score score : scores)
 		{
-			drawScore(g2, score, new Point2D.Double(30, 30 + index * 30));
+			drawScore(g2, score, new Point2D.Double(100, 30 + index * 110));
 			index++;
 		}
 	}
