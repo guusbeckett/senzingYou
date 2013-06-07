@@ -194,7 +194,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 			{
 				if (u.isVisible())
 				{
-					Text scoreText = new Text(colors[(u.getId() - 1) % colors.length], 45, true, true);
+					Text scoreText = new Text(colors[(u.getId() - 1) % colors.length], 45, true);
 					scoreText.draw(g2, new Point2D.Double(u.getHead().getX(), 50), u.getScore() + "");
 				}
 			}

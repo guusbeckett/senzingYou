@@ -16,15 +16,11 @@ public class Text
 	private Color color;
 	private boolean centered;
 	
-	public Text(Color color, int size, boolean bold, boolean centered)
+	public Text(Color color, int size, boolean centered)
 	{
-		this.font = new Font("Arial", bold ? Font.BOLD : 0, size);
+		this.font = new Font("Arial", Font.BOLD, size);
 		this.centered = centered;
 		this.color = color;
-	}
-	public Text(Color color, int size, boolean bold)
-	{
-		this(color, size, bold, false);
 	}
 	
 	public Text(Color color, int size)
