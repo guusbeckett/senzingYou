@@ -138,6 +138,10 @@ public class GameController implements ActionListener
 			double lengthOfStage = game.getSong().getLength() / 5;
 			int currentStage = (int) Math.floor(game.getSong().getTime() / lengthOfStage);
 
+			if((int)game.getSong().getTime() == 30){
+				game.setMakeScreenshot(true);
+			}
+			
 			if (currentStage != activeStage)
 			{
 				game.getEntities().clear();
@@ -149,7 +153,6 @@ public class GameController implements ActionListener
 					break;
 
 				case 1:
-					game.setMakeScreenshot(true);
 					game.setLevel(new RainforestLevel(game));
 					break;
 
