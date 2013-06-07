@@ -2,9 +2,10 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.util.List;
+
+import javax.swing.ImageIcon;
 
 import model.Highscore;
 import model.Score;
@@ -24,7 +25,7 @@ public class HighscoreView
 	
 	public void drawScore(Graphics2D g2, Score score, Point2D position)
 	{
-		Image capture = score.getCapture();
+		ImageIcon capture = score.getCapture();
 		String songName = score.getSongName();
 
 		songNameText.draw(g2, position, songName);
