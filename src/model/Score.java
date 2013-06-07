@@ -6,6 +6,8 @@ import javax.swing.ImageIcon;
 
 public class Score implements Serializable, Comparable<Score>
 {
+	private static final long serialVersionUID = 1L;
+
 	private String songTitle, songArtist;
 	private int score;
 	private ImageIcon capture;

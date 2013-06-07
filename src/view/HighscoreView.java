@@ -36,18 +36,17 @@ public class HighscoreView
 		g2.drawImage(capture, ax, null);
 		
 		songTitleText.draw(g2, position, score.getSongTitle());
-
-
 	}
 	
 	public void draw(Graphics2D g2)
 	{
 		int index = 0;
 		List<Score> scores = highscore.getScores();
-		
+
 		for (Score score : scores)
 		{
-			drawScore(g2, score, new Point2D.Double(100, 30 + index * 110));
+			System.out.println(score.getScore() + "");
+			drawScore(g2, score, new Point2D.Double(50, 30 + index * 110));
 			index++;
 		}
 	}

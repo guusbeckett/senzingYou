@@ -95,7 +95,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 
 	private void drawEntities(Graphics2D g2, int step)
 	{
-		Text hitText = new Text(Color.BLUE, 250, true);
+		Text hitText = new Text(Color.BLUE, 250);
 		
 		for (Entity entity : game.getEntities())
 		{
@@ -206,7 +206,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 				{
 					if (u.isVisible())
 					{
-						Text scoreText = new Text(colors[(u.getId() - 1) % colors.length], 45, false);
+						Text scoreText = new Text(colors[(u.getId() - 1) % colors.length], 45, true);
 						scoreText.draw(g2, new Point2D.Double(u.getHead().getX(), 50), u.getScore() + "");
 					}
 				}

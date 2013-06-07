@@ -1,11 +1,8 @@
 package control;
 
 import java.awt.GraphicsEnvironment;
-import java.awt.Toolkit;
 
 import model.Game;
-import model.Highscore;
-import model.Score;
 import view.BeamerPanel;
 import view.ContainerFrame;
 import view.SenzingPanel;
