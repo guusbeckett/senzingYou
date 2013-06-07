@@ -173,7 +173,7 @@ public class GameController implements ActionListener
 				default:
 					//Adding score!
 					for(User u: game.getCamera().getUsers()){
-						game.getHighscore().add(new Score(game.getSong().getName(), u.getScore(), new ImageIcon(game.getScreenCapture())));
+						game.getHighscore().add(new Score(game.getSong().getTitle(), game.getSong().getArtist(), u.getScore(), new ImageIcon(game.getScreenCapture())));
 					}
 					
 					clear();

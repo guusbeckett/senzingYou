@@ -1,30 +1,34 @@
 package model;
 
-import java.awt.Image;
 import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 
 public class Score implements Serializable, Comparable<Score>
 {
-	private String songName;
+	private String songTitle, songArtist;
 	private int score;
 	private ImageIcon capture;
 	
-	public Score(String songName, int score, ImageIcon capture)
+	public Score(String songTitle, String songArtist, int score, ImageIcon capture)
 	{
 		super();
-		this.songName = songName;
+		this.songTitle = songTitle;
+		this.songArtist = songArtist;
 		this.score = score;
 		this.capture = capture;
 	}
 	
-	
-	public String getSongName()
+	public String getSongTitle()
 	{
-		return songName;
+		return songTitle;
 	}
 	
+	public String getSongArtist()
+	{
+		return songArtist;
+	}
+
 	public int getScore()
 	{
 		return score;
