@@ -137,7 +137,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		Graphics2D g2Reall = (Graphics2D) g;
+		Graphics2D g2Real = (Graphics2D) g;
 		
 		
 		double _w = getWidth();
@@ -147,17 +147,23 @@ public class SenzingPanel extends JPanel implements ActionListener
 		double _s = _h / _y;
 		double _b = (_w / _s - _x) / 2;
 		
-		BufferedImage screenImage = new BufferedImage((int)_x, (int)_y, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage screenImage = new BufferedImage((int)_w, (int)_h, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = screenImage.createGraphics();
 		
 		
-		BufferedImage screenScore = new BufferedImage((int)_x, (int)_y, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage screenScore = new BufferedImage((int)_w, (int)_h, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2Score = screenScore.createGraphics();
-				
 		
+		//screenImage
+		g2.scale(_s, _s);
 		g2.translate(_b, 0);
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+		//screenScore
+		g2Score.scale(_s, _s);
+		g2Score.translate(_b, 0);
+		g2Score.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
 		BufferedImage[] images = game.getCamera().getImageBackgroundAndForeground();
 
 		// Draw background
@@ -233,13 +239,16 @@ public class SenzingPanel extends JPanel implements ActionListener
 			}
 		}
 		
+		
+		//Write it to the images
 		g2.dispose();
 		g2Score.dispose();
 		
-		g2Reall.scale(_s, _s);
-		g2Reall.drawImage(screenImage, 0, 0, null);
-		g2Reall.drawImage(screenScore, 0, 0, null);
+		//Drawing the real screen
+		g2Real.drawImage(screenImage, 0, 0, null);
+		g2Real.drawImage(screenScore, 0, 0, null);
 		
+		//Making the screenshot
 		if(game.isMakeScreenshot()){
 			game.makeScreenshot(screenImage);
 			game.setMakeScreenshot(false);
