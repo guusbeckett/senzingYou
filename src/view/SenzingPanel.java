@@ -147,8 +147,12 @@ public class SenzingPanel extends JPanel implements ActionListener
 		double _s = _h / _y;
 		double _b = (_w / _s - _x) / 2;
 		
-		BufferedImage screenImage = new BufferedImage((int)_x, (int)_y, BufferedImage.TYPE_INT_RGB);
+		BufferedImage screenImage = new BufferedImage((int)_x, (int)_y, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = screenImage.createGraphics();
+		
+		
+		BufferedImage screenScore = new BufferedImage((int)_x, (int)_y, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2Score = screenScore.createGraphics();
 				
 		
 		g2.translate(_b, 0);
@@ -199,7 +203,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 				if (u.isVisible())
 				{
 					Text scoreText = new Text(colors[(u.getId() - 1) % colors.length], 45, true, true);
-					scoreText.draw(g2, new Point2D.Double(u.getHead().getX(), 50), u.getScore() + "");
+					scoreText.draw(g2Score, new Point2D.Double(u.getHead().getX(), 50), u.getScore() + "");
 				}
 			}
 		}
@@ -213,13 +217,13 @@ public class SenzingPanel extends JPanel implements ActionListener
 			int length = (int) song.getLength();
 			
 			Text countdownText = new Text(Color.ORANGE, 25);
-			countdownText.draw(g2, new Point2D.Double(48, 25), String.format("%02d:%02d / %02d:%02d - %s", time / 60, time % 60, length / 60, length % 60, song.getName()));
+			countdownText.draw(g2Score, new Point2D.Double(48, 25), String.format("%02d:%02d / %02d:%02d - %s", time / 60, time % 60, length / 60, length % 60, song.getName()));
 		}
 
 		// Draw sideboxes
-		g2.setColor(Color.BLACK);
-		g2.fill(new Rectangle2D.Double(-_b, 0, _b + 40, _y));
-		g2.fill(new Rectangle2D.Double(_x - 20, 0, _b + 20, _y));
+		g2Score.setColor(Color.BLACK);
+		g2Score.fill(new Rectangle2D.Double(-_b, 0, _b + 40, _y));
+		g2Score.fill(new Rectangle2D.Double(_x - 20, 0, _b + 20, _y));
 
 		if (level != null)
 		{
@@ -230,8 +234,11 @@ public class SenzingPanel extends JPanel implements ActionListener
 		}
 		
 		g2.dispose();
+		g2Score.dispose();
+		
 		g2Reall.scale(_s, _s);
 		g2Reall.drawImage(screenImage, 0, 0, null);
+		g2Reall.drawImage(screenScore, 0, 0, null);
 		
 		if(game.isMakeScreenshot()){
 			game.makeScreenshot(screenImage);
