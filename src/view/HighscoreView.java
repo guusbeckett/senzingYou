@@ -27,7 +27,7 @@ public class HighscoreView
 	{
 		Image capture = score.getCapture().getImage();
 
-		songNameText.draw(g2, position, score.getSongName());
+		songNameText.draw(g2, position, score.getSongTitle());
 
 		AffineTransform ax = new AffineTransform();
 		ax.translate(position.getX(), position.getY());

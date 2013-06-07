@@ -3,21 +3,13 @@ package model;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagException;
-import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
-import org.jaudiotagger.tag.id3.ID3v1Tag;
-import org.jaudiotagger.tag.id3.ID3v24Tag;
 
 import audio.AudioDevice;
 import audio.MP3Decoder;
@@ -29,7 +21,7 @@ public class Song
 	private Thread th;
 	
 	private File track;
-	private String songName;
+	private String songTitle, songArtist;
 	private float lastCall = 0;
 	private float elapsedTime;
 	private float maxThreshold;
@@ -103,10 +95,12 @@ public class Song
 		{
 			MP3File f = (MP3File)AudioFileIO.read(track);
 			Tag tag = f.getTag();
-			songName = tag.getFirst(FieldKey.ARTIST) + " - " + tag.getFirst(FieldKey.TITLE);
+			songTitle = tag.getFirst(FieldKey.TITLE);
+			songArtist = tag.getFirst(FieldKey.ARTIST);
 		} catch (Exception e)
 		{
-			songName = track.getName();
+			songTitle = track.getName();
+			songArtist = "";
 		}
 	}
 
@@ -205,8 +199,13 @@ public class Song
 		return minThreshold;
 	}
 	
-	public String getName()
+	public String getTitle()
 	{
-		return songName;
+		return songTitle;
+	}
+
+	public String getArtist()
+	{
+		return songArtist;
 	}
 }

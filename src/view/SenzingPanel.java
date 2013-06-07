@@ -194,7 +194,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 			{
 				if (u.isVisible())
 				{
-					Text scoreText = new Text(colors[(u.getId() - 1) % colors.length], 45, true);
+					Text scoreText = new Text(colors[(u.getId() - 1) % colors.length], 45, false);
 					scoreText.draw(g2, new Point2D.Double(u.getHead().getX(), 50), u.getScore() + "");
 				}
 			}
@@ -209,7 +209,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 			int length = (int) song.getLength();
 			
 			Text countdownText = new Text(Color.ORANGE, 25);
-			countdownText.draw(g2, new Point2D.Double(48, 25), String.format("%02d:%02d / %02d:%02d - %s", time / 60, time % 60, length / 60, length % 60, song.getName()));
+			countdownText.draw(g2, new Point2D.Double(48, 25), String.format("%02d:%02d / %02d:%02d - %s - %s", time / 60, time % 60, length / 60, length % 60, song.getTitle(), song.getArtist()));
 		}
 
 		// Draw sideboxes
