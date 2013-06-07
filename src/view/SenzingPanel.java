@@ -32,6 +32,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 	private Image rewardImage, losingImage;
 	private int loaderIndex;
 	private boolean loaderReversed = false;
+	private HighscoreView highscoreView;
 
 	public SenzingPanel(Game game)
 	{
@@ -41,6 +42,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		new Timer(1000 / 30, this).start();
 		rewardImage = MediaProvider.getInstance().getImage("reward.png");
 		losingImage = MediaProvider.getInstance().getImage("losingpoint.png");
+		highscoreView = new HighscoreView(game.getHighscore());
 	}
 	
 	private void drawImageInCenter(Graphics2D g2, Image image, float alpha)
@@ -171,7 +173,10 @@ public class SenzingPanel extends JPanel implements ActionListener
 		if (level == null)
 		{
 			if (!game.isLoading())
-				drawImageInCenter(g2, MediaProvider.getInstance().getImage("usbConnect.png"), 1f);
+			{
+//				drawImageInCenter(g2, MediaProvider.getInstance().getImage("usbConnect.png"), 1f);
+				highscoreView.draw(g2);
+			}
 			else
 				drawLoader(g2);
 		}
