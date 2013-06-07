@@ -23,8 +23,5 @@ public class Senzing
 			ge.getScreenDevices()[0].setFullScreenWindow(new ContainerFrame(new BeamerPanel(game)));
 		
 		ge.getDefaultScreenDevice().setFullScreenWindow(new ContainerFrame(new SenzingPanel(game)));
-		for(Score s :game.getHighscore().getScores()){
-			System.out.println("Score: "+s.getScore());
-		}
 	}
 }
