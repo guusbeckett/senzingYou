@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 import org.OpenNI.Point3D;
 import org.OpenNI.SceneMap;
@@ -10,14 +11,12 @@ public class User implements Comparable<User>
 {
 	private int id, score;
 	private UserGenerator userGenerator;
-	private Point2D head, neck, leftShoulder, rightShoulder, torso, 
-	leftElbow, rightElbow, leftHand, rightHand, leftHip, rightHip, 
-	leftKnee, rightKnee, leftFoot, rightFoot, midpoint;
+	private Point2D head, neck, leftShoulder, rightShoulder, torso, leftElbow, rightElbow, leftHand, rightHand, leftHip, rightHip, leftKnee, rightKnee, leftFoot, rightFoot, midpoint;
 	private String name;
 	private boolean visible;
-	
+
 	private Point3D rightHandWorld;
-	
+
 	public User(int id, UserGenerator userGenerator)
 	{
 		this.id = id;
@@ -30,34 +29,31 @@ public class User implements Comparable<User>
 	{
 		return id;
 	}
-	
+
 	public SceneMap getUserPixels()
 	{
 		return userGenerator.getUserPixels(id).getData();
 	}
-	
+
 	public Point2D getMidpoint()
 	{
 		return midpoint;
 	}
-	
+
 	public Point2D getHead()
 	{
 		return head;
 	}
-
 
 	public Point2D getNeck()
 	{
 		return neck;
 	}
 
-
 	public Point2D getLeftShoulder()
 	{
 		return leftShoulder;
 	}
-
 
 	public Point2D getRightShoulder()
 	{
@@ -79,29 +75,25 @@ public class User implements Comparable<User>
 		return rightElbow;
 	}
 
-	public Point2D getLeftHand()
+	public Rectangle2D.Double getLeftHand()
 	{
-		return leftHand;
+		return new Rectangle2D.Double(leftHand.getX() - 10, leftHand.getY() - 10, 20, 20);
 	}
 
-
-	public Point2D getRightHand()
+	public Rectangle2D.Double getRightHand()
 	{
-		return rightHand;
+		return new Rectangle2D.Double(rightHand.getX() - 10, rightHand.getY() - 10, 20, 20);
 	}
-
 
 	public Point2D getLeftHip()
 	{
 		return leftHip;
 	}
 
-
 	public Point2D getRightHip()
 	{
 		return rightHip;
 	}
-
 
 	public Point2D getLeftKnee()
 	{
@@ -113,18 +105,15 @@ public class User implements Comparable<User>
 		return rightKnee;
 	}
 
-
 	public Point2D getLeftFoot()
 	{
 		return leftFoot;
 	}
 
-
 	public Point2D getRightFoot()
 	{
 		return rightFoot;
 	}
-
 
 	public void setHead(Point2D head)
 	{
@@ -251,8 +240,7 @@ public class User implements Comparable<User>
 	{
 		double ownX = getHead().getX();
 		double otherX = u.getHead().getX();
-		return (int)(ownX - otherX);
+		return (int) (ownX - otherX);
 	}
-
 
 }

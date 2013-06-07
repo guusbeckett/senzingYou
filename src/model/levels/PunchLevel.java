@@ -35,7 +35,7 @@ public abstract class PunchLevel extends Level
 				{
 					for (User user : getGame().getCamera().getUsers())
 					{
-						if (hostile.getBounds().contains(user.getLeftHand()) || hostile.getBounds().contains(user.getRightHand()))
+						if (hostile.getBounds().intersects(user.getLeftHand()) || hostile.getBounds().intersects(user.getRightHand()))
 						{
 							user.setScore(user.getScore() + hostile.getReward());
 							kill = true;

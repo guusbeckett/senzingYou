@@ -37,9 +37,9 @@ public class GameController implements ActionListener
 	public GameController(Game g)
 	{
 		this.game = g;
-		
 
-		// Initialize the hardware in a seperate thread because it takes a while...
+		// Initialize the hardware in a seperate thread because it takes a
+		// while...
 		// while...
 		(new Thread(new Runnable()
 		{
@@ -73,25 +73,24 @@ public class GameController implements ActionListener
 					else
 					{
 						List<Drive> justConnected = game.getJustConnectedDrives();
-	
+
 						if (justConnected.size() > 0)
 						{
 							game.setLoading(true);
-							
+
 							// Put all the songs into a list
 							List<File> audioFiles = new ArrayList<File>();
-		
+
 							for (Drive d : justConnected)
 							{
 								audioFiles.addAll(d.getAudioFiles());
 							}
-		
+
 							// Pick one
 							if (audioFiles.size() > 0)
 							{
-								File file = audioFiles.get((new Random())
-										.nextInt(audioFiles.size()));
-		
+								File file = audioFiles.get((new Random()).nextInt(audioFiles.size()));
+
 								try
 								{
 									drive = justConnected.get(0);
@@ -103,7 +102,7 @@ public class GameController implements ActionListener
 									ex.printStackTrace();
 								}
 							}
-							
+
 							game.setLoading(false);
 						}
 					}
@@ -118,7 +117,7 @@ public class GameController implements ActionListener
 			}
 		})).start();
 	}
-	
+
 	private void clear()
 	{
 		game.setSong(null);
@@ -149,15 +148,15 @@ public class GameController implements ActionListener
 					{
 						Robot robot = new Robot();
 						BufferedImage screenShot = robot.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-						ImageIO.write(screenShot, "PNG", new File(drive.getPath()+"screenShot_"+System.currentTimeMillis()+".png"));
-						game.setScreenCapture(screenShot); //We use this for the Highscore.
-						
-					}
-					catch(Exception exc)
+						ImageIO.write(screenShot, "PNG", new File(drive.getPath() + "screenShot_" + System.currentTimeMillis() + ".png"));
+						game.setScreenCapture(screenShot); // We use this for
+															// the Highscore.
+
+					} catch (Exception exc)
 					{
-						
+
 					}
-					
+
 					game.setLevel(new RainforestLevel(game));
 					break;
 
@@ -172,7 +171,7 @@ public class GameController implements ActionListener
 				case 4:
 					game.setLevel(new SkyLevel(game));
 					break;
-				
+
 				default:
 					clear();
 					break;

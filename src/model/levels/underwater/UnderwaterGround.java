@@ -15,8 +15,7 @@ public class UnderwaterGround implements GroundRenderer
 	public void draw(Graphics2D g2)
 	{
 		AffineTransform tr = new AffineTransform();
-		 tr.translate(-400, -100);
-		// tr.scale(3, 3);
+		 tr.translate(-400, -400);
 		tr.shear(Math.sin(time / 900) / 6, Math.cos(time / 900) / 6);
 		g2.drawImage(MediaProvider.getInstance().getImage("underwater/ground.jpg"), tr, null);
 	}
