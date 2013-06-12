@@ -43,7 +43,7 @@ public class HighscoreView
 		ax.translate(100, 0);
 		
 		// Draw all the text
-		ax.translate(0, 20);
+		ax.translate(0, 25);
 		scoreText.draw(g2, ax, "" + score.toString());
 		ax.translate(0, 20);
 		songTitleText.draw(g2, ax, score.getSongTitle());
