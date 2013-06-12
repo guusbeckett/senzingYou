@@ -192,6 +192,7 @@ public class GameController implements ActionListener
 					game.getHighscore().add(new Score(game.getSong().getTitle(), game.getSong().getArtist(), scores, new ImageIcon(game.getScreenCapture())));
 
 					clear();
+					game.setShowHighscore(true);
 					break;
 				}
 
