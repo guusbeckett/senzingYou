@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
@@ -44,7 +45,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		losingImage = MediaProvider.getInstance().getImage("losingpoint.png");
 		highscoreView = new HighscoreView(game.getHighscore());
 	}
-	
+
 	private void drawImageInCenter(Graphics2D g2, Image image, float alpha)
 	{
 		double width = image.getWidth(null);
@@ -96,7 +97,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 	private void drawEntities(Graphics2D g2, int step)
 	{
 		Text hitText = new Text(Color.BLUE, 250);
-		
+
 		for (Entity entity : game.getEntities())
 		{
 			AffineTransform ax = new AffineTransform();
@@ -125,7 +126,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 						ax.translate(hostile.getDeadLocation().getX(), hostile.getDeadLocation().getY());
 						ax.scale(entity.getDimensions().getWidth() / image.getWidth(null), entity.getDimensions().getHeight() / image.getHeight(null));
 						g2.drawImage(image, ax, null);
-						
+
 						ax.translate(0, (image.getWidth(null) / 1.5));
 						hitText.draw(g2, ax, hostile.getReward() + "");
 					}
@@ -138,26 +139,28 @@ public class SenzingPanel extends JPanel implements ActionListener
 	{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		
+
 		double _w = getWidth();
 		double _h = getHeight();
 		double _x = Camera.VIEW_WIDTH;
 		double _y = Camera.VIEW_HEIGHT;
 		double _s = _h / _y;
 		double _b = (_w / _s - _x) / 2;
-		
-		BufferedImage screenImage = new BufferedImage((int)_x, (int)_y, BufferedImage.TYPE_INT_ARGB);
-		
-		if(game.isMakeScreenshot()){
+
+		BufferedImage screenImage = new BufferedImage((int) _x, (int) _y, BufferedImage.TYPE_INT_ARGB);
+
+		if (game.isMakeScreenshot())
+		{
 			g2 = screenImage.createGraphics();
 		}
-		
-		//Don't do while making screenshot
-		if(!game.isMakeScreenshot()){
+
+		// Don't do while making screenshot
+		if (!game.isMakeScreenshot())
+		{
 			g2.scale(_s, _s);
 			g2.translate(_b, 0);
 		}
-		
+
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		BufferedImage[] images = game.getCamera().getImageBackgroundAndForeground();
 
@@ -183,24 +186,25 @@ public class SenzingPanel extends JPanel implements ActionListener
 		{
 			if (!game.isLoading())
 			{
-//				drawImageInCenter(g2, MediaProvider.getInstance().getImage("usbConnect.png"), 1f);
+				// drawImageInCenter(g2,
+				// MediaProvider.getInstance().getImage("usbConnect.png"), 1f);
 				highscoreView.draw(g2);
-			}
-			else
+			} else
 				drawLoader(g2);
 		}
 
 		// Draw the foreground entities
 		drawEntities(g2, 1);
 
-		//Don't draw while making a screenshot!
-		if(!game.isMakeScreenshot()){
-			
+		// Don't draw while making a screenshot!
+		if (!game.isMakeScreenshot())
+		{
+
 			// Draw all the scores
 			if (!game.getCamera().getUsers().isEmpty())
 			{
 				Color[] colors = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY };
-	
+
 				// Now do nothing with X it just print on the head position
 				for (User u : game.getCamera().getUsers())
 				{
@@ -211,25 +215,24 @@ public class SenzingPanel extends JPanel implements ActionListener
 					}
 				}
 			}
-	
+
 			// Draw the countdown
 			Song song = game.getSong();
-	
+
 			if (song != null)
 			{
 				int time = (int) song.getTime();
 				int length = (int) song.getLength();
-				
+
 				Text countdownText = new Text(Color.ORANGE, 25);
 				countdownText.draw(g2, new Point2D.Double(48, 25), String.format("%02d:%02d / %02d:%02d - %s - %s", time / 60, time % 60, length / 60, length % 60, song.getArtist(), song.getTitle()));
 			}
-	
+
 			// Draw sideboxes
 			g2.setColor(Color.BLACK);
 			g2.fill(new Rectangle2D.Double(-_b, 0, _b + 40, _y));
 			g2.fill(new Rectangle2D.Double(_x - 20, 0, _b + 20, _y));
-			
-			
+
 			if (level != null)
 			{
 				if (level.isDescriptionImageVisible())
@@ -238,33 +241,36 @@ public class SenzingPanel extends JPanel implements ActionListener
 				}
 			}
 		}
-		
-		if(!game.isMakeScreenshot()){
-			if(game.getSong() != null){
-				Text countdownText = new Text(Color.ORANGE, 25);
-				Point2D center = new Point2D.Double(_x / 2, _y / 2);
-				if((int)game.getSong().getTime() == 26){
-					countdownText.draw(g2, center, "Making screenshot!");
-				}
-				else if((int)game.getSong().getTime() == 27){	
+
+		if (!game.isMakeScreenshot())
+		{
+			if (game.getSong() != null)
+			{
+				Text countdownText = new Text(Color.ORANGE, 80);
+				Point2D center = new Point2D.Double(_x / 2 - 30, _y / 2);
+				if ((int) game.getSong().getTime() == 26)
+				{
+					countdownText.draw(g2, new Point2D.Double(center.getX() - 100, center.getY()), "Photo!");
+				} else if ((int) game.getSong().getTime() == 27)
+				{
 					countdownText.draw(g2, center, "3");
-				}
-				else if((int)game.getSong().getTime() == 28){
+				} else if ((int) game.getSong().getTime() == 28)
+				{
 					countdownText.draw(g2, center, "2");
-				}
-				else if((int)game.getSong().getTime() == 29){
+				} else if ((int) game.getSong().getTime() == 29)
+				{
 					countdownText.draw(g2, center, "1");
 				}
 			}
 		}
-		
-		//Making the screenshot
-		if(game.isMakeScreenshot()){
+
+		// Making the screenshot
+		if (game.isMakeScreenshot())
+		{
 			g2.dispose();
 			game.makeScreenshot(screenImage);
 			game.setMakeScreenshot(false);
 		}
-
 	}
 
 	@Override

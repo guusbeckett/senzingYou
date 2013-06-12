@@ -59,13 +59,13 @@ public class GameController implements ActionListener
 			{
 				while (true)
 				{
-					if(drive != null && !drive.isConnected())
+					if (drive != null && !drive.isConnected())
 					{
 						// Clears the score if the drive gets disconnected.
-						for(User user : game.getCamera().getUsers())
+						for (User user : game.getCamera().getUsers())
 							user.setScore(0);
 					}
-					
+
 					if (game.getSong() != null)
 					{
 						if (!drive.isConnected())
@@ -137,11 +137,13 @@ public class GameController implements ActionListener
 		{
 			double lengthOfStage = game.getSong().getLength() / 5;
 			int currentStage = (int) Math.floor(game.getSong().getTime() / lengthOfStage);
-		
-			if((int)game.getSong().getTime() == 30){
-				game.setMakeScreenshot(true);
+
+			if ((int) game.getSong().getTime() == 30)
+			{
+				if (game.getScreenCapture() == null)
+					game.setMakeScreenshot(true);
 			}
-			
+
 			if (currentStage != activeStage)
 			{
 				game.getEntities().clear();
@@ -169,11 +171,12 @@ public class GameController implements ActionListener
 					break;
 
 				default:
-					//Adding score!
-					for(User u: game.getCamera().getUsers()){
+					// Adding score!
+					for (User u : game.getCamera().getUsers())
+					{
 						game.getHighscore().add(new Score(game.getSong().getTitle(), game.getSong().getArtist(), u.getScore(), new ImageIcon(game.getScreenCapture())));
 					}
-					
+
 					clear();
 					break;
 				}
