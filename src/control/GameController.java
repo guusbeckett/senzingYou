@@ -141,7 +141,8 @@ public class GameController implements ActionListener
 
 			if ((int) game.getSong().getTime() == 30)
 			{
-				game.setMakeScreenshot(true);
+				if (game.getScreenCapture() == null)
+					game.setMakeScreenshot(true);
 			}
 
 			if (currentStage != activeStage)
@@ -175,19 +176,19 @@ public class GameController implements ActionListener
 					@SuppressWarnings("unchecked")
 					List<User> users = (List<User>) ((ArrayList<User>) game.getCamera().getUsers()).clone();
 					Collections.sort(users);
-					
+
 					List<Integer> scores = new ArrayList<Integer>();
 
 					for (User user : users)
 					{
 						int score = user.getScore();
-						
+
 						if (score != 0)
 						{
 							scores.add(score);
 						}
 					}
-					
+
 					game.getHighscore().add(new Score(game.getSong().getTitle(), game.getSong().getArtist(), scores, new ImageIcon(game.getScreenCapture())));
 
 					clear();

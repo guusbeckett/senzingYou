@@ -198,7 +198,6 @@ public class SenzingPanel extends JPanel implements ActionListener
 		// Don't draw while making a screenshot!
 		if (!game.isMakeScreenshot())
 		{
-
 			if (level != null)
 			{
 				// Draw all the scores
@@ -248,11 +247,11 @@ public class SenzingPanel extends JPanel implements ActionListener
 		{
 			if (game.getSong() != null)
 			{
-				Text countdownText = new Text(Color.ORANGE, 25);
-				Point2D center = new Point2D.Double(_x / 2, _y / 2);
+				Text countdownText = new Text(Color.ORANGE, 80);
+				Point2D center = new Point2D.Double(_x / 2 - 30, _y / 2);
 				if ((int) game.getSong().getTime() == 26)
 				{
-					countdownText.draw(g2, center, "Making screenshot!");
+					countdownText.draw(g2, new Point2D.Double(center.getX() - 100, center.getY()), "Photo!");
 				} else if ((int) game.getSong().getTime() == 27)
 				{
 					countdownText.draw(g2, center, "3");
@@ -273,7 +272,6 @@ public class SenzingPanel extends JPanel implements ActionListener
 			game.makeScreenshot(screenImage);
 			game.setMakeScreenshot(false);
 		}
-
 	}
 
 	@Override
