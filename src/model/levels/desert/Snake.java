@@ -24,11 +24,11 @@ public class Snake extends HostileEntity
 		if (r.nextInt(2) == 1)
 		{
 			position.setLocation(-getDimensions().getWidth(), baseY);
-			velocity = new Point2D.Double(Math.random() * 0.7 + 0.01, 0.0);
+			velocity = new Point2D.Double(Math.random() * 1.7 + 0.01, 0.0);
 		} else
 		{
 			position.setLocation(Camera.VIEW_WIDTH, baseY);
-			velocity = new Point2D.Double(Math.random() * -0.7 - 0.01, 0.0);
+			velocity = new Point2D.Double(Math.random() * -1.7 - 0.01, 0.0);
 		}
 	}
 
