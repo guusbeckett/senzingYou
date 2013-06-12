@@ -46,7 +46,7 @@ public class Score implements Serializable, Comparable<Score>
 	@Override
 	public int compareTo(Score o)
 	{
-		return Collections.max(scores) - Collections.max(o.scores);
+		return Collections.max(o.scores) - Collections.max(scores);
 	}
 	
 	@Override
