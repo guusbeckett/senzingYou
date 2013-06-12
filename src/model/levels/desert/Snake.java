@@ -53,7 +53,7 @@ public class Snake extends HostileEntity
 	@Override
 	public String[] getImageNames()
 	{
-		return new String[] { "desert/snake.png" };
+		return new String[] { "desert/snake/snake0.png", "desert/snake/snake1.png", "desert/snake/snake2.png", "desert/snake/snake3.png", "desert/snake/snake4.png", "desert/snake/snake5.png", "desert/snake/snake6.png", "desert/snake/snake7.png" };
 	}
 
 	@Override
