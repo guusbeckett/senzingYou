@@ -10,13 +10,20 @@ import java.util.List;
 
 public class Highscore
 {
+	private Score lastScore;
 	private List<Score> scores;
 	private final String fileName = "saveFile.sav";
 
 	public Highscore()
 	{
+		this.lastScore = null;
 		this.scores = new ArrayList<Score>();
 		load();
+	}
+	
+	public Score getLastScore()
+	{
+		return lastScore;
 	}
 
 	public List<Score> getScores()
@@ -26,6 +33,7 @@ public class Highscore
 
 	public void add(Score s)
 	{
+		lastScore = s;
 		scores.add(s);
 		Collections.sort(scores);
 

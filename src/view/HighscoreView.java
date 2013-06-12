@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
 import java.util.List;
 
 import model.Highscore;
@@ -31,6 +32,13 @@ public class HighscoreView
 	public void drawScore(Graphics2D g2, int rank, Score score, Point2D position)
 	{
 		AffineTransform ax = AffineTransform.getTranslateInstance(position.getX(), position.getY());
+		
+		if (score == highscore.getLastScore())
+			g2.setColor(new Color(0xFF, 0x45, 0x00, 0x7F));
+		else
+			g2.setColor(new Color(0x7A, 0x7A, 0x7A, 0x7F));
+		
+		g2.fill(ax.createTransformedShape(new Rectangle2D.Double(-10, 0, 470, 69)));
 		
 		// Draw the rank
 		ax.translate(0, 40);

@@ -183,7 +183,7 @@ public class GameController implements ActionListener
 					{
 						int score = user.getScore();
 
-						if (score != 0)
+						if (score != 0 && user.isVisible())
 						{
 							scores.add(score);
 						}
