@@ -75,7 +75,7 @@ public class HighscoreView
 		
 		int center = scores.indexOf(highscore.getLastScore());
 		
-		if (center > 0)
+		if (center >= 0)
 		{
 			for (int i = -4; i < 4; i++)
 			{
