@@ -15,7 +15,7 @@ public class HighscoreView
 	private Highscore highscore;
 	private Text songTitleText, songArtistText;
 	private Text scoreText;
-	
+
 	public HighscoreView(Highscore highscore)
 	{
 		this.highscore = highscore;
@@ -23,21 +23,21 @@ public class HighscoreView
 		songArtistText = new Text(Color.ORANGE, 14, false);
 		scoreText = new Text(Color.ORANGE, 10);
 	}
-	
+
 	public void drawScore(Graphics2D g2, Score score, Point2D position)
 	{
 		Image capture = score.getCapture().getImage();
-		
+
 		AffineTransform ax = new AffineTransform();
-		
-		ax.scale(133 / (double)capture.getWidth(null), 100 / (double)capture.getHeight(null));
+
+		ax.scale(133 / (double) capture.getWidth(null), 100 / (double) capture.getHeight(null));
 		ax.translate(position.getX(), position.getY());
 
 		g2.drawImage(capture, ax, null);
-		
+
 		songTitleText.draw(g2, position, score.getSongTitle());
 	}
-	
+
 	public void draw(Graphics2D g2)
 	{
 		int index = 0;
