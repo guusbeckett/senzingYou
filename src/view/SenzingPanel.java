@@ -185,11 +185,13 @@ public class SenzingPanel extends JPanel implements ActionListener
 		{
 			if (!game.isLoading())
 			{
-				// drawImageInCenter(g2,
-				// MediaProvider.getInstance().getImage("usbConnect.png"), 1f);
-				highscoreView.draw(g2);
+				if (!game.isShowHighscore())
+					drawImageInCenter(g2, MediaProvider.getInstance().getImage("usbConnect.png"), 1f);
+				else
+					highscoreView.draw(g2);
 			} else
 				drawLoader(g2);
+
 		}
 
 		// Draw the foreground entities

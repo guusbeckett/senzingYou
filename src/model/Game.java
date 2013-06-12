@@ -25,6 +25,7 @@ public class Game
 	private Highscore highscore;
 	private boolean makeScreenshot;
 	private Drive justDrive;
+	private boolean showHighscore = false;
 
 	public Game()
 	{
@@ -150,5 +151,15 @@ public class Game
 			}
 		}
 		this.screenCapture = image;
+	}
+
+	public boolean isShowHighscore()
+	{
+		return showHighscore;
+	}
+
+	public void setShowHighscore(boolean showHighscore)
+	{
+		this.showHighscore = showHighscore;
 	}
 }
