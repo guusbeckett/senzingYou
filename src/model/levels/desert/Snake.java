@@ -17,18 +17,16 @@ public class Snake extends HostileEntity
 	public Snake(List<User> users)
 	{
 		super(users);
-		baseY = Math.random()
-				* (Camera.VIEW_HEIGHT / 2 - getDimensions().getHeight() * 4)
-				+ getDimensions().getHeight() + Camera.VIEW_HEIGHT / 2;
+		baseY = Math.random() * (Camera.VIEW_HEIGHT / 2 - getDimensions().getHeight() * 4) + getDimensions().getHeight() + Camera.VIEW_HEIGHT / 2;
 		Random r = new Random();
 		if (r.nextInt(2) == 1)
 		{
 			position.setLocation(-getDimensions().getWidth(), baseY);
-			velocity = new Point2D.Double(Math.random() * 0.7 + 0.01, 0.0);
+			velocity = new Point2D.Double(Math.random() * 1.7 + 0.01, 0.0);
 		} else
 		{
 			position.setLocation(Camera.VIEW_WIDTH, baseY);
-			velocity = new Point2D.Double(Math.random() * -0.7 - 0.01, 0.0);
+			velocity = new Point2D.Double(Math.random() * -1.7 - 0.01, 0.0);
 		}
 	}
 
@@ -53,18 +51,14 @@ public class Snake extends HostileEntity
 	@Override
 	public String[] getImageNames()
 	{
-		return new String[] { "desert/snake.png" };
+		return new String[] { "desert/snake/snake0.png", "desert/snake/snake1.png", "desert/snake/snake2.png", "desert/snake/snake3.png", "desert/snake/snake4.png", "desert/snake/snake5.png", "desert/snake/snake6.png", "desert/snake/snake7.png" };
 	}
 
 	@Override
 	public void update(double time)
 	{
 		super.update(time);
-		position.setLocation(
-				position.getX() + velocity.getX() * time / 30,
-				baseY
-						+ Math.sin(position.getX() / Camera.VIEW_WIDTH * 2
-								* Math.PI) * getDimensions().getHeight());
+		position.setLocation(position.getX() + velocity.getX() * time / 30, baseY + Math.sin(position.getX() / Camera.VIEW_WIDTH * 2 * Math.PI) * getDimensions().getHeight());
 	}
 
 	@Override

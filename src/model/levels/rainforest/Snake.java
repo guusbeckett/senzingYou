@@ -22,10 +22,9 @@ public class Snake extends Entity
 	@Override
 	public String[] getImageNames()
 	{
-		// TODO Auto-generated method stub
-		return new String[] { "rainforest/snake.png" };
+		return new String[] { "rainforest/snake/snake0.png", "rainforest/snake/snake1.png", "rainforest/snake/snake2.png", "rainforest/snake/snake3.png", "rainforest/snake/snake4.png", "rainforest/snake/snake5.png", "rainforest/snake/snake6.png", "rainforest/snake/snake7.png" };
 	}
-	
+
 	@Override
 	public Point2D getRotationPoint()
 	{
@@ -44,9 +43,9 @@ public class Snake extends Entity
 		super.update(time);
 		position.setLocation(position.getX() + velocity.getX() * time, baseY + Math.sin(position.getX() / Camera.VIEW_WIDTH * 2 * Math.PI) * getDimensions().getHeight());
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public String getHitSoundName()
 	{
