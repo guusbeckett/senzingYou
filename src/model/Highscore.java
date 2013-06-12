@@ -10,13 +10,20 @@ import java.util.List;
 
 public class Highscore
 {
+	private Score lastScore;
 	private List<Score> scores;
 	private final String fileName = "saveFile.sav";
 
 	public Highscore()
 	{
+		this.lastScore = null;
 		this.scores = new ArrayList<Score>();
 		load();
+	}
+	
+	public Score getLastScore()
+	{
+		return lastScore;
 	}
 
 	public List<Score> getScores()
@@ -26,6 +33,7 @@ public class Highscore
 
 	public void add(Score s)
 	{
+		lastScore = s;
 		scores.add(s);
 		Collections.sort(scores);
 
@@ -34,6 +42,7 @@ public class Highscore
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public void load()
 	{
 		// Reading the score
@@ -42,7 +51,11 @@ public class Highscore
 			FileInputStream file = new FileInputStream(fileName);
 			ObjectInputStream restore = new ObjectInputStream(file);
 
-			scores = (List<Score>) (restore.readObject());
+			Object o = restore.readObject();
+			
+			if (o instanceof List<?>)
+				scores = (List<Score>) o;
+
 			restore.close();
 			file.close();
 

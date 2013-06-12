@@ -25,19 +25,18 @@ public class Game
 	private Highscore highscore;
 	private boolean makeScreenshot;
 	private Drive justDrive;
-	
 
 	public Game()
 	{
 		this.entities = Collections.synchronizedList(new ArrayList<Entity>());
 		this.drives = new ArrayList<Drive>();
 		this.highscore = new Highscore();
-		
+
 		for (char a = 'A'; a <= 'I'; a++)
 		{
 			drives.add(new Drive(a));
 		}
-		
+
 		camera = new Camera();
 	}
 
@@ -85,11 +84,11 @@ public class Game
 	{
 		this.level = level;
 	}
-	
+
 	public List<Drive> getJustConnectedDrives()
 	{
 		List<Drive> justConnected = new ArrayList<Drive>();
-		
+
 		for (Drive drive : drives)
 		{
 			if (drive.wasJustConnected())
@@ -97,7 +96,8 @@ public class Game
 				justConnected.add(drive);
 			}
 		}
-		if(!justConnected.isEmpty()){
+		if (!justConnected.isEmpty())
+		{
 			justDrive = justConnected.get(0);
 		}
 		return justConnected;
@@ -112,7 +112,7 @@ public class Game
 	{
 		this.loading = loading;
 	}
-	
+
 	public Image getScreenCapture()
 	{
 		return screenCapture;
@@ -122,8 +122,9 @@ public class Game
 	{
 		this.screenCapture = screenCapture;
 	}
-	
-	public Highscore getHighscore(){
+
+	public Highscore getHighscore()
+	{
 		return highscore;
 	}
 
@@ -136,17 +137,18 @@ public class Game
 	{
 		this.makeScreenshot = makeScreenshot;
 	}
-	
-	public void makeScreenshot(BufferedImage image){
-		
-		if(justDrive != null){
+
+	public void makeScreenshot(BufferedImage image)
+	{
+		if (justDrive != null)
+		{
 			try
 			{
 				ImageIO.write(image, "PNG", new File(justDrive.getPath() + "screenShot_" + System.currentTimeMillis() + ".png"));
 			} catch (IOException e)
-			{}
+			{
+			}
 		}
 		this.screenCapture = image;
-		
 	}
 }
