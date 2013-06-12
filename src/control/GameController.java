@@ -60,13 +60,6 @@ public class GameController implements ActionListener
 			{
 				while (true)
 				{
-					if (drive != null && !drive.isConnected())
-					{
-						// Clears the score if the drive gets disconnected.
-						for (User user : game.getCamera().getUsers())
-							user.setScore(0);
-					}
-
 					if (game.getSong() != null)
 					{
 						if (!drive.isConnected())
@@ -83,6 +76,12 @@ public class GameController implements ActionListener
 						if (justConnected.size() > 0)
 						{
 							game.setLoading(true);
+						
+							// 
+							for (User user : game.getCamera().getUsers())
+							{
+								user.setScore(0);
+							}
 
 							// Put all the songs into a list
 							List<File> audioFiles = new ArrayList<File>();
