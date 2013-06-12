@@ -221,7 +221,12 @@ public class SenzingPanel extends JPanel implements ActionListener
 				int length = (int) song.getLength();
 				
 				Text countdownText = new Text(Color.ORANGE, 25);
-				countdownText.draw(g2, new Point2D.Double(48, 25), String.format("%02d:%02d / %02d:%02d - %s - %s", time / 60, time % 60, length / 60, length % 60, song.getArtist(), song.getTitle()));
+				countdownText.draw(g2, new Point2D.Double(48, 25), String.format("%02d:%02d / %02d:%02d - %s - %s", time / 60, time % 60, length / 60, length % 60));
+				Text songName = new Text(Color.yellow, 20);
+				songName.draw(g2, new Point2D.Double(400, 500), song.getTitle());
+				Text songArtist = new Text(Color.yellow, 18);
+				songArtist.draw(g2, Point2D.Double(400, 525), songArtist);
+//						song.getArtist(), song.getTitle()
 			}
 	
 			// Draw sideboxes
