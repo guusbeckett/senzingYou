@@ -21,8 +21,8 @@ public class HighscoreView
 	public HighscoreView(Highscore highscore)
 	{
 		this.highscore = highscore;
-		songTitleText = new Text(Color.ORANGE, 18);
-		songArtistText = new Text(Color.ORANGE, 14);
+		songTitleText = new Text(Color.ORANGE, 20);
+		songArtistText = new Text(Color.ORANGE, 16);
 		scoreText = new Text(Color.GREEN, 22);
 	}
 
@@ -36,7 +36,7 @@ public class HighscoreView
 		imageTransform.scale(91.0 / image.getWidth(null), 69.0 / image.getHeight(null));
 		g2.drawImage(image, imageTransform, null);
 		g2.setColor(Color.BLACK);
-		g2.setStroke(new BasicStroke(1));
+		g2.setStroke(new BasicStroke(2));
 		g2.draw(imageTransform.createTransformedShape(new Rectangle2D.Double(0, 0, 640, 480)));
 
 		// Move to the right
@@ -44,7 +44,7 @@ public class HighscoreView
 		
 		// Draw all the text
 		ax.translate(0, 20);
-		scoreText.draw(g2, ax, "" + score.getScore());
+		scoreText.draw(g2, ax, "" + score.toString());
 		ax.translate(0, 20);
 		songTitleText.draw(g2, ax, score.getSongTitle());
 		ax.translate(0, 15);
