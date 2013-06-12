@@ -73,7 +73,7 @@ public class HighscoreView
 	{
 		List<Score> scores = highscore.getScores();
 		
-		int center = 1;
+		int center = scores.indexOf(highscore.getLastScore());
 		
 		if (center > 0)
 		{
