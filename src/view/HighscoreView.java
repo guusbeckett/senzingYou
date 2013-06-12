@@ -7,9 +7,9 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 import java.util.List;
 
+import model.Camera;
 import model.Highscore;
 import model.Score;
 
@@ -38,7 +38,7 @@ public class HighscoreView
 		else
 			g2.setColor(new Color(0x7A, 0x7A, 0x7A, 0x7F));
 		
-		g2.fill(ax.createTransformedShape(new Rectangle2D.Double(-10, 0, 470, 69)));
+		g2.fill(ax.createTransformedShape(new Rectangle2D.Double(-10, 0, Camera.VIEW_WIDTH - 170, 69)));
 		
 		// Draw the rank
 		ax.translate(0, 40);
@@ -54,8 +54,8 @@ public class HighscoreView
 		imageTransform.scale(91.0 / image.getWidth(null), 69.0 / image.getHeight(null));
 		g2.drawImage(image, imageTransform, null);
 		g2.setColor(Color.BLACK);
-		g2.setStroke(new BasicStroke(2));
-		g2.draw(imageTransform.createTransformedShape(new Rectangle2D.Double(0, 0, 640, 480)));
+		g2.setStroke(new BasicStroke(1));
+		g2.draw(imageTransform.createTransformedShape(new Rectangle2D.Double(0, 0, Camera.VIEW_WIDTH, Camera.VIEW_HEIGHT)));
 
 		// Move to the right
 		ax.translate(100, 0);
@@ -73,12 +73,20 @@ public class HighscoreView
 	{
 		List<Score> scores = highscore.getScores();
 		
-		int rank = 0;
-
-		for (Score score : scores)
+		int center = scores.indexOf(highscore.getLastScore());
+		
+		if (center > 0)
 		{
-			drawScore(g2, rank+1, score, new Point2D.Double(100, 10 + rank * 80));
-			rank++;
+			for (int i = -4; i < 4; i++)
+			{
+				int index = center + i;
+				
+				if (index >= 0 && index < scores.size())
+				{
+					double y = Camera.VIEW_HEIGHT / 2 - 69 / 2 + i * 80;
+					drawScore(g2, index + 1, scores.get(index), new Point2D.Double(107, y));
+				}
+			}
 		}
 	}
 }
