@@ -144,7 +144,7 @@ public class Game
 		{
 			try
 			{
-				ImageIO.write(image, "JPG", new File(justDrive.getPath() + "screenShot_" + System.currentTimeMillis() + ".jpg"));
+				ImageIO.write(image, "PNG", new File(justDrive.getPath() + "screenShot_" + System.currentTimeMillis() + ".png"));
 			} catch (IOException e)
 			{
 			}
