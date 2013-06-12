@@ -34,6 +34,7 @@ public class Highscore
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public void load()
 	{
 		// Reading the score
@@ -42,7 +43,11 @@ public class Highscore
 			FileInputStream file = new FileInputStream(fileName);
 			ObjectInputStream restore = new ObjectInputStream(file);
 
-			scores = (List<Score>) (restore.readObject());
+			Object o = restore.readObject();
+			
+			if (o instanceof List<?>)
+				scores = (List<Score>) o;
+
 			restore.close();
 			file.close();
 
