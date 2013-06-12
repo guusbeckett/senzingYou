@@ -15,20 +15,30 @@ import model.Score;
 public class HighscoreView
 {
 	private Highscore highscore;
+	private Text rankText;
 	private Text songTitleText, songArtistText;
 	private Text scoreText;
 
 	public HighscoreView(Highscore highscore)
 	{
 		this.highscore = highscore;
+		rankText = new Text(Color.WHITE, 20);
 		songTitleText = new Text(Color.ORANGE, 20);
 		songArtistText = new Text(Color.ORANGE, 16);
 		scoreText = new Text(Color.GREEN, 22);
 	}
 
-	public void drawScore(Graphics2D g2, Score score, Point2D position)
+	public void drawScore(Graphics2D g2, int rank, Score score, Point2D position)
 	{
 		AffineTransform ax = AffineTransform.getTranslateInstance(position.getX(), position.getY());
+		
+		// Draw the rank
+		ax.translate(0, 40);
+		rankText.draw(g2, ax, rank + ")");
+		
+		// Move to the right
+		ax.translate(0, -40);
+		ax.translate(25, 0);
 
 		// Draw the capture
 		AffineTransform imageTransform = (AffineTransform)ax.clone();
@@ -53,13 +63,14 @@ public class HighscoreView
 
 	public void draw(Graphics2D g2)
 	{
-		int index = 0;
 		List<Score> scores = highscore.getScores();
 		
+		int rank = 0;
+
 		for (Score score : scores)
 		{
-			drawScore(g2, score, new Point2D.Double(100, 10 + index * 80));
-			index++;
+			drawScore(g2, rank+1, score, new Point2D.Double(100, 10 + rank * 80));
+			rank++;
 		}
 	}
 }
