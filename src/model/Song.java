@@ -19,7 +19,7 @@ import audio.ThresholdFunction;
 public class Song
 {
 	private Thread th;
-	
+
 	private File track;
 	private String songTitle, songArtist;
 	private float lastCall = 0;
@@ -38,12 +38,11 @@ public class Song
 		analyze(track);
 		readTags(track);
 	}
-	
+
 	private void analyze(File track) throws FileNotFoundException, Exception
 	{
 		MP3Decoder decoder = new MP3Decoder(new FileInputStream(track));
-		SpectrumProvider spectrumProvider = new SpectrumProvider(decoder, 1024,
-				HOP_SIZE, true);
+		SpectrumProvider spectrumProvider = new SpectrumProvider(decoder, 1024, HOP_SIZE, true);
 		float[] spectrum = spectrumProvider.nextSpectrum();
 		float[] lastSpectrum = new float[spectrum.length];
 		List<List<Float>> spectralFlux = new ArrayList<List<Float>>();
@@ -55,8 +54,7 @@ public class Song
 			for (int i = 0; i < bands.length; i += 2)
 			{
 				int startFreq = spectrumProvider.getFFT().freqToIndex(bands[i]);
-				int endFreq = spectrumProvider.getFFT().freqToIndex(
-						bands[i + 1]);
+				int endFreq = spectrumProvider.getFFT().freqToIndex(bands[i + 1]);
 				float flux = 0;
 				for (int j = startFreq; j <= endFreq; j++)
 				{
@@ -73,11 +71,10 @@ public class Song
 		thresholds = new ArrayList<List<Float>>();
 		for (int i = 0; i < bands.length / 2; i++)
 		{
-			List<Float> threshold = new ThresholdFunction(HISTORY_SIZE,
-					multiplier).calculate(spectralFlux.get(i));
+			List<Float> threshold = new ThresholdFunction(HISTORY_SIZE, multiplier).calculate(spectralFlux.get(i));
 			thresholds.add(threshold);
 		}
-		
+
 		float min = 0;
 		float max = 0;
 		for (int i = 0; i < thresholds.get(0).size(); i++)
@@ -88,12 +85,12 @@ public class Song
 		minThreshold = min;
 		maxThreshold = max;
 	}
-	
+
 	private void readTags(File track)
 	{
 		try
 		{
-			MP3File f = (MP3File)AudioFileIO.read(track);
+			MP3File f = (MP3File) AudioFileIO.read(track);
 			Tag tag = f.getTag();
 			songTitle = tag.getFirst(FieldKey.TITLE);
 			songArtist = tag.getFirst(FieldKey.ARTIST);
@@ -104,7 +101,7 @@ public class Song
 		}
 	}
 
-	public void play() throws InterruptedException, Exception
+	public void play()
 	{
 		th = new Thread(new Runnable()
 		{
@@ -114,56 +111,61 @@ public class Song
 				try
 				{
 					float[] samples = new float[1024];
-					MP3Decoder reader = new MP3Decoder( new FileInputStream( track ) );
-					AudioDevice device = new AudioDevice( );
+					MP3Decoder reader = new MP3Decoder(new FileInputStream(track));
+					AudioDevice device = new AudioDevice();
 					long startTime = 0;
-					
-					while( reader.readSamples( samples ) > 0 )
+
+					while (reader.readSamples(samples) > 0)
 					{
-						device.writeSamples( samples );
+						device.writeSamples(samples);
 						if (startTime == 0)
 							startTime = System.nanoTime();
 						elapsedTime = (System.nanoTime() - startTime) / 1000000000.0f;
 						Thread.sleep(5);
 					}
 					
-//					Thread.sleep( 10000 );
-//					AudioDevice device = new AudioDevice();
-//					float[] samples = new float[1024];
-//					long startTime = 0;
-//
-//					System.out.print(samples);
-//					while (decoder.readSamples(samples) > 0)
-//					{
-//						device.writeSamples(samples); // plays the music
-//
-//						if (startTime == 0)
-//							startTime = System.nanoTime();
-//						float elapsedTime = (System.nanoTime() - startTime) / 1000000000.0f;
-//						position = (int) (elapsedTime * (44100 / HOP_SIZE));
-//						Thread.sleep(20);
-//					}
+					// force song to end
+					elapsedTime = (float)getLength();
+
+					// Thread.sleep( 10000 );
+					// AudioDevice device = new AudioDevice();
+					// float[] samples = new float[1024];
+					// long startTime = 0;
+					//
+					// System.out.print(samples);
+					// while (decoder.readSamples(samples) > 0)
+					// {
+					// device.writeSamples(samples); // plays the music
+					//
+					// if (startTime == 0)
+					// startTime = System.nanoTime();
+					// float elapsedTime = (System.nanoTime() - startTime) /
+					// 1000000000.0f;
+					// position = (int) (elapsedTime * (44100 / HOP_SIZE));
+					// Thread.sleep(20);
+					// }
 				} catch (Exception e)
 				{
-					e.printStackTrace();
 				}
 			}
 		});
-//		th.setPriority(Thread.MAX_PRIORITY);
+		// th.setPriority(Thread.MAX_PRIORITY);
 		th.start();
 	}
-	
-	public void stop(){
-		th.interrupt();	//Have to fix this small issue because I get a interupt error on Thread.sleep
+
+	public void stop()
+	{
+		th.interrupt(); // Have to fix this small issue because I get a interupt
+						// error on Thread.sleep
 	}
 
 	public float getThreshold()
-	{	
+	{
 		float total = 0;
-		int first = (int)(lastCall * 44100 / 512) - 1;
+		int first = (int) (lastCall * 44100 / 512) - 1;
 		if (first < 0)
 			first = 0;
-		int last = (int)(elapsedTime * 44100 / 512);
+		int last = (int) (elapsedTime * 44100 / 512);
 		for (int i = first; i < last; i++)
 			total += getThreshold(i);
 		lastCall = elapsedTime;
@@ -172,13 +174,13 @@ public class Song
 
 	public float getThreshold(int index)
 	{
-		//JW Fix otherwise big indexout of bounce exception
-		if(thresholds.get(0).size() >= index){
+		if (index < thresholds.get(0).size())
+		{
 			return thresholds.get(0).get(index);
 		}
 		return 0;
 	}
-	
+
 	public double getLength()
 	{
 		return thresholds.get(0).size() * 512 / 44100;
@@ -198,7 +200,7 @@ public class Song
 	{
 		return minThreshold;
 	}
-	
+
 	public String getTitle()
 	{
 		return songTitle;

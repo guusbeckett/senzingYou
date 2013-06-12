@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
@@ -199,19 +198,21 @@ public class SenzingPanel extends JPanel implements ActionListener
 		// Don't draw while making a screenshot!
 		if (!game.isMakeScreenshot())
 		{
-
-			// Draw all the scores
-			if (!game.getCamera().getUsers().isEmpty())
+			if (level != null)
 			{
-				Color[] colors = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY };
-
-				// Now do nothing with X it just print on the head position
-				for (User u : game.getCamera().getUsers())
+				// Draw all the scores
+				if (!game.getCamera().getUsers().isEmpty())
 				{
-					if (u.isVisible())
+					Color[] colors = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.WHITE, Color.YELLOW, Color.LIGHT_GRAY };
+
+					// Now do nothing with X it just print on the head position
+					for (User u : game.getCamera().getUsers())
 					{
-						Text scoreText = new Text(colors[(u.getId() - 1) % colors.length], 45, true);
-						scoreText.draw(g2, new Point2D.Double(u.getHead().getX(), 50), u.getScore() + "");
+						if (u.isVisible())
+						{
+							Text scoreText = new Text(colors[(u.getId() - 1) % colors.length], 45, true);
+							scoreText.draw(g2, new Point2D.Double(u.getHead().getX(), 50), u.getScore() + "");
+						}
 					}
 				}
 			}

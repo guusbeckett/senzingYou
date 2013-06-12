@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 
@@ -9,15 +11,15 @@ public class Score implements Serializable, Comparable<Score>
 	private static final long serialVersionUID = 1L;
 
 	private String songTitle, songArtist;
-	private int score;
+	private List<Integer> scores;
 	private ImageIcon capture;
 	
-	public Score(String songTitle, String songArtist, int score, ImageIcon capture)
+	public Score(String songTitle, String songArtist, List<Integer> scores, ImageIcon capture)
 	{
 		super();
 		this.songTitle = songTitle;
 		this.songArtist = songArtist;
-		this.score = score;
+		this.scores = scores;
 		this.capture = capture;
 	}
 	
@@ -31,9 +33,9 @@ public class Score implements Serializable, Comparable<Score>
 		return songArtist;
 	}
 
-	public int getScore()
+	public List<Integer> getScores()
 	{
-		return score;
+		return scores;
 	}
 	
 	public ImageIcon getCapture()
@@ -41,11 +43,41 @@ public class Score implements Serializable, Comparable<Score>
 		return capture;
 	}
 
-
 	@Override
 	public int compareTo(Score o)
 	{
-		return getScore() - o.getScore();
+		return Collections.max(scores) - Collections.max(o.scores);
+	}
+	
+	@Override
+	public String toString()
+	{
+		boolean first = true;
+		String str = "";
+		
+		for (int score : scores)
+		{
+			if (!first)
+			{
+				str += ", ";
+			}
+			
+			str += score;
+			
+//			if (first && scores.size() > 1)
+//			{
+//				str += " (links)";
+//			}
+			
+			first = false;
+		}
+		
+//		if (scores.size() > 1)
+//		{
+//			str += " (rechts)";
+//		}
+		
+		return str;
 	}
 	
 }

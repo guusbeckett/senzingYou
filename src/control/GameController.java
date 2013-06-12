@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -172,10 +173,23 @@ public class GameController implements ActionListener
 
 				default:
 					// Adding score!
-					for (User u : game.getCamera().getUsers())
+					@SuppressWarnings("unchecked")
+					List<User> users = (List<User>) ((ArrayList<User>) game.getCamera().getUsers()).clone();
+					Collections.sort(users);
+
+					List<Integer> scores = new ArrayList<Integer>();
+
+					for (User user : users)
 					{
-						game.getHighscore().add(new Score(game.getSong().getTitle(), game.getSong().getArtist(), u.getScore(), new ImageIcon(game.getScreenCapture())));
+						int score = user.getScore();
+
+						if (score != 0)
+						{
+							scores.add(score);
+						}
 					}
+
+					game.getHighscore().add(new Score(game.getSong().getTitle(), game.getSong().getArtist(), scores, new ImageIcon(game.getScreenCapture())));
 
 					clear();
 					break;

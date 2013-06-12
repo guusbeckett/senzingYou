@@ -112,15 +112,16 @@ public class MP3Decoder implements Decoder
 			super(MARK_LIMIT, true);
 		}
 
+		@SuppressWarnings("rawtypes")
 		@Override
 		protected AudioFileFormat getAudioFileFormat(InputStream inputStream,
 				long mediaLength) throws UnsupportedAudioFileException,
 				IOException
 		{
-			HashMap aff_properties = new HashMap();
-			HashMap af_properties = new HashMap();
+			HashMap<String, Object> aff_properties = new HashMap<String, Object>();
+			HashMap<String, Comparable> af_properties = new HashMap<String, Comparable>();
 			int mLength = (int) mediaLength;
-			int size = inputStream.available();
+//			int size = inputStream.available();
 			PushbackInputStream pis = new PushbackInputStream(inputStream,
 					MARK_LIMIT);
 			byte head[] = new byte[22];
@@ -133,8 +134,8 @@ public class MP3Decoder implements Decoder
 					&& (head[3] == 'F') && (head[8] == 'W') && (head[9] == 'A')
 					&& (head[10] == 'V') && (head[11] == 'E'))
 			{
-				int isPCM = ((head[21] << 8) & 0x0000FF00)
-						| ((head[20]) & 0x00000FF);
+//				int isPCM = ((head[21] << 8) & 0x0000FF00)
+//						| ((head[20]) & 0x00000FF);
 				throw new UnsupportedAudioFileException("WAV PCM stream found");
 
 			} else if ((head[0] == '.') && (head[1] == 's') && (head[2] == 'n')
