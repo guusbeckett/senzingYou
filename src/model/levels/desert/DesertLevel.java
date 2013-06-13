@@ -20,7 +20,6 @@ public class DesertLevel extends PunchLevel
 	{
 		super(game);
 		Hardware.getInstance().setClimate(Climate.WARM);
-		//Hardware.getInstance().sprayScent(Scent.UNKNOWN);
 	}
 	
 	public void update(double time)

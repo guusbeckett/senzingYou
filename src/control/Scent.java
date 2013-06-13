@@ -2,5 +2,5 @@ package control;
 
 public enum Scent
 {
-	WOOD, FLOWER, OCEAN, UNKNOWN;
+	WOOD, OCEAN, UNKNOWN;
 }

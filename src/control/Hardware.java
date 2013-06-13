@@ -147,6 +147,23 @@ public class Hardware
 
 	public void sprayScent(Scent scent)
 	{
-		writeToArduino(0x10 | (scent.ordinal() + 2));
+		int pin;
+
+		switch (scent)
+		{
+		case OCEAN:
+			pin = 2;
+			break;
+		case UNKNOWN:
+			pin = 4;
+			break;
+		case WOOD:
+			pin = 5;
+			break;
+		default:
+			return;
+		}
+
+		writeToArduino(pin);
 	}
 }
