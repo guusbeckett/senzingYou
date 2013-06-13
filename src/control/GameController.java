@@ -127,6 +127,7 @@ public class GameController implements ActionListener
 	{
 		game.setSong(null);
 		game.setLevel(null);
+		game.setScreenCapture(null);
 		Hardware.getInstance().setClimate(Climate.NORMAL);
 	}
 
