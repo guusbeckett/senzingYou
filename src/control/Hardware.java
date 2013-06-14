@@ -164,6 +164,6 @@ public class Hardware
 			return;
 		}
 
-		writeToArduino(pin);
+		writeToArduino(0x10 | pin);
 	}
 }
