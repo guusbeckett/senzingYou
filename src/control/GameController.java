@@ -188,6 +188,11 @@ public class GameController implements ActionListener
 							scores.add(score);
 						}
 					}
+					
+					if (scores.size() == 0)
+					{
+						scores.add(0);
+					}
 
 					game.getHighscore().add(new Score(game.getSong().getTitle(), game.getSong().getArtist(), scores, new ImageIcon(game.getScreenCapture())));
 
