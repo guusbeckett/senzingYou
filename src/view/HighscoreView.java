@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -38,7 +39,8 @@ public class HighscoreView
 		else
 			g2.setColor(new Color(0x7A, 0x7A, 0x7A, 0x7F));
 		
-		g2.fill(ax.createTransformedShape(new Rectangle2D.Double(-10, 0, Camera.VIEW_WIDTH - 170, 69)));
+		Shape box = ax.createTransformedShape(new Rectangle2D.Double(-10, 0, Camera.VIEW_WIDTH - 170, 69));
+		g2.fill(box);
 		
 		// Draw the rank
 		ax.translate(0, 40);
@@ -62,11 +64,11 @@ public class HighscoreView
 		
 		// Draw all the text
 		ax.translate(0, 25);
-		scoreText.draw(g2, ax, "" + score.toString());
+		scoreText.draw(g2, ax, box, "" + score.toString());
 		ax.translate(0, 20);
-		songTitleText.draw(g2, ax, score.getSongTitle());
+		songTitleText.draw(g2, ax, box, score.getSongTitle());
 		ax.translate(0, 15);
-		songArtistText.draw(g2, ax, score.getSongArtist());
+		songArtistText.draw(g2, ax, box, score.getSongArtist());
 	}
 
 	public void draw(Graphics2D g2)

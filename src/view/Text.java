@@ -8,6 +8,7 @@ import java.awt.Shape;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 import java.awt.geom.Point2D;
 
 public class Text
@@ -37,6 +38,11 @@ public class Text
 	
 	public void draw(Graphics2D g2, AffineTransform transform, String text)
 	{
+		draw(g2, transform, null, text);
+	}
+	
+	public void draw(Graphics2D g2, AffineTransform transform, Shape clip, String text)
+	{
 		FontRenderContext frc = g2.getFontRenderContext();
 		GlyphVector gv = font.createGlyphVector(frc, text);
 		Shape outline = gv.getOutline(0, 0);
@@ -47,6 +53,13 @@ public class Text
 				transform.translate(-(outline.getBounds().width / 2), 0);
 			
 			outline = transform.createTransformedShape(outline);
+		}
+		
+		if (clip != null)
+		{
+			Area area = new Area(outline);
+			area.intersect(new Area(clip));
+			outline = area;
 		}
 		
 		g2.setColor(color);
