@@ -37,9 +37,7 @@ public class GameController implements ActionListener
 	{
 		this.game = g;
 
-		// Initialize the hardware in a seperate thread because it takes a
-		// while...
-		// while...
+		// Initialize the hardware in a separate thread because it takes a while
 		(new Thread(new Runnable()
 		{
 			@Override
@@ -197,13 +195,16 @@ public class GameController implements ActionListener
 					game.getHighscore().add(new Score(game.getSong().getTitle(), game.getSong().getArtist(), scores, new ImageIcon(game.getScreenCapture())));
 
 					clear();
-					game.setShowHighscore(true);
+					game.showHighscore();
 					break;
 				}
 
 				activeStage = currentStage;
 			}
 		}
+		
+		if (game.isShowingHighscore())
+			game.increaseHighscoreCounter(1000 / UPDATES_PER_SECOND);
 
 		Level level = game.getLevel();
 

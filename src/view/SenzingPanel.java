@@ -185,7 +185,7 @@ public class SenzingPanel extends JPanel implements ActionListener
 		{
 			if (!game.isLoading())
 			{
-				if (!game.isShowHighscore())
+				if (!game.isShowingHighscore())
 					drawImageInCenter(g2, MediaProvider.getInstance().getImage("usbConnect.png"), 1f);
 				else
 					highscoreView.draw(g2);
