@@ -16,6 +16,9 @@
 *.dvi
 *.jar
 *.sav
+*.exe
+*.msi
+*.dll
 /bin
 !jl1.0.jar
 !mp3spi1.9.5.jar
@@ -23,3 +26,4 @@
 !RXTXcomm.jar
 !tritonus_share.jar
 !jaudiotagger.jar
+!rxtxSerial.dll

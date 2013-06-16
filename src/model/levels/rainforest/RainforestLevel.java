@@ -20,7 +20,7 @@ public class RainforestLevel extends DodgeLevel
 	{
 		super(game);
 		Hardware.getInstance().setClimate(Climate.MOIST);
-		Hardware.getInstance().sprayScent(Scent.FLOWER);
+		Hardware.getInstance().sprayScent(Scent.WOOD);
 		game.getEntities().add(new Tree());
 	}
 

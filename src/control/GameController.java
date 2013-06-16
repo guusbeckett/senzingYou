@@ -37,9 +37,7 @@ public class GameController implements ActionListener
 	{
 		this.game = g;
 
-		// Initialize the hardware in a seperate thread because it takes a
-		// while...
-		// while...
+		// Initialize the hardware in a separate thread because it takes a while
 		(new Thread(new Runnable()
 		{
 			@Override
@@ -60,13 +58,6 @@ public class GameController implements ActionListener
 			{
 				while (true)
 				{
-					if (drive != null && !drive.isConnected())
-					{
-						// Clears the score if the drive gets disconnected.
-						for (User user : game.getCamera().getUsers())
-							user.setScore(0);
-					}
-
 					if (game.getSong() != null)
 					{
 						if (!drive.isConnected())
@@ -83,6 +74,12 @@ public class GameController implements ActionListener
 						if (justConnected.size() > 0)
 						{
 							game.setLoading(true);
+						
+							// 
+							for (User user : game.getCamera().getUsers())
+							{
+								user.setScore(0);
+							}
 
 							// Put all the songs into a list
 							List<File> audioFiles = new ArrayList<File>();
@@ -128,6 +125,7 @@ public class GameController implements ActionListener
 	{
 		game.setSong(null);
 		game.setLevel(null);
+		game.setScreenCapture(null);
 		Hardware.getInstance().setClimate(Climate.NORMAL);
 	}
 
@@ -152,7 +150,7 @@ public class GameController implements ActionListener
 				switch (currentStage)
 				{
 				case 0:
-					game.setLevel(new UnderwaterLevel(game));
+					game.setLevel(new DesertLevel(game));
 					break;
 
 				case 1:
@@ -164,7 +162,7 @@ public class GameController implements ActionListener
 					break;
 
 				case 3:
-					game.setLevel(new DesertLevel(game));
+					game.setLevel(new UnderwaterLevel(game));
 					break;
 
 				case 4:
@@ -188,16 +186,25 @@ public class GameController implements ActionListener
 							scores.add(score);
 						}
 					}
+					
+					if (scores.size() == 0)
+					{
+						scores.add(0);
+					}
 
 					game.getHighscore().add(new Score(game.getSong().getTitle(), game.getSong().getArtist(), scores, new ImageIcon(game.getScreenCapture())));
 
 					clear();
+					game.showHighscore();
 					break;
 				}
 
 				activeStage = currentStage;
 			}
 		}
+		
+		if (game.isShowingHighscore())
+			game.increaseHighscoreCounter(1000 / UPDATES_PER_SECOND);
 
 		Level level = game.getLevel();
 

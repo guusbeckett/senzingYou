@@ -185,11 +185,13 @@ public class SenzingPanel extends JPanel implements ActionListener
 		{
 			if (!game.isLoading())
 			{
-				// drawImageInCenter(g2,
-				// MediaProvider.getInstance().getImage("usbConnect.png"), 1f);
-				highscoreView.draw(g2);
+				if (!game.isShowingHighscore())
+					drawImageInCenter(g2, MediaProvider.getInstance().getImage("usbConnect.png"), 1f);
+				else
+					highscoreView.draw(g2);
 			} else
 				drawLoader(g2);
+
 		}
 
 		// Draw the foreground entities
@@ -226,11 +228,11 @@ public class SenzingPanel extends JPanel implements ActionListener
 				int length = (int) song.getLength();
 
 				Text countdownText = new Text(Color.ORANGE, 25);
-				countdownText.draw(g2, new Point2D.Double(48, 25), String.format("%02d:%02d / %02d:%02d - %s - %s", time / 60, time % 60, length / 60, length % 60));
+				countdownText.draw(g2, new Point2D.Double(48, 25), String.format("%02d:%02d / %02d:%02d", time / 60, time % 60, length / 60, length % 60));
 				Text songName = new Text(Color.yellow, 20);
-				songName.draw(g2, new Point2D.Double(400, 500), song.getTitle());
+				songName.draw(g2, new Point2D.Double(48, Camera.VIEW_HEIGHT - 25), song.getTitle());
 				Text songArtist = new Text(Color.yellow, 18);
-				songArtist.draw(g2, Point2D.Double(400, 525), songArtist);
+				songArtist.draw(g2, new Point2D.Double(48, Camera.VIEW_HEIGHT -5), song.getArtist());
 //						song.getArtist(), song.getTitle()
 			}
 

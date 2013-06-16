@@ -46,6 +46,7 @@ public abstract class PunchLevel extends Level
 				if (hostile.isAlive() && kill)
 				{
 					hostile.kill();
+					hostile.playHitSound();
 				}
 
 				if (hostile.getDeadTime() >= 450)

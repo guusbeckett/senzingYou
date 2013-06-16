@@ -25,6 +25,7 @@ public class Game
 	private Highscore highscore;
 	private boolean makeScreenshot;
 	private Drive justDrive;
+	private int showHighscore = Integer.MAX_VALUE;
 
 	public Game()
 	{
@@ -150,5 +151,20 @@ public class Game
 			}
 		}
 		this.screenCapture = image;
+	}
+
+	public boolean isShowingHighscore()
+	{
+		return (showHighscore < 5000);
+	}
+	
+	public void increaseHighscoreCounter(double time)
+	{
+		showHighscore += time;
+	}
+
+	public void showHighscore()
+	{
+		this.showHighscore = 0;
 	}
 }
