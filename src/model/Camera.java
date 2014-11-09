@@ -9,26 +9,26 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.OpenNI.ActiveHandEventArgs;
-import org.OpenNI.AlternativeViewpointCapability;
-import org.OpenNI.CalibrationProgressEventArgs;
-import org.OpenNI.CalibrationProgressStatus;
-import org.OpenNI.Context;
-import org.OpenNI.DepthGenerator;
-import org.OpenNI.GeneralException;
-import org.OpenNI.HandsGenerator;
-import org.OpenNI.IObservable;
-import org.OpenNI.IObserver;
-import org.OpenNI.ImageGenerator;
-import org.OpenNI.InactiveHandEventArgs;
-import org.OpenNI.License;
-import org.OpenNI.Point3D;
-import org.OpenNI.SkeletonCapability;
-import org.OpenNI.SkeletonJoint;
-import org.OpenNI.SkeletonProfile;
-import org.OpenNI.StatusException;
-import org.OpenNI.UserEventArgs;
-import org.OpenNI.UserGenerator;
+import org.openni.ActiveHandEventArgs;
+import org.openni.AlternativeViewpointCapability;
+import org.openni.CalibrationProgressEventArgs;
+import org.openni.CalibrationProgressStatus;
+import org.openni.Context;
+import org.openni.DepthGenerator;
+import org.openni.GeneralException;
+import org.openni.HandsGenerator;
+import org.openni.IObservable;
+import org.openni.IObserver;
+import org.openni.ImageGenerator;
+import org.openni.InactiveHandEventArgs;
+import org.openni.License;
+import org.openni.Point3D;
+import org.openni.SkeletonCapability;
+import org.openni.SkeletonJoint;
+import org.openni.SkeletonProfile;
+import org.openni.StatusException;
+import org.openni.UserEventArgs;
+import org.openni.UserGenerator;
 
 public class Camera
 {

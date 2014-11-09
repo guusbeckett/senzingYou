@@ -9,7 +9,7 @@ import model.User;
 import model.entities.Entity;
 import model.entities.HostileEntity;
 
-import org.OpenNI.SceneMap;
+import org.openni.SceneMap;
 
 public abstract class DodgeLevel extends Level
 {

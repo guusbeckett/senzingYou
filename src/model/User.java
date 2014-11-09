@@ -5,9 +5,9 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.ImageIcon;
 
-import org.OpenNI.Point3D;
-import org.OpenNI.SceneMap;
-import org.OpenNI.UserGenerator;
+import org.openni.Point3D;
+import org.openni.SceneMap;
+import org.openni.UserGenerator;
 
 public class User implements Comparable<User>
 {
