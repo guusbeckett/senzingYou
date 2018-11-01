@@ -32,6 +32,7 @@ import org.openni.UserGenerator;
 
 public class Camera
 {
+	//The 640x480 is needed because of the Kinect resolution
 	public static final int VIEW_WIDTH = 640; // 640
 	public static final int VIEW_HEIGHT = 480; // 480
 	private Context context = null;
